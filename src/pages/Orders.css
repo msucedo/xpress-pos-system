@@ -1,0 +1,221 @@
+.orders-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Header styles are now in PageHeader.css */
+
+/* Custom Order Detail Modal Header */
+.order-detail-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.order-header-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-header-number {
+    font-size: clamp(0.75rem, 3vw, 0.875rem);
+    font-weight: 600;
+    color: var(--color-gray-400);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.order-header-client {
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
+    font-weight: 800;
+    color: var(--color-white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.order-header-date {
+    font-size: var(--font-xs);
+    font-weight: 500;
+    color: var(--color-gray-500);
+}
+
+.order-header-author-select {
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) 2rem clamp(0.5rem, 1.5vw, 0.75rem) 0.75rem;
+    min-height: clamp(2.5rem, 6vw, var(--touch-min));
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    background-color: rgba(139, 92, 246, 0.05);
+    border-radius: 10px;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    font-weight: 700;
+    color: #8b5cf6;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b5cf6' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    min-width: min(120px, 25vw);
+    max-width: min(200px, 30vw);
+}
+
+.order-header-author-select:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.order-header-author-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.order-header-author-select option {
+    background: var(--color-gray-900);
+    color: var(--color-white);
+    padding: 10px;
+}
+
+/* Status Tabs */
+.status-tabs {
+    display: flex;
+    gap: clamp(0.5rem, 2vw, 0.75rem);
+    padding: clamp(0.75rem, 3vw, 1.25rem) clamp(1.25rem, 4vw, 1.875rem);
+    background: var(--bg-darker);
+    border-bottom: 1px solid var(--color-gray-800);
+    overflow-x: auto;
+}
+
+.status-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 0.625rem);
+    padding: clamp(0.75rem, 3vw, 0.875rem) clamp(1rem, 4vw, 1.25rem);
+    background: var(--color-gray-900);
+    border: 2px solid var(--color-gray-800);
+    border-radius: 10px;
+    color: var(--color-gray-500);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 3vw, 0.875rem);
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: clamp(150px, 35vw, 180px);
+}
+
+.status-tab:hover {
+    border-color: var(--tab-color);
+    transform: translateY(-2px);
+}
+
+.status-tab.active {
+    background: linear-gradient(135deg, var(--bg-primary-10) 0%, var(--bg-secondary-10) 100%);
+    border-color: var(--tab-color);
+    color: var(--tab-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.tab-icon {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+.tab-label {
+    font-size: clamp(0.75rem, 3vw, 0.875rem);
+}
+
+.tab-count {
+    padding: clamp(0.188rem, 1vw, 0.25rem) clamp(0.5rem, 2vw, 0.625rem);
+    background: var(--color-gray-800);
+    border-radius: 20px;
+    font-size: clamp(0.75rem, 2vw, 0.813rem);
+    font-weight: 800;
+    min-width: clamp(1.5rem, 5vw, 1.75rem);
+    text-align: center;
+}
+
+.status-tab.active .tab-count {
+    background: var(--tab-color);
+    color: var(--color-black);
+}
+
+/* Orders List - Responsive Grid Layout */
+.orders-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: clamp(1.25rem, 4vw, 1.875rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    gap: clamp(0.625rem, 2vw, 1.25rem);
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(3rem, 8vw, 5rem) var(--space-md);
+    text-align: center;
+    min-height: clamp(20rem, 50vw, 25rem);
+}
+
+.empty-icon {
+    font-size: clamp(3rem, 10vw, 5rem);
+    margin-bottom: var(--space-md);
+    opacity: 0.3;
+}
+
+.empty-state h3 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-gray-500);
+    margin-bottom: var(--gap-xs);
+}
+
+.empty-state p {
+    font-size: clamp(0.875rem, 3vw, 1rem);
+    color: var(--color-gray-600);
+}
+
+/* Order Cards are styled in OrderCard.css */
+
+/* Responsive - No media queries needed with intrinsic CSS */
+
+/* Scrollbar Styling */
+.orders-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.orders-list::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+.orders-list::-webkit-scrollbar-thumb {
+    background: var(--color-gray-800);
+    border-radius: 5px;
+}
+
+.orders-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-700);
+}
+
+.status-tabs::-webkit-scrollbar {
+    height: 6px;
+}
+
+.status-tabs::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+.status-tabs::-webkit-scrollbar-thumb {
+    background: var(--color-gray-800);
+    border-radius: 3px;
+}

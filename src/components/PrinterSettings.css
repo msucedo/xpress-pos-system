@@ -1,0 +1,334 @@
+/* PrinterSettings.css */
+
+.printer-settings {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.printer-settings h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+/* Estado de conexión */
+.connection-status {
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.connection-status.connected {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.connection-status.disconnected {
+  border-color: #2a2a2a;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.connection-status.connected .status-dot {
+  background-color: #28a745;
+}
+
+.connection-status.disconnected .status-dot {
+  background-color: #6c757d;
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.connection-status.connected .status-text {
+  color: #666;
+}
+
+.status-text {
+  font-weight: 600;
+  color: #ddd;
+}
+
+.device-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Configuración de copias */
+.copies-setting {
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border-radius: 12px;
+  margin-bottom: var(--gap-lg, 20px);
+  border: 1px solid #2a2a2a;
+  background: #0a0a0a;
+  transition: all 0.3s;
+}
+
+.copies-label {
+  display: block;
+  margin-bottom: var(--gap-md, 12px);
+  color: #fff;
+  font-size: clamp(0.875rem, 2vw, 0.938rem);
+  font-weight: 700;
+}
+
+.copies-toggle {
+  display: flex;
+  gap: var(--gap-md, 10px);
+  margin-bottom: var(--gap-sm, 8px);
+}
+
+.copy-option {
+  flex: 1;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1rem, 3vw, 1.25rem);
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  background: #0a0a0a;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  font-weight: 700;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-height: clamp(2.5rem, 6vw, 2.75rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-option:hover:not(:disabled) {
+  border-color: var(--color-primary, #FF006E);
+  background: var(--bg-primary-05, rgba(255, 0, 110, 0.05));
+  color: var(--color-primary, #FF006E);
+  transform: translateY(-2px);
+}
+
+.copy-option.active {
+  background: var(--gradient-primary, linear-gradient(135deg, #FF006E 0%, #E91E63 100%));
+  color: white;
+  border-color: var(--color-primary, #FF006E);
+  box-shadow: var(--shadow-primary-sm, 0 6px 18px rgba(255, 0, 110, 0.3));
+}
+
+.copy-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.copies-info {
+  margin-top: var(--gap-sm, 8px);
+  color: #888;
+  font-size: clamp(0.75rem, 2vw, 0.813rem);
+  text-align: center;
+  padding: clamp(0.75rem, 2vw, 0.875rem);
+  background: var(--bg-primary-05, rgba(255, 0, 110, 0.05));
+  border: 1px solid var(--color-primary, #FF006E);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Alertas */
+.alert {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  border-left: 4px solid;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: #17a2b8;
+  color: #0c5460;
+}
+
+.alert p {
+  margin: 5px 0;
+}
+
+.platform-info {
+  font-size: 0.85rem;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Botones de acción */
+.printer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+/* Sección de ayuda */
+.help-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.help-section details {
+  cursor: pointer;
+}
+
+.help-section summary {
+  font-weight: 600;
+  color: #ddd;
+  padding: 10px;
+  border-radius: 6px;
+  user-select: none;
+  border: 2px solid #2a2a2a;
+}
+
+.help-section summary:hover {
+  border-color: var(--color-primary);
+  background: var(--bg-primary-05);
+}
+
+.help-content {
+  padding: 15px 10px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.help-content h4 {
+  color: #333;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.help-content ol,
+.help-content ul {
+  margin: 10px 0;
+  padding-left: 25px;
+}
+
+.help-content li {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+
+/* Debug info */
+.platform-debug {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.platform-debug summary {
+  font-size: 0.9rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.platform-debug pre {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .printer-settings {
+    padding: 15px;
+  }
+
+  .printer-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,290 @@
+/* Page Header - Componente reutilizable */
+.page-header {
+    padding: 16px 30px;
+    border-bottom: 1px solid var(--color-gray-800);
+}
+
+.header-main-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--color-white) 0%, var(--color-gray-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -2px;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Search Row - Always expanded */
+.search-row {
+    margin-top: 12px;
+}
+
+.search-box-full {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: 10px;
+    width: 100%;
+    height: 42px;
+    transition: border-color 0.3s ease;
+}
+
+.search-box-full:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--bg-primary-10);
+}
+
+.search-input-full {
+    width: 100%;
+    height: 100%;
+    padding: 10px 15px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+.search-input-full:focus {
+    outline: none;
+}
+
+.search-input-full::placeholder {
+    color: var(--color-gray-700);
+    font-size: 14px;
+}
+
+/* Compact Add Button */
+.btn-add-compact {
+    background: var(--gradient-primary);
+    color: var(--color-white);
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-primary-lg);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-add-compact:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary-hover);
+}
+
+/* Cart Indicator Button */
+.cart-indicator-btn {
+    position: relative;
+    background: rgba(255, 0, 110, 0.15);
+    border: 2px solid rgba(255, 0, 110, 0.4);
+    backdrop-filter: blur(10px);
+    color: var(--color-white);
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: var(--shadow-primary-lg);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    animation: cartPulse 2s ease-in-out infinite;
+}
+
+.cart-indicator-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary-hover);
+    animation: none;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes cartPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Filters row */
+.filters-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: 10px;
+    color: var(--color-gray-500);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.filter-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* Select de filtros para móvil (oculto por defecto) */
+.filters-select-mobile {
+    display: none;
+}
+
+/* Responsive - iPad Portrait (768px - 1024px) */
+@media (max-width: 1024px) {
+    .page-header {
+        padding: 14px 25px;
+    }
+
+    .page-title {
+        font-size: 28px;
+    }
+
+    .search-box-compact.expanded {
+        width: 240px;
+    }
+
+    .filters-row {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .filter-btn {
+        flex: 1;
+        min-width: calc(33.333% - 8px);
+    }
+}
+
+/* Responsive - Mobile (below 768px) */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 12px 20px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .search-row {
+        margin-top: 10px;
+    }
+
+    .search-box-full {
+        height: 38px;
+    }
+
+    .search-input-full {
+        font-size: 13px;
+    }
+
+    .btn-add-compact,
+    .cart-indicator-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    /* Ocultar botones de filtro en móvil */
+    .filter-btn {
+        display: none;
+    }
+
+    /* Mostrar select de filtros en móvil */
+    .filters-select-mobile {
+        display: block;
+        width: 100%;
+        padding: clamp(0.75rem, 3vw, 0.875rem) clamp(1rem, 4vw, 1.125rem);
+        background: var(--color-gray-900);
+        border: 1px solid var(--color-gray-800);
+        border-radius: 10px;
+        color: var(--color-white);
+        font-size: clamp(0.813rem, 3vw, 0.875rem);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right clamp(0.75rem, 3vw, 1rem) center;
+        padding-right: clamp(2.5rem, 8vw, 3rem);
+    }
+
+    .filters-select-mobile:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--bg-primary-10);
+    }
+
+    .filters-select-mobile option {
+        background: var(--color-gray-900);
+        color: var(--color-white);
+        padding: clamp(0.625rem, 2vw, 0.75rem);
+    }
+
+    .filters-row {
+        margin-top: 8px;
+    }
+}

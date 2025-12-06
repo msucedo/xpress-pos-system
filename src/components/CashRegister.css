@@ -1,0 +1,1354 @@
+.cash-register {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px 0;
+}
+
+/* Section Styles */
+.cr-section {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 18px;
+  padding: 30px;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s;
+  position: relative;
+  overflow: visible;
+}
+
+.cr-section:hover {
+  border-color: #3a3a3a;
+}
+
+.cr-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #2a2a2a;
+  position: relative;
+}
+
+.cr-section-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.cr-period-badge {
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.3);
+}
+
+/* Employee Selector */
+.cr-employee-selector {
+  margin-bottom: 25px;
+}
+
+.cr-employee-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.cr-required {
+  color: #FF006E;
+  font-weight: 900;
+}
+
+.cr-employee-select {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cr-employee-select:hover {
+  border-color: #FF006E;
+  background: rgba(255, 0, 110, 0.05);
+}
+
+.cr-employee-select:focus {
+  outline: none;
+  border-color: #FF006E;
+  background: rgba(255, 0, 110, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 0, 110, 0.1);
+}
+
+.cr-employee-select option {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Stats Grid */
+.cr-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.cr-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px;
+  border-radius: 16px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cr-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+}
+
+.cr-stat-card:hover {
+  transform: translateY(-3px);
+  border-color: #3a3a3a;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.cr-stat-card.total::before {
+  background: linear-gradient(90deg, #FF006E 0%, #E91E63 100%);
+}
+
+.cr-stat-card.cash::before {
+  background: linear-gradient(90deg, #00ff88 0%, #00d9a3 100%);
+}
+
+.cr-stat-card.card::before {
+  background: linear-gradient(90deg, #00d9ff 0%, #0099cc 100%);
+}
+
+.cr-stat-card.transfer::before {
+  background: linear-gradient(90deg, #ffd700 0%, #ffaa00 100%);
+}
+
+.cr-stat-card.orders::before {
+  background: linear-gradient(90deg, #00d9ff 0%, #0099cc 100%);
+}
+
+.cr-stat-card.products::before {
+  background: linear-gradient(90deg, #9d4edd 0%, #7b2cbf 100%);
+}
+
+.cr-stat-card.withdrawals::before {
+  background: linear-gradient(90deg, #ff8800 0%, #ff6600 100%);
+}
+
+.cr-stat-card.expenses::before {
+  background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%);
+}
+
+.cr-stat-icon {
+  font-size: 32px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.cr-stat-card.total .cr-stat-icon {
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+}
+
+.cr-stat-card.cash .cr-stat-icon {
+  background: linear-gradient(135deg, #00ff88 0%, #00d9a3 100%);
+}
+
+.cr-stat-card.card .cr-stat-icon {
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+}
+
+.cr-stat-card.transfer .cr-stat-icon {
+  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+}
+
+.cr-stat-card.orders .cr-stat-icon {
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+}
+
+.cr-stat-card.products .cr-stat-icon {
+  background: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 100%);
+}
+
+.cr-stat-card.withdrawals .cr-stat-icon {
+  background: linear-gradient(135deg, #ff8800 0%, #ff6600 100%);
+}
+
+.cr-stat-card.expenses .cr-stat-icon {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+}
+
+.cr-stat-info {
+  flex: 1;
+}
+
+.cr-stat-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cr-stat-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+}
+
+/* New Badge Positioning - Badge flotante en cards */
+.cr-stat-card .new-badge {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  margin-left: 0;
+  z-index: 10;
+}
+
+/* Cash Count Section */
+.cr-cash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.cr-cash-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cr-cash-input label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cr-input {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  background: #0a0a0a;
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.cr-input:focus {
+  outline: none;
+  border-color: #FF006E;
+  box-shadow: 0 0 0 4px rgba(255, 0, 110, 0.1);
+}
+
+.cr-cash-summary {
+  background: #0a0a0a;
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid #2a2a2a;
+}
+
+.cr-cash-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 14px;
+  color: #999;
+}
+
+.cr-cash-row:last-child {
+  border-bottom: none;
+}
+
+.cr-cash-row.difference {
+  font-weight: 700;
+  font-size: 17px;
+  margin-top: 10px;
+  padding-top: 18px;
+  border-top: 2px solid #2a2a2a;
+}
+
+.cr-cash-row.difference.positive {
+  color: #00ff88;
+}
+
+.cr-cash-row.difference.negative {
+  color: #FF006E;
+}
+
+.cr-cash-amount {
+  font-weight: 800;
+  font-size: 17px;
+  color: #fff;
+}
+
+/* Expenses Section */
+.cr-btn-add {
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(255, 0, 110, 0.3);
+}
+
+.cr-btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 0, 110, 0.5);
+}
+
+.cr-expenses-summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 25px;
+  background: #0a0a0a;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #2a2a2a;
+}
+
+.cr-expense-total {
+  font-size: 15px;
+  font-weight: 600;
+  color: #999;
+}
+
+.cr-expense-total span {
+  color: #FF006E;
+  font-size: 20px;
+  font-weight: 900;
+  margin-left: 10px;
+}
+
+.cr-expenses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cr-expense-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.cr-expense-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #3a3a3a;
+  transform: translateX(3px);
+}
+
+.cr-expense-icon {
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+}
+
+.cr-expense-info {
+  flex: 1;
+}
+
+.cr-expense-concept {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.cr-expense-details {
+  font-size: 13px;
+  color: #666;
+}
+
+.cr-expense-notes {
+  font-size: 13px;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.cr-expense-amount {
+  font-size: 18px;
+  font-weight: 900;
+  color: #FF006E;
+  min-width: 120px;
+  text-align: right;
+}
+
+.cr-expense-delete {
+  background: rgba(255, 0, 110, 0.1);
+  border: 1px solid rgba(255, 0, 110, 0.2);
+  cursor: pointer;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+
+.cr-expense-delete:hover {
+  background: rgba(255, 0, 110, 0.2);
+  border-color: #FF006E;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Empty State */
+.cr-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.cr-empty-icon {
+  font-size: 72px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.cr-empty-text {
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.cr-btn-add-empty {
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(255, 0, 110, 0.3);
+}
+
+.cr-btn-add-empty:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 0, 110, 0.5);
+}
+
+/* Notes Section */
+.cr-notes-textarea {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 14px;
+  background: #0a0a0a;
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  color: #fff;
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.cr-notes-textarea:focus {
+  outline: none;
+  border-color: #FF006E;
+  box-shadow: 0 0 0 4px rgba(255, 0, 110, 0.1);
+}
+
+.cr-notes-textarea::placeholder {
+  color: #555;
+}
+
+.cr-char-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #666;
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+/* Flexible Closure Checkbox */
+.cr-flexible-closure-checkbox {
+  margin: 24px 0;
+  padding: 16px 20px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.cr-flexible-closure-checkbox:hover {
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.cr-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cr-checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #ffd700;
+  flex-shrink: 0;
+}
+
+.cr-checkbox-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffd700;
+  line-height: 1.4;
+}
+
+.cr-btn-close {
+  width: 100%;
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+}
+
+.cr-btn-close:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 0, 110, 0.6);
+}
+
+.cr-btn-close:disabled {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+/* ========== NUEVOS ESTILOS: Conteo de Ingresos ========== */
+
+/* Subsecciones */
+.cr-subsection {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.nocash {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.nocash .cr-subsection {
+  flex: 1;
+  min-width: 235px;
+  max-width: 450px;
+}
+
+.cr-subsection:last-child {
+  border-bottom: none;
+}
+
+.cr-subsection-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dinero Inicial */
+.cr-inicial-input {
+  max-width: 400px;
+}
+
+/* Billetes y Monedas */
+.cr-denomination-group {
+  margin-bottom: 24px;
+}
+
+.cr-subsection-conteoBilletesMonedas {
+  display: flex;
+  gap:15px;
+}
+
+.cr-group-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+.cr-bill-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cr-bill-row {
+  display: grid;
+  grid-template-columns: 63px 40px 56px 40px 30px 110px;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.cr-bill-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #3a3a3a;
+}
+
+.cr-bill-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cr-bill-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.cr-bill-input:focus {
+  outline: none;
+  border-color: #FF006E;
+  box-shadow: 0 0 0 3px rgba(255, 0, 110, 0.1);
+}
+
+.cr-bill-btn-increment,
+.cr-bill-btn-decrement {
+  width: 100%;
+  height: 36px;
+  font-size: 18px;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.cr-bill-btn-increment {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 217, 163, 0.15) 100%);
+}
+
+.cr-bill-btn-increment:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.25) 0%, rgba(0, 217, 163, 0.25) 100%);
+  border-color: #00ff88;
+  transform: scale(1.05);
+}
+
+.cr-bill-btn-increment:active {
+  transform: scale(0.95);
+}
+
+.cr-bill-btn-decrement {
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.15) 0%, rgba(233, 30, 99, 0.15) 100%);
+}
+
+.cr-bill-btn-decrement:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.25) 0%, rgba(233, 30, 99, 0.25) 100%);
+  border-color: #FF006E;
+  transform: scale(1.05);
+}
+
+.cr-bill-btn-decrement:active {
+  transform: scale(0.95);
+}
+
+.cr-bill-multiply,
+.cr-bill-equal {
+  font-size: 16px;
+  color: #666;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cr-bill-denom {
+  font-size: 14px;
+  color: #888;
+  font-weight: 600;
+}
+
+.cr-bill-total {
+  font-size: 15px;
+  font-weight: 700;
+  color: #00ff88;
+  text-align: right;
+}
+
+/* Subtotales */
+.cr-subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #999;
+}
+
+.cr-subsection-conteoBilletesMonedas .cr-subtotal-row {
+  align-items: start;
+  max-height: 5vi;
+  margin-top: 28px;
+}
+
+.cr-subtotal-amount {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* Pagos (Tarjeta y Transferencia) */
+.cr-payments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cr-payment-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+}
+
+.cr-payment-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+}
+
+.cr-payment-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.cr-payment-input:focus {
+  outline: none;
+  border-color: #FF006E;
+  box-shadow: 0 0 0 3px rgba(255, 0, 110, 0.1);
+}
+
+.cr-tipo-tarjeta-select {
+  padding: 10px 40px 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 110px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.cr-tipo-tarjeta-select:hover {
+  border-color: #FF006E;
+  background-color: rgba(255, 0, 110, 0.05);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+}
+
+.cr-tipo-tarjeta-select:focus {
+  outline: none;
+  border-color: #FF006E;
+  box-shadow: 0 0 0 3px rgba(255, 0, 110, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+}
+
+.cr-tipo-tarjeta-select option {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 10px;
+}
+
+.cr-payment-delete {
+  background: rgba(255, 0, 110, 0.1);
+  border: 1px solid rgba(255, 0, 110, 0.2);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+
+.cr-payment-delete:hover {
+  background: rgba(255, 0, 110, 0.2);
+  border-color: #FF006E;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.cr-add-payment-btn {
+  background: rgba(255, 0, 110, 0.1);
+  color: #FF006E;
+  border: 1px dashed rgba(255, 0, 110, 0.3);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cr-add-payment-btn:hover {
+  background: rgba(255, 0, 110, 0.2);
+  border-style: solid;
+}
+
+/* Total General */
+.cr-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  border-radius: 16px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+}
+
+.cr-total-amount {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+/* Comparación (Dinero en Sistema) */
+.cr-comparison-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cr-comparison-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.cr-comparison-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #3a3a3a;
+}
+
+.cr-comparison-row.total {
+  background: #1a1a1a;
+  border: 2px solid #FF006E;
+  font-weight: 700;
+}
+
+.cr-comp-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+}
+
+.cr-comparison-row.total .cr-comp-label {
+  color: #fff;
+  font-size: 16px;
+}
+
+.cr-comp-amount {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cr-comp-diff {
+  font-size: 15px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 8px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.cr-comp-diff.positive {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.cr-comp-diff.negative {
+  background: rgba(255, 0, 110, 0.15);
+  color: #FF006E;
+  border: 1px solid rgba(255, 0, 110, 0.3);
+}
+
+/* Alertas */
+.cr-alert {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cr-alert.info {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.cr-alert.warning {
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Resultados */
+.cr-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.cr-result-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.cr-result-card:hover {
+  transform: translateY(-3px);
+  border-color: #3a3a3a;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.cr-result-card.highlight {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 2px solid #FF006E;
+}
+
+.cr-result-icon {
+  font-size: 36px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FF006E 0%, #E91E63 100%);
+  border-radius: 14px;
+}
+
+.cr-result-info {
+  flex: 1;
+}
+
+.cr-result-label {
+  font-size: 13px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.cr-result-sublabel {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.cr-result-value {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+}
+
+.cr-result-value.expense {
+  color: #FF006E;
+}
+
+.cr-result-value.positive {
+  color: #00ff88;
+}
+
+.cr-result-value.negative {
+  color: #FF006E;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .cr-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cr-cash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cr-subsection-conteoBilletesMonedas {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .cr-subsection-conteoBilletesMonedas .cr-subtotal-row {
+    max-height: 18vi;
+  }
+
+  .cash-register {
+    gap: 16px;
+  }
+
+  .cr-section {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .cr-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cr-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cr-stat-card {
+    padding: 20px;
+  }
+
+  .cr-expenses-summary {
+    padding: 16px 20px;
+  }
+
+  .cr-expense-item {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .cr-expense-amount {
+    order: 3;
+    width: 100%;
+    text-align: left;
+    margin-left: 65px;
+    margin-top: 10px;
+  }
+
+  /* Responsive para nuevas secciones */
+  .cr-bill-row {
+    grid-template-columns: 38px 30px 40px 30px 9px 30px;
+    gap: 3px;
+    padding: 10px;
+  }
+
+  .cr-subsection-conteoBilletesMonedas {
+    flex-direction: column;
+  }
+
+  .cr-bill-label {
+    font-size: 12px;
+  }
+
+  .cr-bill-input {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+
+  .cr-bill-btn-increment,
+  .cr-bill-btn-decrement {
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .cr-bill-multiply,
+  .cr-bill-equal {
+    font-size: 14px;
+  }
+
+  .cr-bill-denom {
+    font-size: 12px;
+  }
+
+  .cr-bill-total {
+    font-size: 13px;
+  }
+
+  .cr-payment-label {
+    font-size: 13px;
+  }
+
+  .cr-payment-input {
+    padding: 8px 12px;
+    font-size: 14px;
+    max-width: 60px;
+  }
+
+  /* Reorganizar cobros de tarjeta en móviles */
+  .cr-payment-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .cr-payment-row .cr-payment-label {
+    flex: 0 0 auto;
+    min-width: fit-content;
+  }
+
+  .cr-payment-row .cr-payment-input {
+    flex: 1;
+    min-width: 100px;
+    max-width: none; /* Sobreescribir max-width: 60px de arriba */
+  }
+
+  .cr-tipo-tarjeta-select {
+    flex: 1 1 100%;
+    order: 3;
+    width: 100%;
+  }
+
+  .cr-payment-delete {
+    order: 4;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .cr-comparison-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .cr-comp-amount,
+  .cr-comp-diff {
+    text-align: left;
+  }
+
+  .cr-results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cr-result-card {
+    padding: 20px;
+  }
+
+  .cr-result-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+
+  .cr-result-value {
+    font-size: 22px;
+  }
+
+  .nocash {
+    flex-direction: column;
+  }
+}
+
+/* ==================== AUTO-SAVE INDICATOR ==================== */
+.cr-autosave-indicator {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  animation: slideInUp 0.3s ease-out;
+  transition: all 0.3s ease;
+}
+
+.cr-autosave-indicator.saving {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  border: 1px solid #3b82f6;
+  color: #fff;
+}
+
+.cr-autosave-indicator.saving.fade-out {
+  animation: successFadeOut 2.5s forwards;
+}
+
+.cr-autosave-indicator.error {
+  background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
+  border: 1px solid #ef4444;
+  color: #fff;
+}
+
+.cr-autosave-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.cr-autosave-icon {
+  font-size: 18px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes successFadeOut {
+  0%, 80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Responsive adjustments for indicator */
+@media (max-width: 768px) {
+  .cr-autosave-indicator {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}

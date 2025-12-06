@@ -1,0 +1,294 @@
+/* Order Card - Reutilizable y optimizado para iPad */
+.order-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-gray-800);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    overflow: hidden;
+    height: 330px;
+}
+
+.order-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.order-card.overdue {
+    border: 2px solid #ef4444 !important;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+}
+
+.order-card.overdue .order-delivery-badge {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+    color: #d2d2d2;
+    border: 1px solid #ef4444;
+}
+
+.order-card.overdue:hover {
+    border-color: #dc2626 !important;
+}
+
+/* Order Card Header */
+.order-card-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 14px 16px;
+    background: var(--bg-darker);
+    border-bottom: 1px solid var(--color-gray-800);
+}
+
+.order-card.overdue .order-card-header {
+    border-bottom: 1px solid #ef4444;
+}
+
+.order-id-badge {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--color-white);
+    letter-spacing: -0.5px;
+}
+
+.order-priority-badge {
+    padding: 6px 4px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1.5px solid #ef4444;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ef4444;
+    text-transform: uppercase;
+}
+
+.order-whatsapp-badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    position: relative;
+}
+
+.order-whatsapp-badge.success {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.2) 0%, rgba(18, 140, 126, 0.2) 100%);
+    border: 1.5px solid #25d366;
+    color: #25d366;
+}
+
+.order-whatsapp-badge.error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+    border: 1.5px solid #ef4444;
+    color: #ef4444;
+}
+
+/* Badge de notificación de mensajes sin leer */
+.whatsapp-unread-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    background: #ef4444;
+    border: 2px solid var(--bg-darker);
+    border-radius: 50%;
+    animation: pulse-unread 2s infinite;
+}
+
+@keyframes pulse-unread {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
+    }
+}
+
+.order-author-badge {
+    padding: clamp(0.25rem, 1vw, 0.375rem) clamp(0.5rem, 2vw, 0.625rem);
+    background: rgba(139, 92, 246, 0.15);
+    border: 1.5px solid rgba(139, 92, 246, 0.4);
+    border-radius: 6px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+}
+
+.order-delivery-badge {
+    margin-left: auto;
+    padding: 6px 12px;
+    background: var(--color-gray-800);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-gray-500);
+}
+
+.order-delivery-badge.urgent {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.order-delivery-badge.soon {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(245, 158, 11, 0.2) 100%);
+    color: #fbbf24;
+    border: 1px solid #fbbf24;
+}
+
+/* Order Client Section */
+.order-client-section {
+    padding: 16px;
+    border-bottom: 1px solid var(--color-gray-800);
+}
+
+.order-card.overdue .order-client-section {
+    border-bottom: none;
+}
+
+.order-client-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 4px;
+}
+
+.order-client-phone {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    font-weight: 500;
+}
+
+.order-card.overdue .order-client-name {
+    color: #d2d2d2;
+}
+
+.order-card.overdue .order-client-phone {
+    color: var(--color-gray-300);
+}
+
+/* Items Badges Container */
+.items-badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 12px 16px;
+}
+
+/* Pairs Count Badge */
+.pairs-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-gray-800);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-primary);
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.order-card.overdue .pairs-count-badge {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.2) 100%);
+    color: #d2d2d2;
+}
+
+/* Pairs Count Badge - Completado */
+.pairs-count-badge.completed {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.3) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.3),
+                inset 0 0 6px rgba(16, 185, 129, 0.08);
+}
+
+.order-card.overdue .pairs-count-badge.completed {
+    color: #10b981;
+    box-shadow: none;
+    border: 1px solid #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+    
+}
+
+/* Order Card Image */
+.order-card-image {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-top: 1px solid var(--color-gray-800);
+    background: #000;
+}
+
+.order-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.order-card:hover .order-card-image img {
+    transform: scale(1.05);
+}
+
+/* Responsive - iPad Portrait (768px - 1024px) */
+@media (max-width: 1024px) {
+    .order-card {
+        border-radius: 14px;
+    }
+
+    .order-card-header {
+        padding: 16px 18px;
+    }
+
+    .order-id-badge {
+        font-size: 17px;
+    }
+
+    .order-client-section {
+        padding: 18px;
+    }
+
+    .order-client-name {
+        font-size: 17px;
+    }
+}
+
+/* Responsive - Mobile (below 768px) */
+@media (max-width: 768px) {
+    .order-card {
+        border-radius: 12px;
+    }
+
+    .order-card-header {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+    }
+
+    .order-delivery-badge {
+        flex: 1 1 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .order-id-badge {
+        font-size: 15px;
+    }
+
+    .order-client-section {
+        padding: 16px;
+    }
+
+    .order-client-name {
+        font-size: 15px;
+    }
+}

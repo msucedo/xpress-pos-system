@@ -1,0 +1,222 @@
+.clients-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.page-header {
+    margin-bottom: var(--space-lg);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.page-title {
+    font-size: clamp(1.75rem, 5vw, 2.625rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, #999 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: clamp(-1px, -0.15vw, -2px);
+}
+
+.btn-add-client {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    padding: clamp(0.875rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+    border-radius: 12px;
+    font-size: var(--font-sm);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-primary-lg);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-add-client:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-primary-hover);
+}
+
+/* Search */
+.search-box {
+    position: relative;
+    margin-bottom: var(--space-md);
+}
+
+.search-icon {
+    position: absolute;
+    left: clamp(1.25rem, 3vw, 1.375rem);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(1.25rem, 3vw, 1.375rem);
+    color: #666;
+}
+
+.search-input {
+    width: 100%;
+    padding: clamp(1rem, 3vw, 1.25rem) clamp(1rem, 3vw, 1.25rem) clamp(1rem, 3vw, 1.25rem) clamp(3rem, 8vw, 3.75rem);
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    font-size: clamp(0.938rem, 3vw, 1.063rem);
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--bg-primary-10);
+}
+
+.search-input::placeholder {
+    color: #555;
+}
+
+/* Stats Grid */
+.clients-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 20vw, 250px), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: var(--space-lg);
+    padding: 0 var(--space-md);
+}
+
+@media (max-width: 768px) {
+    .clients-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .clients-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Table Headers (Sortable) */
+.clients-table-header {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.25rem);
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 1.875rem);
+    margin: 0 var(--space-md) var(--gap-sm) var(--space-md);
+    border-bottom: 2px solid #2a2a2a;
+}
+
+.header-cell {
+    font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-cell:hover {
+    color: #999;
+}
+
+.header-cell.active {
+    color: var(--color-primary);
+}
+
+.header-number {
+    min-width: clamp(2rem, 5vw, 2.5rem);
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.header-name {
+    flex: 1;
+    min-width: 0;
+}
+
+.header-spacer {
+    flex: 1;
+}
+
+.header-orders,
+.header-debt {
+    min-width: clamp(4rem, 8vw, 5rem);
+    text-align: center;
+}
+
+.sort-indicator {
+    font-size: 1rem;
+    color: var(--color-primary);
+    font-weight: 900;
+}
+
+@media (max-width: 768px) {
+    .clients-table-header {
+        font-size: 0.7rem;
+    }
+
+    .header-spacer {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .clients-table-header {
+        gap: clamp(0.5rem, 2vw, 1rem);
+        padding: 0.5rem 1rem;
+    }
+
+    .header-cell {
+        font-size: 0.65rem;
+    }
+}
+
+/* Clients List */
+.clients-list {
+    background: transparent;
+    padding: var(--space-md);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: clamp(3rem, 8vw, 5rem) var(--space-md);
+    color: #666;
+}
+
+.empty-icon {
+    font-size: clamp(3rem, 10vw, 5rem);
+    margin-bottom: var(--space-md);
+    opacity: 0.3;
+}
+
+.empty-text {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    font-weight: 700;
+    margin-bottom: var(--gap-sm);
+    color: #999;
+}
+
+.empty-subtext {
+    font-size: var(--font-sm);
+    color: #666;
+}
+
+/* Responsive - No media queries needed with intrinsic CSS */

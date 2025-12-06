@@ -1,0 +1,484 @@
+.empleado-item-wrapper {
+    border: 1px solid #2a2a2a;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+.empleado-item {
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.empleado-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.empleado-avatar {
+    width: clamp(3.125rem, 8vw, 3.75rem);
+    height: clamp(3.125rem, 8vw, 3.75rem);
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-primary-sm);
+}
+
+.empleado-avatar.with-emoji {
+    font-size: clamp(1.75rem, 5vw, 2rem);
+    background: rgba(139, 92, 246, 0.15);
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    box-shadow: none;
+}
+
+.empleado-avatar.inactive {
+    background: linear-gradient(135deg, #666 0%, #444 100%);
+    box-shadow: 0 6px 18px rgba(100, 100, 100, 0.3);
+}
+
+.empleado-avatar.inactive.with-emoji {
+    background: rgba(102, 102, 102, 0.15);
+    border: 2px solid rgba(102, 102, 102, 0.3);
+}
+
+.empleado-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.empleado-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.empleado-role {
+    font-size: 15px;
+    color: #999;
+    font-weight: 500;
+}
+
+.empleado-meta {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.empleado-meta-item {
+    text-align: center;
+}
+
+.empleado-meta-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.empleado-meta-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.empleado-hire-date {
+    font-size: 13px;
+    color: #666;
+    text-align: right;
+    min-width: 120px;
+}
+
+.empleado-status {
+    min-width: 145px;
+    text-align: center;
+    display: grid;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.empleado-item .status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: none;
+}
+
+.btn-view-orders {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    color: #8b5cf6;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-view-orders:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-color: rgba(139, 92, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-assign-order {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 8px;
+    color: #10b981;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-assign-order:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+    border-color: rgba(16, 185, 129, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-assign-to-employee {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-assign-to-employee:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%);
+    border-color: rgba(16, 185, 129, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.active {
+    background: rgba(0, 255, 136, 0.15);
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.status-badge.inactive {
+    background: rgba(255, 255, 255, 0.05);
+    color: #666;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Expanded Orders Section */
+.empleado-orders-section {
+    padding: 20px 30px;
+    background: rgba(139, 92, 246, 0.03);
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+    }
+}
+
+.orders-header h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #8b5cf6;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.no-orders {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.empleado-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+}
+
+.empleado-order-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: clamp(0.75rem, 2vw, 0.875rem) clamp(0.875rem, 2vw, 1rem);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.empleado-order-item:hover {
+    border-color: var(--color-primary);
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+}
+
+.empleado-order-item.overdue {
+    border-left: 3px solid #ef4444 !important;
+}
+
+.empleado-order-item:active {
+    transform: translateX(2px);
+}
+
+.empleado-order-info {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    margin-bottom: var(--gap-sm);
+    flex-wrap: wrap;
+}
+
+.empleado-order-number {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: clamp(0.813rem, 2vw, 0.875rem);
+}
+
+.empleado-order-client {
+    font-size: clamp(0.75rem, 2vw, 0.813rem);
+    color: #999;
+    font-weight: 500;
+}
+
+.empleado-order-details {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    flex-wrap: wrap;
+}
+
+.order-status {
+    padding: clamp(0.25rem, 1vw, 0.313rem) clamp(0.5rem, 2vw, 0.625rem);
+    border-radius: 6px;
+    font-size: clamp(0.688rem, 2vw, 0.75rem);
+    font-weight: 700;
+}
+
+.order-status.status-recibidos {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.order-status.status-proceso {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.order-status.status-listos {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.order-status.status-enEntrega {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.empleado-order-created-date {
+    font-size: clamp(0.688rem, 2vw, 0.75rem);
+    color: #666;
+    font-weight: 500;
+}
+
+.order-priority-badge {
+    padding: clamp(0.25rem, 1vw, 0.375rem) clamp(0.25rem, 1vw, 0.375rem);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1.5px solid #ef4444;
+    border-radius: 6px;
+    font-size: clamp(0.625rem, 2vw, 0.688rem);
+    font-weight: 700;
+    color: #ef4444;
+    text-transform: uppercase;
+}
+
+.empleado-order-thumbnail {
+    width: clamp(2.5rem, 8vw, 3.125rem);
+    height: clamp(2.5rem, 8vw, 3.125rem);
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.empleado-order-services {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    flex-wrap: wrap;
+}
+
+.empleado-order-services .service-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    padding: clamp(0.25rem, 1vw, 0.375rem) clamp(0.5rem, 1.5vw, 0.625rem);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 6px;
+    font-size: clamp(0.75rem, 2vw, 0.813rem);
+    font-weight: 600;
+    color: #8b5cf6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .empleado-meta {
+        gap: 15px;
+    }
+
+    .empleado-hire-date {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .empleado-item {
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .empleado-meta {
+        width: 100%;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #2a2a2a;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    .empleado-status {
+        min-width: 145px;
+        margin-top: 15px;
+        text-align: left;
+    }
+}
+
+/* Image Modal */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-modal-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #fff;
+    color: #fff;
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.image-modal-close:hover {
+    background: #8b5cf6;
+    border-color: #8b5cf6;
+    transform: rotate(90deg);
+}
+
+.image-modal-img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .image-modal-close {
+        top: 3px;
+        right: 3px;
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+        border-color: #000;
+        color:#000;
+        font-weight: 700;
+        font-size: 32px;
+        border: 3px solid #000;
+        border-radius: 50%;
+        background: #ddd;
+    }
+}

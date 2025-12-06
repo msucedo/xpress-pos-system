@@ -1,0 +1,286 @@
+import { useState, useEffect } from 'react';
+import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../contexts/NotificationContext';
+import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
+import './ServiceForm.css';
+
+const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
+  const isAdmin = useAdminCheck();
+  const { showValidationErrors } = useNotification();
+  const [showMenu, setShowMenu] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    duration: '',
+    price: '',
+    description: '',
+    emoji: '⚙️'
+  });
+
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        name: initialData.name || '',
+        duration: initialData.duration || '',
+        price: initialData.price || '',
+        description: initialData.description || '',
+        emoji: initialData.emoji || '⚙️'
+      });
+    }
+  }, [initialData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.emoji.trim()) {
+      newErrors.emoji = 'El emoji es requerido';
+    }
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'El nombre del servicio es requerido';
+    }
+
+    if (!formData.duration.trim()) {
+      newErrors.duration = 'La duración es requerida';
+    }
+
+    // Precio es opcional (puede ser 0 para "precio por definir")
+    // Si se proporciona, validar que sea >= 0
+    if (formData.price !== '' && formData.price < 0) {
+      newErrors.price = 'El precio no puede ser negativo';
+    }
+
+    if (!formData.description.trim()) {
+      newErrors.description = 'La descripción es requerida';
+    }
+
+    setErrors(newErrors);
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Prevenir múltiples clics
+    if (isSubmitting) {
+      return;
+    }
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      showValidationErrors(validationErrors);
+      return;
+    }
+
+    const serviceData = {
+      ...formData,
+      price: formData.price === '' ? 0 : parseFloat(formData.price)
+    };
+
+    setIsSubmitting(true);
+    try {
+      await onSubmit(serviceData);
+    } catch (error) {
+      console.error('Error submitting service:', error);
+      // El error ya se maneja en el componente padre
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleMenuAction = async (action) => {
+    setShowMenu(false);
+
+    // Prevenir acciones si ya está procesando
+    if (isSubmitting) {
+      return;
+    }
+
+    switch(action) {
+      case 'duplicate':
+        const duplicateData = {
+          ...formData,
+          name: formData.name + ' (Copia)',
+          price: formData.price === '' ? 0 : parseFloat(formData.price)
+        };
+        setIsSubmitting(true);
+        try {
+          await onSubmit(duplicateData);
+        } catch (error) {
+          console.error('Error duplicating service:', error);
+        } finally {
+          setIsSubmitting(false);
+        }
+        break;
+      case 'delete':
+        if (confirm(`¿Estás seguro de eliminar el servicio "${formData.name}"?`)) {
+          if (onDelete && initialData) {
+            onDelete(initialData.id);
+          }
+          onCancel();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <div className="service-form">
+      {/* Menu Button (only show when editing and user is admin) */}
+      {initialData && isAdmin && (
+        <div className="service-menu-container">
+          <button
+            className="service-menu-button"
+            onClick={() => setShowMenu(!showMenu)}
+            type="button"
+          >
+            ⋮
+          </button>
+          {showMenu && (
+            <div className="service-menu-dropdown">
+              <button
+                className="menu-item menu-duplicate"
+                onClick={() => handleMenuAction('duplicate')}
+                type="button"
+                disabled={isSubmitting}
+              >
+                <span className="menu-icon">{isSubmitting ? '⏳' : '📋'}</span>
+                <span className="menu-text">
+                  {isSubmitting ? 'Duplicando...' : 'Duplicar Servicio'}
+                </span>
+              </button>
+              <button
+                className="menu-item menu-delete"
+                onClick={() => handleMenuAction('delete')}
+                type="button"
+                disabled={isSubmitting}
+              >
+                <span className="menu-icon">🗑️</span>
+                <span className="menu-text">Eliminar Servicio</span>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="service-form-header">
+        <div className="form-icon">{formData.emoji}</div>
+        <h2 className="form-title">{initialData ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
+        <p className="form-description">
+          {initialData ? 'Actualiza la información del servicio' : 'Registra un nuevo servicio en el catálogo'}
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="service-form-content">
+        <div className="form-group">
+          <label className="form-label">
+            Emoji <span className="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="emoji"
+            className={`form-input ${errors.emoji ? 'error' : ''}`}
+            placeholder="Ej: 🧼"
+            value={formData.emoji}
+            onChange={handleChange}
+            maxLength="2"
+          />
+          {errors.emoji && <span className="error-message">{errors.emoji}</span>}
+          <span className="field-hint">Emoji que representa el servicio</span>
+        </div>
+
+        <ValidatedAlphanumericInput
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          label="Nombre del Servicio"
+          placeholder="Ej: Lavado Premium 2x1"
+          required={true}
+          error={errors.name}
+        />
+
+        <div className="form-group">
+          <label className="form-label">
+            Duración <span className="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="duration"
+            className={`form-input ${errors.duration ? 'error' : ''}`}
+            placeholder="Ej: 2-3 días"
+            value={formData.duration}
+            onChange={handleChange}
+          />
+          {errors.duration && <span className="error-message">{errors.duration}</span>}
+          <span className="field-hint">Tiempo estimado para completar el servicio</span>
+        </div>
+
+        <ValidatedNumberInput
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
+          label="Precio"
+          placeholder="150"
+          required={false}
+          error={errors.price}
+          min={0}
+          prefix="$"
+          hint="💡 Usa $0 para servicios con precio variable (se definirá al cobrar)"
+        />
+
+        <div className="form-group">
+          <label className="form-label">
+            Descripción <span className="required">*</span>
+          </label>
+          <textarea
+            name="description"
+            className="form-input form-textarea"
+            placeholder="Describe en qué consiste el servicio..."
+            rows="4"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          {errors.description && <span className="error-message">{errors.description}</span>}
+        </div>
+
+        <div className="form-actions">
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="btn-primary"
+            disabled={isSubmitting}
+            style={{
+              opacity: isSubmitting ? 0.6 : 1,
+              cursor: isSubmitting ? 'not-allowed' : 'pointer'
+            }}
+          >
+            {isSubmitting
+              ? '⏳ Guardando...'
+              : (initialData ? '💾 Guardar Cambios' : '✨ Crear Servicio')
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default ServiceForm;
