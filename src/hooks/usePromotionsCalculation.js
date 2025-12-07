@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
  * Hook para manejar cálculo y validación de promociones aplicables al carrito
@@ -12,8 +12,8 @@ export function usePromotionsCalculation(cart, clientPhone, activePromotions) {
   const [appliedPromotions, setAppliedPromotions] = useState([]);
   const [promotionValidations, setPromotionValidations] = useState({});
 
-  // Validar y calcular promociones aplicables
-  const checkApplicablePromotions = async () => {
+  // Validar y calcular promociones aplicables - memoizado con useCallback
+  const checkApplicablePromotions = useCallback(async () => {
     if (cart.length === 0 || activePromotions.length === 0) {
       setAppliedPromotions([]);
       setPromotionValidations({});
@@ -49,12 +49,12 @@ export function usePromotionsCalculation(cart, clientPhone, activePromotions) {
 
     setAppliedPromotions(validPromotions);
     setPromotionValidations(validations);
-  };
+  }, [cart, clientPhone, activePromotions]);
 
-  // Recalcular promociones cuando cambie el carrito o el cliente
+  // Recalcular promociones cuando cambie la función memoizada
   useEffect(() => {
     checkApplicablePromotions();
-  }, [cart, clientPhone, activePromotions]);
+  }, [checkApplicablePromotions]);
 
   return {
     appliedPromotions,
