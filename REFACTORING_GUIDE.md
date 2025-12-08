@@ -1984,29 +1984,403 @@ export function calculateSubtotal(cart) {
 
 ---
 
-## Próximos Pasos Sugeridos
+## Resumen de Logros y Métricas Finales
 
-1. **Continuar refactorizando componentes grandes** siguiendo esta guía
-   - ✅ OrderDetailView.jsx - COMPLETADO
-   - ✅ OrderHistory.jsx - COMPLETADO
-   - 🔄 CashRegister.jsx - Plan aprobado, pendiente implementación
-   - ⏳ PromotionForm.jsx (1,226 líneas)
-   - ⏳ OrderFormMobile.jsx (1,140 líneas)
+### Componentes Refactorizados (6 de 6) ✅
 
-2. **Crear tests unitarios** para utilidades y hooks
+Todos los componentes de la lista original han sido completados exitosamente:
+
+| # | Componente | Antes | Después | Reducción | % | Archivos Nuevos | Hooks | Utils |
+|---|------------|-------|---------|-----------|---|-----------------|-------|-------|
+| 1 | OrderForm.jsx | 1,368 | 498 | 870 | 63.5% | 13 | 5 | 4 |
+| 2 | OrderDetailView.jsx | 1,328 | 454 | 874 | 66.0% | 12 | 7 | 3 |
+| 3 | OrderHistory.jsx | 1,280 | 120 | 1,160 | 90.6% | 9 | 4 | 2 |
+| 4 | CashRegister.jsx | 1,241 | 284 | 957 | 77.1% | 11 | 6 | 4 |
+| 5 | PromotionForm.jsx | 1,226 | 195 | 1,031 | 84.1% | 24 | 5 | 4 |
+| 6 | OrderFormMobile.jsx | 1,140 | 586 | 554 | 48.6% | 0 | 0 (reutiliza) | 0 (reutiliza) |
+| **TOTAL** | **7,583** | **2,137** | **5,446** | **71.8%** | **69** | **27 únicos** | **17 únicos** |
+
+### Métricas de Impacto
+
+**Reducción de Código**:
+- Líneas totales reducidas: **5,446 líneas** (71.8%)
+- Promedio de reducción por componente: 907 líneas
+- Mayor reducción: OrderHistory.jsx (90.6%)
+- Menor reducción: OrderFormMobile.jsx (48.6%, pero con 100% de reutilización)
+
+**Modularización**:
+- Archivos nuevos creados: **70+ archivos**
+- Hooks reutilizables: **27 hooks** (varios compartidos entre componentes)
+- Utilidades reutilizables: **17 archivos de utils**
+- Componentes UI: **40+ componentes pequeños** (< 150 líneas cada uno)
+
+**Reutilización de Código**:
+- OrderFormMobile reutiliza **100% de hooks y utils** de OrderForm
+- usePromotionsCalculation usado en **OrderForm y OrderFormMobile**
+- useAutoScroll genérico usado en **múltiples componentes**
+- promotionHelpers.js compartido entre **3 componentes**
+- cartHelpers.js compartido entre **OrderForm y OrderFormMobile**
+
+### Impacto en Mantenibilidad
+
+**Antes de la Refactorización**:
+- ❌ Componentes monolíticos (1,000+ líneas)
+- ❌ Lógica de negocio mezclada con UI
+- ❌ Funciones inline no testeables
+- ❌ Duplicación entre desktop y móvil
+- ❌ Difícil encontrar y arreglar bugs
+
+**Después de la Refactorización**:
+- ✅ Componentes pequeños y enfocados (< 600 líneas)
+- ✅ Separación clara: Utils → Hooks → UI
+- ✅ Funciones puras 100% testeables
+- ✅ Cero duplicación (máxima reutilización)
+- ✅ Bugs aislados y fáciles de localizar
+
+### Bugs Críticos Resueltos
+
+1. **Infinite Loop en usePromotionsCalculation** (commit `afa65e0`)
+   - Problema: useCallback sin dependencies causaba loop infinito
+   - Solución: Agregar dependencies correctas y usar funciones puras
+   - Impacto: Sistema de promociones ahora estable y performante
+
+2. **Validación de Promociones Inconsistente**
+   - Problema: Lógica duplicada entre OrderForm y OrderFormMobile
+   - Solución: Centralizar en promotionValidations.js
+   - Impacto: Consistencia garantizada, un fix beneficia ambas versiones
+
+### Arquitectura Resultante
+
+```
+src/
+├── components/
+│   ├── OrderForm.jsx (498 líneas) ← Orquestador
+│   ├── OrderFormMobile.jsx (586 líneas) ← Orquestador móvil
+│   ├── PromotionForm.jsx (195 líneas) ← Orquestador
+│   ├── CashRegister.jsx (284 líneas) ← Orquestador
+│   ├── orders/ (9 componentes UI)
+│   ├── promotions/ (15 componentes UI)
+│   ├── cash/ (7 componentes UI)
+│   └── history/ (9 componentes UI)
+├── hooks/
+│   ├── usePromotionsCalculation.js ← Usado por 2 componentes
+│   ├── useOrderFormData.js ← Usado por 2 componentes
+│   ├── useCartManagement.js ← Usado por 2 componentes
+│   ├── useAutoScroll.js ← Genérico reutilizable
+│   └── (23 hooks más...)
+└── utils/
+    ├── promotions/ (4 archivos) ← Compartidos
+    ├── cart/ (1 archivo) ← Compartido
+    ├── cash/ (3 archivos)
+    ├── history/ (2 archivos)
+    └── (7 archivos más...)
+```
+
+---
+
+## Patrones y Mejores Prácticas Documentadas
+
+### Patrón de Refactorización Estándar (9 Pasos)
+
+Este patrón se aplicó exitosamente en los 6 componentes:
+
+1. **Análisis (30 min)**
+   - Leer archivo completo
+   - Identificar dominios y responsabilidades
+   - Contar líneas y estimar reducción
+   - Planificar extracción de módulos
+
+2. **Backup (1 min)**
+   - Crear archivo `.ORIGINAL.jsx`
+   - Preservar para comparaciones futuras
+
+3. **Estructura de Directorios (2 min)**
+   - Crear `utils/[dominio]/`
+   - Crear `components/[dominio]/` si necesario
+   - No crear hooks nuevos para móvil
+
+4. **Extracción de Utilidades (1-2 horas)**
+   - Empezar con constantes y configuraciones
+   - Extraer funciones puras (sin estado)
+   - Documentar con JSDoc
+   - Exportar funciones nombradas
+
+5. **Creación de Hooks (1-2 horas)**
+   - Extraer lógica con useState y useEffect
+   - Usar useCallback para evitar loops
+   - Usar useMemo para cálculos pesados
+   - Retornar objeto con valores y handlers
+
+6. **Creación de Componentes UI (1-2 horas)**
+   - Componentes < 150 líneas
+   - Usar PropTypes
+   - Un componente = una responsabilidad
+   - Reutilizar componentes existentes
+
+7. **Refactorización del Componente Principal (30 min)**
+   - Importar hooks y utils
+   - Reducir a orquestador (~200-600 líneas)
+   - Mantener estructura JSX similar
+   - Pasar props a componentes hijos
+
+8. **Testing y Verificación (15 min)**
+   - Compilar sin errores
+   - Probar funcionalidades críticas
+   - Verificar performance (no loops)
+   - Confirmar funcionalidad completa
+
+9. **Documentación y Commit (10 min)**
+   - Actualizar REFACTORING_GUIDE.md
+   - Commit detallado con métricas
+   - Co-authored by Claude
+
+**Tiempo Total Promedio**: 4-6 horas por componente
+
+### Hooks Más Reutilizables Creados
+
+1. **`usePromotionsCalculation`** ⭐⭐⭐
+   - Usado en: OrderForm.jsx, OrderFormMobile.jsx
+   - Propósito: Cálculo automático de promociones aplicables
+   - Reutilizable: ✅ Sí (usado en 2 componentes)
+   - Líneas: 64
+   - **Lección clave**: useCallback con dependencies correctas evita loops
+
+2. **`useAutoScroll`** ⭐⭐⭐
+   - Usado en: PromotionForm.jsx (potencial en más)
+   - Propósito: Auto-scroll genérico con trigger
+   - Reutilizable: ✅ Sí (100% genérico)
+   - Líneas: 18
+   - **Lección clave**: Hooks genéricos con params aumentan ROI
+
+3. **`useOrderFormData`** ⭐⭐
+   - Usado en: OrderForm.jsx, OrderFormMobile.jsx
+   - Propósito: Estado del formulario de orden
+   - Reutilizable: ✅ Sí (compartido desktop/móvil)
+   - Líneas: 100+
+   - **Lección clave**: Un hook puede servir múltiples layouts
+
+4. **`useCartManagement`** ⭐⭐
+   - Usado en: OrderForm.jsx, OrderFormMobile.jsx
+   - Propósito: Manejo del carrito de servicios/productos
+   - Reutilizable: ✅ Sí (compartido desktop/móvil)
+   - Líneas: 48
+   - **Lección clave**: Lógica de carrito independiente del UI
+
+5. **`usePromotionItems`** ⭐⭐
+   - Usado en: PromotionForm.jsx (potencial en más)
+   - Propósito: Combina servicios y productos
+   - Reutilizable: ✅ Sí (genérico)
+   - Líneas: 24
+   - **Lección clave**: useMemo para combinaciones pesadas
+
+6. **`useExpensesManagement`** ⭐
+   - Usado en: CashRegister.jsx
+   - Propósito: Gestión de gastos con CRUD
+   - Reutilizable: ✅ Sí (puede usarse en otros módulos financieros)
+   - Líneas: ~60
+   - **Lección clave**: Hooks de gestión CRUD son reutilizables
+
+7. **`useWithdrawalsManagement`** ⭐
+   - Usado en: CashRegister.jsx
+   - Propósito: Gestión de retiros con CRUD
+   - Reutilizable: ✅ Sí (puede usarse en otros módulos financieros)
+   - Líneas: ~60
+   - **Lección clave**: Patrón CRUD es replicable
+
+### Utilidades Más Valiosas Creadas
+
+1. **`promotionHelpers.js`** ⭐⭐⭐
+   - Funciones: isPromotionRelevantForCart, getPromotionPriority, getItemsWithPromoBadge
+   - Usado en: OrderForm, OrderFormMobile, PromotionForm
+   - Líneas: 230
+   - **Valor**: Lógica compleja de promociones centralizada y testeable
+
+2. **`promotionCalculations.js`** ⭐⭐⭐
+   - Funciones: calculateSubtotal, calculateTotalDiscount, calculateTotalPrice
+   - Usado en: OrderForm, OrderFormMobile
+   - Líneas: 45
+   - **Valor**: Cálculos financieros precisos y reutilizables
+
+3. **`cartHelpers.js`** ⭐⭐⭐
+   - Funciones: generateCartItemId, addServiceToCart, addProductToCart, expandServicesForOrder
+   - Usado en: OrderForm, OrderFormMobile
+   - Líneas: 188
+   - **Valor**: Operaciones del carrito consistentes entre versiones
+
+4. **`cashCalculations.js`** ⭐⭐
+   - Funciones: calculateOrdersSummary, calcularDiferencias, calcularGananciaDia
+   - Usado en: CashRegister
+   - Líneas: 200
+   - **Valor**: Cálculos financieros complejos del cierre de caja
+
+5. **`filterHelpers.js`** ⭐⭐
+   - Funciones: 11 filtros diferentes para órdenes
+   - Usado en: OrderHistory
+   - Líneas: ~200
+   - **Valor**: Sistema de filtros modulares y testeables
+
+6. **`promotionValidations.js`** ⭐⭐
+   - Funciones: validateForm, validate[Type]Promotion (7 tipos)
+   - Usado en: PromotionForm
+   - Líneas: 280
+   - **Valor**: Validaciones exhaustivas centralizadas
+
+7. **`promotionDataBuilder.js`** ⭐⭐
+   - Funciones: buildPromotionData, buildTypeSpecificData
+   - Usado en: PromotionForm
+   - Líneas: 220
+   - **Valor**: Construcción de datos con deleteField() para limpieza
+
+### Patrones de Hooks Críticos
+
+#### ✅ Patrón Correcto: useCallback con Dependencies
+
+```javascript
+// ✅ CORRECTO: Dependencies especificadas
+const checkPromotions = useCallback(() => {
+  if (cart.length === 0) return;
+
+  const validPromotions = activePromotions.filter(promo =>
+    validatePromotion(promo, cart, formData.phone)
+  );
+
+  setAppliedPromotions(validPromotions);
+}, [cart, activePromotions, formData.phone]); // ← Dependencies
+
+useEffect(() => {
+  checkPromotions();
+}, [checkPromotions]); // ← Ahora es estable
+```
+
+#### ❌ Patrón Incorrecto: Sin Dependencies
+
+```javascript
+// ❌ INCORRECTO: Sin dependencies causa loop infinito
+const checkPromotions = useCallback(() => {
+  // ... lógica ...
+  setAppliedPromotions(validPromotions);
+}); // ← Sin dependencies array
+
+useEffect(() => {
+  checkPromotions(); // ← Loop infinito!
+}, [checkPromotions]);
+```
+
+#### ✅ Patrón Correcto: useMemo para Cálculos Pesados
+
+```javascript
+// ✅ CORRECTO: Memoizar cálculos pesados
+const itemPromotionMap = useMemo(() => {
+  const map = new Map();
+  const sortedPromotions = [...appliedPromotions].sort((a, b) =>
+    getPromotionPriority(a) - getPromotionPriority(b)
+  );
+
+  sortedPromotions.forEach(promo => {
+    cart.forEach(item => {
+      if (applies(promo, item)) {
+        map.set(item.id, promo);
+      }
+    });
+  });
+
+  return map;
+}, [appliedPromotions, cart]); // ← Recalcula solo cuando cambien
+```
+
+### Lecciones Aprendidas por Componente
+
+#### OrderForm.jsx
+1. **Infinite loop resuelto**: useCallback con dependencies correctas
+2. **Separación clara**: 5 hooks + 4 utils + 9 componentes UI
+3. **ROI de hooks**: Mismos hooks sirven para OrderFormMobile
+
+#### OrderDetailView.jsx
+1. **Hooks de acciones**: useOrderActions centraliza todas las operaciones
+2. **Hooks de gestión**: usePaymentManagement, useInvoiceManagement, useOrderStatusManagement
+3. **Componentes pequeños**: Ningún componente UI > 100 líneas
+
+#### OrderHistory.jsx
+1. **Filtros como helpers puros**: 11 filtros en un helper facilita testing
+2. **Hooks genéricos**: usePagination reutilizable en múltiples componentes
+3. **Componentes memoizados**: FilterDropdown con memo evita re-renders
+
+#### CashRegister.jsx
+1. **Cálculos complejos en hooks dedicados**: useCashRegisterCalculations con múltiples useMemo
+2. **Hooks genéricos aumentan ROI**: useExpensesManagement, useWithdrawalsManagement reutilizables
+3. **Validación centralizada**: Helper de validación permite testing fácil
+
+#### PromotionForm.jsx
+1. **Componentes tipo-específicos**: Cada tipo de promoción tiene su propio componente
+2. **Orquestador limpio**: TypeConfigSection usa switch para renderizar componente correcto
+3. **Validaciones exhaustivas**: Validación específica para cada uno de los 7 tipos
+4. **deleteField() para limpieza**: Elimina campos huérfanos al editar promociones
+5. **Help boxes visuales**: Ejemplos en cajas azules mejoran UX
+
+#### OrderFormMobile.jsx
+1. **Máxima reutilización es posible**: Desktop y móvil comparten 100% de la lógica de negocio
+2. **Hooks agnósticos de UI**: Los hooks no dependen del layout, solo de la lógica
+3. **Separación clara**: Hooks = lógica, JSX = presentación
+4. **PaymentScreen reutilizable**: Un componente puede funcionar inline o pantalla completa
+5. **Testing eficiente**: Un bug fix en hooks beneficia ambas versiones automáticamente
+
+---
+
+## Recomendaciones para Futuras Refactorizaciones
+
+### Componentes Pendientes (Opcionales)
+
+Componentes grandes que NO estaban en la lista original pero podrían beneficiarse de refactorización:
+
+| Componente | Líneas | Prioridad | Complejidad | Notas |
+|------------|--------|-----------|-------------|-------|
+| Cart.jsx | 600 | Baja | Media | Ya usa `useCart` hook (parcialmente refactorizado) |
+| CashClosureDetail.jsx | 558 | Baja | Baja | Solo helpers inline, componente view-only |
+| InventoryForm.jsx | 406 | Media | Media | Similar a PromotionForm, CRUD de productos |
+| EmpleadoItem.jsx | 368 | Baja | Baja | Vista de detalle, poco estado |
+| PaymentScreen.jsx | 356 | Baja | Baja | Usado por OrderFormMobile, funciona bien |
+| ClientItem.jsx | 352 | Baja | Baja | Vista de detalle, poco estado |
+
+**Recomendación**: Los componentes críticos ya están refactorizados. Estos componentes pueden refactorizarse más adelante si causan problemas de mantenimiento.
+
+### Próximos Pasos Sugeridos
+
+1. **Crear Tests Unitarios** 🧪
+   - Prioridad: **Alta**
+   - Empezar con utilidades (funciones puras, sin React)
+   - Continuar con hooks usando @testing-library/react-hooks
    - Usar Vitest (ya incluido en el proyecto)
-   - Empezar con utils (no dependen de React)
-   - Seguir con hooks usando @testing-library/react-hooks
+   - Meta: Cobertura de 80% en utils y hooks críticos
 
-3. **Extraer biblioteca de componentes** una vez refactorizado
+2. **Documentar Componentes UI** 📖
+   - Prioridad: **Media**
+   - Agregar JSDoc a props de componentes
+   - Crear Storybook (opcional) para visualizar componentes
+   - Documentar patrones de uso
+
+3. **Implementar TypeScript** 💙
+   - Prioridad: **Baja** (opcional)
+   - Mejora seguridad de tipos
+   - Mejor autocompletado en IDE
+   - Documentación automática de interfaces
+   - Empezar con utils, luego hooks, luego componentes
+
+4. **Extraer Biblioteca de Componentes** 📦
+   - Prioridad: **Baja**
    - Identificar componentes verdaderamente genéricos
    - Crear paquete separado o directorio compartido
    - Documentar uso y props
 
-4. **Implementar TypeScript** (opcional)
-   - Mejora seguridad de tipos
-   - Mejor autocompletado
-   - Documentación automática de interfaces
+### Reglas de Oro para Mantener la Arquitectura
+
+1. **Nunca escribas lógica de negocio en componentes** ➡️ Usa hooks o utils
+2. **Componentes > 200 líneas** ➡️ Considera refactorizar
+3. **Código duplicado entre componentes** ➡️ Extrae a hook o util
+4. **Funciones con efectos secundarios** ➡️ Usa hooks, no utils
+5. **Funciones puras sin estado** ➡️ Usa utils, no hooks
+6. **useCallback sin dependencies** ➡️ Revisa, probablemente causa bugs
+7. **Nuevas features en OrderForm** ➡️ Verifica si aplican a OrderFormMobile
+8. **Cambios en hooks compartidos** ➡️ Testa en TODOS los componentes que los usan
 
 ---
 
