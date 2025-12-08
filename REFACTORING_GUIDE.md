@@ -9,7 +9,9 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 - **OrderForm.jsx**: Reducido de 1,368 líneas a 498 líneas (63.5% de reducción)
 - **OrderDetailView.jsx**: Reducido de 1,328 líneas a 454 líneas (66% de reducción)
 - **OrderHistory.jsx**: Reducido de 1,280 líneas a 120 líneas (90.6% de reducción)
-- **50+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares
+- **CashRegister.jsx**: Reducido de 1,241 líneas a 284 líneas (77.1% de reducción)
+- **PromotionForm.jsx**: Reducido de 1,226 líneas a 195 líneas (84.1% de reducción)
+- **70+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares
 - **Bug crítico resuelto**: Infinite loop en validación de promociones
 - **Arquitectura modular**: Código organizado, testeable y reutilizable
 - **Reutilización de código**: Hooks y utilidades compartidas entre componentes
@@ -515,6 +517,10 @@ Lista priorizada de componentes grandes que requieren refactorización:
 **Reducción**: 1,241 → 284 líneas (77.1%)
 **Ver sección dedicada abajo**
 
+### ✅ 4. PromotionForm.jsx - COMPLETADO
+**Reducción**: 1,226 → 195 líneas (84.1%)
+**Ver sección dedicada abajo**
+
 ---
 
 ## Refactorización de CashRegister.jsx
@@ -713,19 +719,312 @@ const CashRegister = ({ orders, dateFilter }) => {
 
 ---
 
-### 4. PromotionForm.jsx (1,226 líneas)
-**Prioridad**: Media
-**Complejidad**: Alta
-**Razón**: Formulario complejo con muchas validaciones
+## Refactorización de PromotionForm.jsx
 
-**Dominios a extraer**:
-- `utils/promotions/promotionValidations.js` - Validaciones de promociones
-- `utils/promotions/promotionTypes.js` - Tipos y configuraciones
-- `hooks/usePromotionForm.js` - Estado del formulario
-- `hooks/usePromotionPreview.js` - Preview de promoción
-- `components/promotions/PromotionTypeSelector.jsx` - Selector de tipo
-- `components/promotions/PromotionRules.jsx` - Reglas de promoción
-- `components/promotions/PromotionPreview.jsx` - Vista previa
+### Resumen de la Refactorización
+
+**Archivo**: `src/components/PromotionForm.jsx`
+**Reducción**: 1,226 líneas → 195 líneas (84.1% de reducción)
+**Fecha**: Diciembre 2025
+**Commit**: Refactor PromotionForm.jsx: Modular architecture (1,226 → 195 lines)
+
+### Archivos Creados
+
+#### Utilidades
+
+1. **`src/utils/promotions/promotionTypes.js`** (140 líneas)
+   - `PROMOTION_TYPES` - Constantes de los 7 tipos de promoción
+   - `PROMOTION_TYPE_CONFIG` - Configuración completa por tipo (label, icon, example, fields)
+   - `combineServicesAndProducts()` - Combina servicios y productos en formato unificado
+   - Documentación completa de cada tipo de promoción
+
+2. **`src/utils/promotions/promotionValidations.js`** (280 líneas)
+   - `validateForm()` - Validación completa orquestadora
+   - `validateBasicInfo()` - Valida nombre y descripción
+   - `validatePercentagePromotion()` - Validación para descuento porcentual
+   - `validateFixedPromotion()` - Validación para descuento fijo
+   - `validateBuyXGetYPromotion()` - Validación para 2x1, 3x2, etc
+   - `validateBuyXGetYDiscountPromotion()` - Validación para 2do a X% OFF
+   - `validateComboPromotion()` - Validación para combos/paquetes
+   - `validateDayOfWeekPromotion()` - Validación para días específicos
+   - `validateSpecificPricePromotion()` - Validación para precio específico
+   - `validateRestrictions()` - Validación de restricciones opcionales
+   - **Cobertura total**: Validaciones específicas para cada uno de los 7 tipos
+
+3. **`src/utils/promotions/promotionDataBuilder.js`** (220 líneas)
+   - `buildPromotionData()` - Construye objeto completo de promoción
+   - `buildBaseData()` - Construye datos básicos
+   - `buildTypeSpecificData()` - Construye datos específicos del tipo con `deleteField()`
+   - `buildRestrictions()` - Construye restricciones opcionales con `deleteField()`
+   - **Limpieza inteligente**: Usa `deleteField()` para eliminar campos huérfanos al editar
+   - **Manejo de 7 tipos**: Construcción específica para cada tipo de promoción
+
+4. **`src/utils/promotions/promotionInitialState.js`** (120 líneas)
+   - `INITIAL_FORM_STATE` - Estado inicial completo del formulario
+   - `loadInitialData()` - Carga datos para edición
+   - **37 campos**: Maneja todos los campos de los 7 tipos + restricciones
+   - Compatibilidad con datos antiguos (combos sin quantity)
+
+#### Hooks Personalizados
+
+1. **`src/hooks/usePromotionForm.js`** (116 líneas)
+   - Estado del formulario con 37 campos
+   - `handleChange()` - Maneja cambios en inputs
+   - `handleDayToggle()` - Toggle de días de la semana
+   - `handleItemToggle()` - Toggle de items genérico
+   - `handleComboItemToggle()` - Toggle de items de combo con información completa
+   - `handleComboItemQuantityChange()` - Maneja cantidades en combos
+   - Retorna: `{ formData, errors, setErrors, ...handlers }`
+
+2. **`src/hooks/usePromotionItems.js`** (24 líneas)
+   - Combina servicios y productos con `useMemo`
+   - **REUTILIZABLE**: Puede usarse en cualquier componente que necesite items combinados
+   - Retorna: `{ allItems }` - Array unificado de servicios y productos
+
+3. **`src/hooks/usePromotionValidation.js`** (32 líneas)
+   - Wrapper del validador con integración a NotificationContext
+   - Muestra errores de validación automáticamente
+   - Retorna: `{ validate }` - Función de validación
+
+4. **`src/hooks/usePromotionSubmit.js`** (24 líneas)
+   - Procesa datos del formulario antes de submit
+   - Usa `buildPromotionData()` para construir objeto final
+   - Retorna: `{ handleSubmit }` - Handler de submit procesado
+
+5. **`src/hooks/useAutoScroll.js`** (18 líneas)
+   - **GENÉRICO Y REUTILIZABLE**: Auto-scroll a top cuando se activa trigger
+   - Parámetros: `trigger` (boolean), `selector` (CSS selector)
+   - Puede usarse en cualquier componente con scroll
+
+#### Componentes UI - Principales
+
+1. **`src/components/promotions/BasicInfoSection.jsx`** (75 líneas)
+   - Emoji picker (input text con maxLength 2)
+   - Nombre (ValidatedAlphanumericInput)
+   - Descripción (textarea)
+   - Checkbox de activo/inactivo
+
+2. **`src/components/promotions/PromotionTypeSelector.jsx`** (53 líneas)
+   - Grid con 7 radio buttons para tipos de promoción
+   - Usa `PROMOTION_TYPE_CONFIG` para generar opciones
+   - Muestra icono, label y ejemplo por cada tipo
+
+3. **`src/components/promotions/TypeConfigSection.jsx`** (116 líneas)
+   - **ORQUESTADOR**: Renderiza componente específico según tipo seleccionado
+   - Switch statement con 7 casos
+   - Pasa props específicas a cada componente de tipo
+
+4. **`src/components/promotions/RestrictionsSection.jsx`** (184 líneas)
+   - Rango de fechas (hasDateRange, startDate, endDate)
+   - Un uso por cliente (onePerClient)
+   - Solo clientes nuevos (newClientsOnly)
+   - Límite de usos totales (hasMaxUses, maxUses)
+   - Monto mínimo de compra (hasMinPurchase, minPurchaseAmount)
+   - Días específicos (hasDayRestriction, daysOfWeek)
+   - Usa `DaysSelector` para selección de días
+
+#### Componentes UI - Reutilizables
+
+5. **`src/components/promotions/ItemsSelector.jsx`** (45 líneas)
+   - **REUTILIZABLE**: Selector genérico de items con checkboxes
+   - Props: items, selectedIds, onToggle, error, label, helpText
+   - Grid de checkboxes con nombres de items
+
+6. **`src/components/promotions/DaysSelector.jsx`** (42 líneas)
+   - **REUTILIZABLE**: Selector de días de la semana
+   - Botones toggle para cada día (Dom-Sáb)
+   - Props: selectedDays, onToggle, error, label, required
+
+7. **`src/components/promotions/HelpText.jsx`** (18 líneas)
+   - **REUTILIZABLE**: Componente para hints/ayuda
+   - Estilo consistente de texto de ayuda
+   - Props: children, style
+
+8. **`src/components/promotions/ComboItemQuantities.jsx`** (58 líneas)
+   - **REUTILIZABLE**: Maneja cantidades de items en combos
+   - Inputs numéricos para cada item seleccionado
+   - Props: comboItems, onQuantityChange
+
+#### Componentes UI - Tipo Específico
+
+9. **`src/components/promotions/PercentageConfig.jsx`** (65 líneas)
+   - Porcentaje de descuento (1-100%)
+   - Select de aplica a (all/services/products/specific)
+   - ItemsSelector condicional si appliesTo = 'specific'
+
+10. **`src/components/promotions/FixedConfig.jsx`** (48 líneas)
+    - Monto de descuento fijo ($)
+    - ItemsSelector opcional para items aplicables
+    - Helptext: "Si no seleccionas ninguno, aplica a todo el carrito"
+
+11. **`src/components/promotions/BuyXGetYConfig.jsx`** (78 líneas)
+    - Total de items (buyQuantity)
+    - Cantidad gratis (getQuantity)
+    - **Help box azul** con ejemplos: 2x1, 3x2, 4x3
+    - ItemsSelector opcional
+
+12. **`src/components/promotions/BuyXGetYDiscountConfig.jsx`** (79 líneas)
+    - Cantidad de items (buyQuantity)
+    - Porcentaje de descuento (discountPercentage)
+    - **Help box azul** con ejemplos: 2do a 50% OFF, 3ro a 30% OFF
+    - ItemsSelector opcional
+
+13. **`src/components/promotions/ComboConfig.jsx`** (67 líneas)
+    - Precio del combo ($)
+    - Checkboxes de items con precios
+    - `ComboItemQuantities` para manejar cantidades
+    - Validación mínimo 2 items
+
+14. **`src/components/promotions/DayOfWeekConfig.jsx`** (46 líneas)
+    - Porcentaje de descuento (1-100%)
+    - `DaysSelector` para días específicos
+    - Ej: Martes 15% OFF
+
+15. **`src/components/promotions/SpecificPriceConfig.jsx`** (50 líneas)
+    - Precio específico ($)
+    - ItemsSelector **solo productos** (filtra items)
+    - Helptext: "Este será el precio final del producto"
+
+### Arquitectura del Componente Principal
+
+El componente refactorizado (`PromotionForm.jsx` - 195 líneas) actúa como **orquestador**:
+
+```javascript
+const PromotionForm = ({ onSubmit, onCancel, onDelete, initialData, services, products, isSubmitting }) => {
+  // 1. Auth
+  const isAdmin = useAdminCheck();
+
+  // 2. Hooks de gestión
+  const formManager = usePromotionForm(initialData);
+  const { allItems } = usePromotionItems(services, products);
+  const { validate } = usePromotionValidation();
+  const { handleSubmit: processSubmit } = usePromotionSubmit(onSubmit, initialData);
+  useAutoScroll(isSubmitting);
+
+  // 3. Submit handler
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { isValid, errors } = validate(formManager.formData);
+    if (!isValid) {
+      formManager.setErrors(errors);
+      return;
+    }
+    processSubmit(formManager.formData);
+  };
+
+  // 4. Render con componentes modulares
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <BasicInfoSection {...} />
+      <PromotionTypeSelector {...} />
+      <TypeConfigSection type={formData.type} {...} />
+      <RestrictionsSection {...} />
+      <FormActions {...} />
+      {isSubmitting && <SuccessOverlay />}
+    </form>
+  );
+};
+```
+
+### Cobertura de Tipos de Promoción
+
+El sistema maneja **7 tipos distintos** de promociones, cada uno con validaciones y construcción de datos específicas:
+
+1. **`percentage`** - Descuento Porcentual
+   - Campos: `discountValue`, `appliesTo`, `specificItems`
+   - Ejemplo: 20% OFF en Limpieza calzado
+   - Validación: 1-100%, requiere items si appliesTo='specific'
+
+2. **`fixed`** - Descuento Fijo
+   - Campos: `discountValue`, `applicableItems`
+   - Ejemplo: $50 OFF en cualquier servicio
+   - Validación: Monto > 0
+
+3. **`buyXgetY`** - Compra y Lleva Gratis
+   - Campos: `buyQuantity`, `getQuantity`, `applicableItems`
+   - Ejemplo: 2x1, 3x2
+   - Validación: buyQuantity >= 2, getQuantity >= 1
+
+4. **`buyXgetYdiscount`** - Compra y Descuento
+   - Campos: `buyQuantity`, `discountPercentage`, `applicableItems`
+   - Ejemplo: 2do a 50% OFF
+   - Validación: buyQuantity >= 2, descuento 1-100%
+
+5. **`combo`** - Combo/Paquete
+   - Campos: `comboPrice`, `comboItems` (con quantities)
+   - Ejemplo: 2 servicios por $200
+   - Validación: Mínimo 2 items, precio > 0
+
+6. **`dayOfWeek`** - Día de Semana
+   - Campos: `discountValue`, `daysOfWeek`
+   - Ejemplo: Martes 15% OFF
+   - Validación: 1-100%, al menos 1 día seleccionado
+
+7. **`specificPrice`** - Precio Específico
+   - Campos: `specificPrice`, `applicableItems` (solo productos)
+   - Ejemplo: Producto a $50
+   - Validación: Precio > 0, al menos 1 producto
+
+### Manejo de Campos Huérfanos
+
+El sistema usa `deleteField()` de Firebase para limpiar campos que ya no aplican al cambiar de tipo:
+
+```javascript
+import { deleteField } from 'firebase/firestore';
+
+// Ejemplo: Al cambiar de 'percentage' a 'fixed'
+if (isEditing && type !== 'percentage') {
+  data.appliesTo = deleteField();
+  data.specificItems = deleteField();
+}
+```
+
+**Campos limpiados por tipo**:
+- `percentage` → `fixed`: Limpia `appliesTo`, `specificItems`
+- `buyXgetY` → `combo`: Limpia `buyQuantity`, `getQuantity`, `applicableItems`
+- `combo` → `specificPrice`: Limpia `comboPrice`, `comboItems`
+
+### Restricciones Opcionales
+
+Todas las promociones pueden tener restricciones adicionales:
+
+1. **Rango de Fechas**: `hasDateRange`, `dateRange.startDate`, `dateRange.endDate`
+2. **Un uso por cliente**: `onePerClient` (boolean)
+3. **Solo clientes nuevos**: `newClientsOnly` (boolean)
+4. **Límite de usos totales**: `hasMaxUses`, `maxUses` (número)
+5. **Monto mínimo de compra**: `hasMinPurchase`, `minPurchaseAmount` ($)
+6. **Días específicos**: `hasDayRestriction`, `daysOfWeek` (array de índices 0-6)
+
+### Estadísticas de Reducción
+
+**Componente Principal**:
+- Antes: 1,226 líneas (todo en un archivo)
+- Después: 195 líneas (orquestador limpio)
+- Reducción: **84.1%**
+
+**Módulos Creados**:
+- 4 utilidades: ~760 líneas
+- 5 hooks: ~214 líneas
+- 15 componentes UI: ~950 líneas
+- **Total nuevo código**: ~1,924 líneas (pero altamente modular y reutilizable)
+
+**Ventajas**:
+- Código organizado por responsabilidad
+- Componentes reutilizables (ItemsSelector, DaysSelector, etc)
+- Hooks reutilizables (useAutoScroll, usePromotionItems)
+- Validaciones centralizadas y testeables
+- Fácil agregar nuevos tipos de promoción
+
+### Lecciones Aprendidas
+
+1. **Componentes tipo-específicos separados**: Cada tipo de promoción tiene su propio componente de configuración
+2. **Orquestador limpio**: TypeConfigSection usa switch para renderizar el componente correcto
+3. **Validaciones exhaustivas**: Validación específica para cada uno de los 7 tipos
+4. **deleteField() para limpieza**: Elimina campos huérfanos al editar promociones
+5. **Help boxes visuales**: Ejemplos en cajas azules mejoran UX para tipos complejos
+6. **Componentes altamente reutilizables**: ItemsSelector, DaysSelector, etc pueden usarse en otros formularios
+
+---
 
 ### 5. OrderFormMobile.jsx (1,140 líneas)
 **Prioridad**: Baja (posiblemente puede reutilizar del refactor de OrderForm.jsx)
