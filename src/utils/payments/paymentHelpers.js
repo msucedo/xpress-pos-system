@@ -103,3 +103,32 @@ export function canChargeOrder(remainingPayment) {
 
   return { canCharge: true, reason: '' };
 }
+
+/**
+ * Obtiene el label del estado de pago
+ *
+ * @param {string} status - Estado de pago (paid, partial, pending, cancelled)
+ * @returns {string} Label en español
+ */
+export function getPaymentStatusLabel(status) {
+  const labels = {
+    paid: 'Pagado',
+    partial: 'Parcial',
+    pending: 'Pendiente',
+    cancelled: 'Cancelado'
+  };
+  return labels[status] || status;
+}
+
+/**
+ * Formatea un monto como moneda mexicana
+ *
+ * @param {number} amount - Monto a formatear
+ * @returns {string} Monto formateado (ej: "$1,234.56")
+ */
+export function formatCurrency(amount) {
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN'
+  }).format(amount);
+}

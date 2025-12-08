@@ -120,3 +120,136 @@ export function generateInvoiceFileName(order) {
 export function isMobileDevice() {
   return window.innerWidth < 768;
 }
+
+/**
+ * Formatea fecha para tabla de histórico con manejo robusto de timezones
+ *
+ * @param {string} dateString - Fecha en formato ISO o YYYY-MM-DD
+ * @returns {string} Fecha formateada (ej: "15 ene 2025")
+ */
+export function formatDate(dateString) {
+  if (!dateString) return 'N/A';
+
+  let date;
+
+  // Si es formato YYYY-MM-DD (sin hora)
+  if (typeof dateString === 'string' && dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    const [year, month, day] = dateString.split('-');
+    date = new Date(year, month - 1, day);
+  } else {
+    // Si es timestamp de Firebase o ISO string
+    date = new Date(dateString);
+  }
+
+  // Validar fecha
+  if (isNaN(date.getTime())) {
+    return 'N/A';
+  }
+
+  return new Intl.DateTimeFormat('es-MX', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  }).format(date);
+}
+
+/**
+ * Combina órdenes de todas las categorías y las ordena por número descendente
+ *
+ * @param {Object} orders - Objeto con órdenes agrupadas por estado
+ * @returns {Array} Array de órdenes combinadas y ordenadas
+ */
+export function combineAndSortOrders(orders) {
+  const combined = [
+    ...orders.recibidos.map(o => ({ ...o, statusCategory: 'recibidos' })),
+    ...orders.proceso.map(o => ({ ...o, statusCategory: 'proceso' })),
+    ...orders.listos.map(o => ({ ...o, statusCategory: 'listos' })),
+    ...orders.enEntrega.map(o => ({ ...o, statusCategory: 'enEntrega' })),
+    ...orders.completados.map(o => ({ ...o, statusCategory: 'completados' })),
+    ...orders.cancelado.map(o => ({ ...o, statusCategory: 'cancelado' }))
+  ];
+
+  // Ordenar por número de orden descendente (más recientes primero)
+  return combined.sort((a, b) => {
+    const numA = parseInt(a.orderNumber) || 0;
+    const numB = parseInt(b.orderNumber) || 0;
+    return numB - numA;
+  });
+}
+
+/**
+ * Extrae lista única de servicios de todas las órdenes
+ *
+ * @param {Array} orders - Array de órdenes
+ * @returns {Array} Array de objetos { name, icon } únicos y ordenados
+ */
+export function extractUniqueServices(orders) {
+  const servicesMap = new Map();
+
+  orders.forEach(order => {
+    if (order.services && order.services.length > 0) {
+      order.services.forEach(service => {
+        if (service.status !== 'cancelled' && service.serviceName) {
+          servicesMap.set(service.serviceName, {
+            name: service.serviceName,
+            icon: service.icon || '🛠️'
+          });
+        }
+      });
+    }
+  });
+
+  return Array.from(servicesMap.values()).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+}
+
+/**
+ * Obtiene información del autor de la orden con matching de empleados
+ *
+ * @param {Object} order - Orden
+ * @param {Array} employees - Lista de empleados
+ * @returns {Object} { name, emoji } del autor
+ */
+export function getAuthorInfo(order, employees) {
+  const authorId = order.authorId || null;
+  const authorName = order.author || null;
+
+  if (!authorId && !authorName) {
+    return { name: 'N/A', emoji: null };
+  }
+
+  const author = authorId
+    ? employees.find(emp => emp.id === authorId)
+    : employees.find(emp => emp.name === authorName);
+
+  return {
+    name: author?.name || authorName || 'N/A',
+    emoji: author?.emoji || null
+  };
+}
+
+/**
+ * Agrupa y cuenta íconos de servicios de una orden
+ *
+ * @param {Object} order - Orden con array de servicios
+ * @returns {Array} Array de { emoji, count } agrupados
+ */
+export function getServiceIcons(order) {
+  if (!order.services || order.services.length === 0) return [];
+
+  const activeServices = order.services.filter(
+    service => service.status !== 'cancelled'
+  );
+  const grouped = {};
+
+  activeServices.forEach(service => {
+    const emoji = service.icon || '🛠️';
+    if (!grouped[emoji]) {
+      grouped[emoji] = { emoji, count: 0 };
+    }
+    grouped[emoji].count++;
+  });
+
+  return Object.values(grouped);
+}

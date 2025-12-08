@@ -123,3 +123,21 @@ export function autoCompleteExpressServices(services) {
     return service;
   });
 }
+
+/**
+ * Obtiene el label de un estado de orden
+ *
+ * @param {string} statusCategory - Estado de la orden (recibidos, proceso, listos, etc.)
+ * @returns {string} Label en español
+ */
+export function getOrderStatusLabel(statusCategory) {
+  const labels = {
+    recibidos: 'Recibido',
+    proceso: 'En Proceso',
+    listos: 'Listo',
+    enEntrega: 'En Entrega',
+    completados: 'Completado',
+    cancelado: 'Cancelado'
+  };
+  return labels[statusCategory] || statusCategory;
+}
