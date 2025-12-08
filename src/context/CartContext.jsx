@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useMemo } from 'react';
+import { createContext, useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { usePromotions } from '../hooks/usePromotions';
 
 export const CartContext = createContext();
@@ -241,11 +241,42 @@ export const CartProvider = ({ children }) => {
     return [];
   };
 
+  // ========== USEEFFECTS DE PROMOCIONES ==========
+
+  // Filtrar solo promociones activas (mismo filtro que getActivePromotions)
+  const activePromotions = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0];
+
+    return allPromotions.filter(promo => {
+      // Verificar isActive
+      if (!promo.isActive) return false;
+
+      // Verificar rango de fechas
+      if (promo.dateRange) {
+        const startDate = promo.dateRange.startDate?.split('T')[0];
+        const endDate = promo.dateRange.endDate?.split('T')[0];
+        if (startDate && today < startDate) return false;
+        if (endDate && today > endDate) return false;
+      }
+
+      // Verificar máximo de usos
+      if (promo.maxUses && promo.currentUses >= promo.maxUses) return false;
+
+      return true;
+    });
+  }, [allPromotions]);
+
+  // Calcular subtotal
+  const calculateSubtotal = useCallback(() => {
+    return cartItems.reduce((sum, item) => sum + (item.salePrice * item.quantity), 0);
+  }, [cartItems]);
+
   // Validar y calcular promociones aplicables
-  const checkApplicablePromotions = async () => {
+  const checkApplicablePromotions = useCallback(async () => {
     if (cartItems.length === 0 || activePromotions.length === 0) {
-      setAppliedPromotions([]);
-      setPromotionValidations({});
+      // Solo limpiar si NO están vacíos (prevenir setState innecesarios)
+      if (appliedPromotions.length > 0) setAppliedPromotions([]);
+      if (Object.keys(promotionValidations).length > 0) setPromotionValidations({});
       return;
     }
 
@@ -282,9 +313,14 @@ export const CartProvider = ({ children }) => {
       }
     }
 
-    setAppliedPromotions(validPromotions);
-    setPromotionValidations(validations);
-  };
+    // Solo actualizar si los valores realmente cambiaron (prevenir re-renders innecesarios)
+    if (JSON.stringify(validPromotions) !== JSON.stringify(appliedPromotions)) {
+      setAppliedPromotions(validPromotions);
+    }
+    if (JSON.stringify(validations) !== JSON.stringify(promotionValidations)) {
+      setPromotionValidations(validations);
+    }
+  }, [cartItems, activePromotions, selectedClient, calculateSubtotal]);
 
   // Calcular total de descuentos de promociones
   const calculatePromotionDiscount = () => {
@@ -293,35 +329,10 @@ export const CartProvider = ({ children }) => {
 
   // ========== FIN FUNCIONES DE PROMOCIONES ==========
 
-  // ========== USEEFFECTS DE PROMOCIONES ==========
-
-  // Filtrar solo promociones activas (mismo filtro que getActivePromotions)
-  const activePromotions = useMemo(() => {
-    const today = new Date().toISOString().split('T')[0];
-
-    return allPromotions.filter(promo => {
-      // Verificar isActive
-      if (!promo.isActive) return false;
-
-      // Verificar rango de fechas
-      if (promo.dateRange) {
-        const startDate = promo.dateRange.startDate?.split('T')[0];
-        const endDate = promo.dateRange.endDate?.split('T')[0];
-        if (startDate && today < startDate) return false;
-        if (endDate && today > endDate) return false;
-      }
-
-      // Verificar máximo de usos
-      if (promo.maxUses && promo.currentUses >= promo.maxUses) return false;
-
-      return true;
-    });
-  }, [allPromotions]);
-
   // Recalcular promociones cuando cambie el carrito o el cliente
   useEffect(() => {
     checkApplicablePromotions();
-  }, [cartItems, selectedClient, activePromotions]);
+  }, [checkApplicablePromotions]);
 
   // ========== FIN USEEFFECTS DE PROMOCIONES ==========
 
@@ -394,11 +405,6 @@ export const CartProvider = ({ children }) => {
     setAppliedPromotions([]);
     setPromotionValidations({});
     // Carrito permanece abierto después de vaciarse
-  };
-
-  // Calcular subtotal
-  const calculateSubtotal = () => {
-    return cartItems.reduce((sum, item) => sum + (item.salePrice * item.quantity), 0);
   };
 
   // Calcular descuento en dinero

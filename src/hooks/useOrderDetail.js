@@ -132,13 +132,14 @@ export function useOrderDetail(order, currentTab, onSave, onBeforeClose, employe
     if (typeof onBeforeClose === 'function') {
       onBeforeClose(handleBeforeClose);
     }
-    // IMPORTANTE: NO incluir handleBeforeClose en dependencias para evitar loop infinito
+    // IMPORTANTE: Array vacío [] porque solo necesitamos "registrar" la función UNA VEZ al montar
+    // NO incluir onBeforeClose ni handleBeforeClose en dependencias para evitar loop infinito
     // handleBeforeClose usa useCallback y refs, por lo que siempre tendrá valores actuales
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onBeforeClose]);
+  }, []);
 
   // Handler para cambiar el autor de la orden
-  const handleAuthorChange = (e) => {
+  const handleAuthorChange = useCallback((e) => {
     const selectedEmployeeId = e.target.value;
 
     if (!selectedEmployeeId || selectedEmployeeId === '') {
@@ -152,7 +153,7 @@ export function useOrderDetail(order, currentTab, onSave, onBeforeClose, employe
         setOrderAuthor(selectedEmployee.name);
       }
     }
-  };
+  }, [activeEmployees]);
 
   return {
     // Estados
