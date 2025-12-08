@@ -7,9 +7,12 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 ### Logros Alcanzados
 
 - **OrderForm.jsx**: Reducido de 1,368 líneas a 498 líneas (63.5% de reducción)
-- **18 nuevos archivos creados**: 4 utilidades, 5 hooks personalizados, 9 componentes
+- **OrderDetailView.jsx**: Reducido de 1,328 líneas a 454 líneas (66% de reducción)
+- **OrderHistory.jsx**: Reducido de 1,280 líneas a 120 líneas (90.6% de reducción)
+- **50+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares
 - **Bug crítico resuelto**: Infinite loop en validación de promociones
 - **Arquitectura modular**: Código organizado, testeable y reutilizable
+- **Reutilización de código**: Hooks y utilidades compartidas entre componentes
 
 ---
 
@@ -338,52 +341,377 @@ const OrderForm = ({ onSubmit, onCancel, initialData, employees, allOrders }) =>
 
 ---
 
+## Refactorización de OrderHistory.jsx
+
+### Resumen de la Refactorización
+
+**Archivo**: `src/components/OrderHistory.jsx`
+**Reducción**: 1,280 líneas → 120 líneas (90.6% de reducción)
+**Fecha**: Diciembre 2025
+**Commit**: Refactor OrderHistory.jsx: Modular architecture (1,280 → 120 lines)
+
+### Archivos Creados
+
+#### Utilidades Extendidas
+
+1. **`src/utils/payments/paymentHelpers.js`** - Extendido
+   - `getPaymentStatusLabel()` - Labels de estados de pago
+   - `formatCurrency()` - Formateo de moneda
+
+2. **`src/utils/orders/orderHelpers.js`** - Extendido
+   - `formatDate()` - Formateo de fechas con manejo de timezones
+   - `combineAndSortOrders()` - Combina y ordena órdenes por número
+   - `extractUniqueServices()` - Extrae servicios únicos
+   - `getAuthorInfo()` - Info del autor con employee matching
+   - `getServiceIcons()` - Agrupa y cuenta íconos de servicios
+
+3. **`src/utils/orders/statusHelpers.js`** - Extendido
+   - `getOrderStatusLabel()` - Labels de estados de órdenes
+
+#### Utilidades Nuevas
+
+4. **`src/utils/history/filterHelpers.js`** (200 líneas)
+   - `applyOrderFilters()` - Lógica completa de filtrado con 11 filtros
+   - `hasActiveFilter()` - Verifica si columna tiene filtro activo
+   - `getActiveFiltersCount()` - Cuenta filtros activos
+   - `clearColumnFilter()` - Limpia filtro específico
+
+5. **`src/utils/history/filterConstants.js`** (60 líneas)
+   - `INITIAL_FILTERS` - Estado inicial de filtros
+   - `STATUS_OPTIONS`, `PAYMENT_STATUS_OPTIONS`, `PAYMENT_METHOD_OPTIONS`
+   - `ITEMS_PER_PAGE` - Constante de paginación
+
+#### Hooks Personalizados
+
+1. **`src/hooks/useOrdersData.js`** (40 líneas)
+   - Suscripciones a Firebase (orders y employees)
+   - Retorna: `{ orders, employees, loading }`
+
+2. **`src/hooks/useOrderFilters.js`** (60 líneas)
+   - Maneja estado de filtros y órdenes filtradas
+   - Usa helpers de filterHelpers.js
+   - Retorna: `{ filters, filteredOrders, activeFiltersCount, handlers }`
+
+3. **`src/hooks/usePagination.js`** (50 líneas) - **GENÉRICO REUTILIZABLE**
+   - Hook de paginación para cualquier array de datos
+   - Retorna: `{ currentPage, totalPages, paginatedData, goToNextPage, goToPreviousPage }`
+
+4. **`src/hooks/useDropdownState.js`** (50 líneas)
+   - Maneja dropdown con click outside detection
+   - Lógica especial para date pickers
+   - Retorna: `{ openDropdown, toggleDropdown, dropdownRef }`
+
+5. **`src/hooks/useImageModal.js`** - **REUTILIZADO** (ya existente)
+   - Preview de imágenes
+   - Retorna: `{ selectedImage, openImageModal, closeImageModal }`
+
+#### Componentes UI
+
+1. **`src/components/history/FilterDropdown.jsx`** (280 líneas)
+   - Componente memoizado con 11 tipos de filtros
+   - Usa constantes de filterConstants.js
+
+2. **`src/components/history/ImagePreviewModal.jsx`** (20 líneas)
+   - Modal simple para preview de imagen
+
+3. **`src/components/history/EmptyState.jsx`** (15 líneas)
+   - Estado vacío reutilizable
+
+4. **`src/components/history/FilterControlsBar.jsx`** (60 líneas)
+   - Contador de resultados + botón limpiar filtros + paginación
+
+5. **`src/components/history/OrderRow.jsx`** (80 líneas)
+   - Fila individual de tabla con 11 columnas
+   - Usa formatters de utils
+
+6. **`src/components/history/OrdersTableHeader.jsx`** (300 líneas)
+   - Header con 11 columnas y botones de filtro
+
+7. **`src/components/history/OrdersTable.jsx`** (50 líneas)
+   - Wrapper de tabla completa
+
+### Componente Principal Refactorizado
+
+```javascript
+// src/components/OrderHistory.jsx (120 líneas)
+const OrderHistory = () => {
+  // Hooks de datos
+  const { orders, employees, loading } = useOrdersData();
+
+  // Combinar y ordenar órdenes
+  const allOrders = useMemo(() => combineAndSortOrders(orders), [orders]);
+
+  // Extraer servicios únicos
+  const uniqueServices = useMemo(() => extractUniqueServices(allOrders), [allOrders]);
+
+  // Hooks de filtros
+  const {
+    filters, filteredOrders, activeFiltersCount,
+    handleClearFilters, clearColumnFilter, toggleCheckbox, hasActiveFilter
+  } = useOrderFilters(allOrders, employees);
+
+  // Hook de paginación (GENÉRICO - reutilizable)
+  const { currentPage, totalPages, paginatedData, goToNextPage, goToPreviousPage }
+    = usePagination(filteredOrders, ITEMS_PER_PAGE);
+
+  // Hook de dropdown
+  const { openDropdown, toggleDropdown, dropdownRef } = useDropdownState();
+
+  // Hook de imagen (REUTILIZADO)
+  const { selectedImage, openImageModal, closeImageModal } = useImageModal();
+
+  return (
+    <div className="order-history">
+      <FilterControlsBar {...} />
+      <OrdersTable {...} />
+      <ImagePreviewModal {...} />
+    </div>
+  );
+};
+```
+
+### Patrones Clave Aplicados
+
+1. **Reutilización de Código**
+   - `formatCurrency()` y `formatDate()` de utils existentes
+   - `useImageModal` hook existente
+   - `getPaymentMethodLabel()` de paymentHelpers.js
+
+2. **Hooks Genéricos Reutilizables**
+   - `usePagination` puede usarse en cualquier lista paginada
+   - Separación clara entre lógica genérica y específica
+
+3. **Separación de Concerns**
+   - Lógica de filtrado en helpers puros (fácil de testear)
+   - Estado en hooks (encapsulado)
+   - UI en componentes pequeños (< 150 líneas)
+
+4. **Memoización Apropiada**
+   - `combineAndSortOrders` y `extractUniqueServices` con useMemo
+   - FilterDropdown con memo() para evitar re-renders
+
+### Lecciones Aprendidas
+
+1. **Filtros complejos son helpers puros**: La lógica de 11 filtros en un helper puro facilita testing
+2. **Hooks genéricos aumentan ROI**: usePagination es reutilizable en múltiples componentes
+3. **Componentes memoizados para listas**: FilterDropdown memo evita re-renders en cada cambio
+4. **Click outside con casos especiales**: Date pickers necesitan lógica especial
+
+---
+
 ## Próximos Archivos a Refactorizar
 
 Lista priorizada de componentes grandes que requieren refactorización:
 
-### 1. OrderDetailView.jsx (1,328 líneas)
-**Prioridad**: Alta
-**Complejidad**: Alta
-**Razón**: Componente crítico para visualización y edición de órdenes
+### ✅ 1. OrderDetailView.jsx - COMPLETADO
+**Reducción**: 1,328 → 454 líneas (66%)
+**Ver sección dedicada arriba**
 
-**Dominios a extraer**:
-- `utils/orders/orderHelpers.js` - Estado de órdenes, validaciones
-- `utils/orders/statusHelpers.js` - Lógica de cambio de estados
-- `hooks/useOrderDetail.js` - Estado de la orden
-- `hooks/useOrderActions.js` - Acciones (actualizar, eliminar, cambiar estado)
-- `components/orderDetail/OrderHeader.jsx`
-- `components/orderDetail/OrderServices.jsx`
-- `components/orderDetail/OrderTimeline.jsx`
-- `components/orderDetail/OrderActions.jsx`
+### ✅ 2. OrderHistory.jsx - COMPLETADO
+**Reducción**: 1,280 → 120 líneas (90.6%)
+**Ver sección dedicada arriba**
 
-### 2. OrderHistory.jsx (1,279 líneas)
-**Prioridad**: Alta
-**Complejidad**: Media-Alta
-**Razón**: Gestión compleja de filtros y estados
+### ✅ 3. CashRegister.jsx - COMPLETADO
+**Reducción**: 1,241 → 284 líneas (77.1%)
+**Ver sección dedicada abajo**
 
-**Dominios a extraer**:
-- `utils/history/filterHelpers.js` - Lógica de filtrado
-- `utils/history/sortHelpers.js` - Ordenamiento de órdenes
-- `hooks/useOrderFilters.js` - Estado de filtros
-- `hooks/useOrderSearch.js` - Búsqueda y filtrado
-- `components/history/FilterBar.jsx`
-- `components/history/OrdersList.jsx`
-- `components/history/OrderCard.jsx`
+---
 
-### 3. CashRegister.jsx (1,241 líneas)
-**Prioridad**: Media-Alta
-**Complejidad**: Alta
-**Razón**: Lógica financiera crítica
+## Refactorización de CashRegister.jsx
 
-**Dominios a extraer**:
-- `utils/cash/cashCalculations.js` - Cálculos de caja
-- `utils/cash/transactionHelpers.js` - Validación de transacciones
-- `hooks/useCashRegister.js` - Estado de caja
-- `hooks/useCashTransactions.js` - Transacciones
-- `components/cash/CashSummary.jsx`
-- `components/cash/TransactionList.jsx`
-- `components/cash/CashActions.jsx`
+### Resumen de la Refactorización
+
+**Archivo**: `src/components/CashRegister.jsx`
+**Reducción**: 1,241 líneas → 284 líneas (77.1% de reducción)
+**Fecha**: Diciembre 2025
+**Commit**: Refactor CashRegister.jsx: Modular architecture (1,241 → 284 lines)
+
+### Archivos Creados
+
+#### Utilidades
+
+1. **`src/utils/cash/denominationHelpers.js`** (85 líneas)
+   - `DENOMINACIONES_BILLETES`, `DENOMINACIONES_MONEDAS` - Constantes
+   - `BILLETES_INITIAL_STATE`, `MONEDAS_INITIAL_STATE` - Estados iniciales
+   - `calcularTotalBilletes()`, `calcularTotalMonedas()` - Cálculos de denominaciones
+   - `calcularEfectivoContado()` - Total de efectivo
+
+2. **`src/utils/cash/cashCalculations.js`** (200 líneas)
+   - `calculateOrdersSummary()` - Resumen de ingresos por método de pago
+   - `calcularTotalTarjeta()`, `calcularTotalTransferencias()` - Totales de pagos electrónicos
+   - `calcularDiferencias()` - Diferencias entre conteo y sistema
+   - `calcularEfectivoDisponible()` - Efectivo disponible actual
+   - `calcularIngresosAcumulados()` - Ingresos acumulados del día
+   - `calcularGananciaDia()` - Ganancia total
+   - `calcularDineroEnSistema()` - Dinero registrado en sistema
+   - `calcularEfectivoFinal()` - Efectivo final para continuidad
+
+3. **`src/utils/cash/closureHelpers.js`** (250 líneas)
+   - `getLastClosureToday()` - Obtiene último corte del día
+   - `getDateRange()` - Rango de fechas del día
+   - `getTotalRetirosAcumulados()` - Total de retiros acumulados
+   - `getTotalGastosAcumulados()` - Total de gastos acumulados
+   - `buildClosureData()` - Construye objeto completo de cierre
+   - `validateClosureData()` - Valida datos antes de cerrar
+
+4. **`src/utils/expenses/expenseHelpers.js`** (90 líneas)
+   - `EXPENSE_CATEGORIES` - Constante de categorías
+   - `getCategoryIcon()` - Íconos de categorías
+   - `getCategoryLabel()` - Labels de categorías
+   - `calculateTotalExpenses()` - Total de gastos
+   - `calculateTotalWithdrawals()` - Total de retiros
+   - `generateTransactionId()` - Genera IDs únicos
+
+#### Hooks Personalizados
+
+1. **`src/hooks/useCashRegisterData.js`** (40 líneas)
+   - Suscripciones a Firebase (employees, closures)
+   - Retorna: `{ employees, closures, loading }`
+
+2. **`src/hooks/useCashCounting.js`** (200 líneas)
+   - Estado completo de conteo de dinero
+   - Handlers para billetes (increment/decrement)
+   - Handlers para monedas (increment/decrement)
+   - Handlers para cobros con tarjeta (agregar/eliminar)
+   - Handlers para transferencias (agregar/eliminar)
+   - Funciones de reset y carga de datos
+   - Retorna: `{ dineroInicial, billetes, monedas, cobrosTarjeta, transferencias, handlers... }`
+
+3. **`src/hooks/useExpensesManagement.js`** (120 líneas) - **GENÉRICO REUTILIZABLE**
+   - Manejo de gastos con modal y confirmación
+   - `handleAddExpense()`, `handleDeleteExpense()`
+   - Control de modales y diálogos
+   - Retorna: `{ expenses, isExpenseModalOpen, confirmDialog, handlers... }`
+
+4. **`src/hooks/useWithdrawalsManagement.js`** (120 líneas) - **GENÉRICO REUTILIZABLE**
+   - Manejo de retiros con modal y confirmación
+   - `handleAddWithdrawal()`, `handleDeleteWithdrawal()`
+   - Control de modales y diálogos
+   - Retorna: `{ withdrawals, isWithdrawalModalOpen, confirmDialog, handlers... }`
+
+5. **`src/hooks/useCashRegisterCalculations.js`** (180 líneas)
+   - Todos los cálculos derivados con useMemo
+   - Optimizado para evitar re-renders innecesarios
+   - Retorna: `{ summary, efectivoContado, diferencias, resultados... }`
+
+6. **`src/hooks/useCashRegisterClosure.js`** (180 líneas)
+   - Lógica completa de cierre de caja
+   - Validación de datos
+   - Construcción y guardado de closure
+   - Retorna: `{ selectedEmployee, notes, handleCloseCashRegister, isCloseButtonDisabled... }`
+
+#### Componentes UI
+
+1. **`src/components/cash/FinancialSummary.jsx`** (110 líneas)
+   - Grid de 8 tarjetas de resumen
+   - Ingresos acumulados, efectivo disponible, retiros, gastos
+   - Tarjeta, transferencia, órdenes, productos
+
+2. **`src/components/cash/IncomeCounting.jsx`** (270 líneas)
+   - Sección completa de conteo de ingresos
+   - Input de dinero inicial
+   - Contadores de billetes y monedas con +/-
+   - Lista de cobros con tarjeta (débito/crédito)
+   - Lista de transferencias
+   - Totales por método de pago
+
+3. **`src/components/cash/SystemComparison.jsx`** (70 líneas)
+   - Tabla comparativa conteo vs sistema
+   - Diferencias por método de pago
+   - Alert de diferencia total
+
+4. **`src/components/cash/ResultsPanel.jsx`** (70 líneas)
+   - Tarjetas de resultados finales
+   - Total ingresos, gastos totales, ganancia del día
+
+5. **`src/components/cash/WithdrawalsList.jsx`** (90 líneas)
+   - Lista de retiros del periodo
+   - Botones agregar y eliminar
+   - Estado vacío con CTA
+
+6. **`src/components/cash/ExpensesList.jsx`** (95 líneas)
+   - Lista de gastos del periodo
+   - Íconos por categoría
+   - Botones agregar y eliminar
+   - Estado vacío con CTA
+
+7. **`src/components/cash/ClosureSection.jsx`** (85 líneas)
+   - Selector de empleado
+   - Textarea de notas (500 chars)
+   - Checkbox de habilitación sin validaciones
+   - Botón de cierre con validación
+
+### Componente Principal Refactorizado
+
+```javascript
+// src/components/CashRegister.jsx (284 líneas)
+const CashRegister = ({ orders, dateFilter }) => {
+  // Hooks de datos
+  const { employees, closures } = useCashRegisterData();
+
+  // Hooks de estado
+  const counting = useCashCounting();
+  const expensesManager = useExpensesManagement();
+  const withdrawalsManager = useWithdrawalsManagement();
+
+  // Auto-save (draft)
+  const { isPending, isError, isSuccess, debouncedSave } = useCashRegisterDraft(draftData);
+
+  // Cálculos derivados
+  const calculations = useCashRegisterCalculations({ orders, closures, counting, ... });
+
+  // Lógica de cierre
+  const closure = useCashRegisterClosure({ employees, orders, calculations, ... });
+
+  return (
+    <div className="cash-register">
+      <FinancialSummary {...calculations} />
+      <IncomeCounting {...counting} {...calculations} />
+      <SystemComparison {...calculations} />
+      <ResultsPanel {...calculations} />
+      <WithdrawalsList {...withdrawalsManager} />
+      <ExpensesList {...expensesManager} />
+      <ClosureSection {...closure} />
+      {/* Modales y confirmaciones */}
+    </div>
+  );
+};
+```
+
+### Patrones Clave Aplicados
+
+1. **Separación de Concerns**
+   - Utilidades puras para cálculos (fácil de testear)
+   - Hooks para estado y efectos (encapsulado)
+   - Componentes para UI (presentación pura)
+
+2. **Hooks Genéricos Reutilizables**
+   - `useExpensesManagement` y `useWithdrawalsManagement` pueden usarse en otros módulos
+   - Patrón consistente para gestión de listas con CRUD
+
+3. **Optimización de Performance**
+   - Uso extensivo de `useMemo` para cálculos derivados
+   - `useCallback` para handlers que se pasan a componentes
+   - Evita re-renders innecesarios
+
+4. **Validación Robusta**
+   - Validación de datos antes de cierre
+   - Opción de bypass con checkbox explícito
+   - Mensajes de error claros y específicos
+
+5. **Auto-guardado con Draft**
+   - Integración con hook existente `useCashRegisterDraft`
+   - Guardado debounced para mejor UX
+   - Recuperación de datos al montar
+
+### Lecciones Aprendidas
+
+1. **Cálculos complejos en hooks dedicados**: Un hook de cálculos con múltiples `useMemo` es más mantenible
+2. **Hooks genéricos aumentan ROI**: Los hooks de gastos/retiros son reutilizables
+3. **Validación centralizada**: Helper de validación permite testing fácil
+4. **Estado distribuido pero coordinado**: Múltiples hooks que se coordinan en el componente padre
+
+---
 
 ### 4. PromotionForm.jsx (1,226 líneas)
 **Prioridad**: Media
@@ -395,9 +723,9 @@ Lista priorizada de componentes grandes que requieren refactorización:
 - `utils/promotions/promotionTypes.js` - Tipos y configuraciones
 - `hooks/usePromotionForm.js` - Estado del formulario
 - `hooks/usePromotionPreview.js` - Preview de promoción
-- `components/promotions/PromotionTypeSelector.jsx`
-- `components/promotions/PromotionRules.jsx`
-- `components/promotions/PromotionPreview.jsx`
+- `components/promotions/PromotionTypeSelector.jsx` - Selector de tipo
+- `components/promotions/PromotionRules.jsx` - Reglas de promoción
+- `components/promotions/PromotionPreview.jsx` - Vista previa
 
 ### 5. OrderFormMobile.jsx (1,140 líneas)
 **Prioridad**: Baja (posiblemente puede reutilizar del refactor de OrderForm.jsx)
@@ -1176,10 +1504,12 @@ export function calculateSubtotal(cart) {
 
 ## Próximos Pasos Sugeridos
 
-1. **Continuar refactorizando componentes grandes** siguiendo este guía
-   - Empezar con OrderDetailView.jsx
-   - Seguir con OrderHistory.jsx
-   - Luego CashRegister.jsx
+1. **Continuar refactorizando componentes grandes** siguiendo esta guía
+   - ✅ OrderDetailView.jsx - COMPLETADO
+   - ✅ OrderHistory.jsx - COMPLETADO
+   - 🔄 CashRegister.jsx - Plan aprobado, pendiente implementación
+   - ⏳ PromotionForm.jsx (1,226 líneas)
+   - ⏳ OrderFormMobile.jsx (1,140 líneas)
 
 2. **Crear tests unitarios** para utilidades y hooks
    - Usar Vitest (ya incluido en el proyecto)
