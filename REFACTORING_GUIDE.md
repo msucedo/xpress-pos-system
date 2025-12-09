@@ -1986,7 +1986,7 @@ export function calculateSubtotal(cart) {
 
 ## Resumen de Logros y Métricas Finales
 
-### Componentes Refactorizados (7 de 7) ✅
+### Componentes Refactorizados (8 de 8) ✅
 
 Todos los componentes de la lista original han sido completados exitosamente:
 
@@ -1999,21 +1999,22 @@ Todos los componentes de la lista original han sido completados exitosamente:
 | 5 | PromotionForm.jsx | 1,226 | 195 | 1,031 | 84.1% | 24 | 5 | 4 |
 | 6 | OrderFormMobile.jsx | 1,140 | 586 | 554 | 48.6% | 0 | 0 (reutiliza) | 0 (reutiliza) |
 | 7 | InventoryForm.jsx | 406 | 189 | 217 | 53.4% | 12 | 3 | 4 |
-| **TOTAL** | **7,989** | **2,326** | **5,663** | **70.9%** | **81** | **30 únicos** | **21 únicos** |
+| 8 | Cart.jsx | 600 | 241 | 359 | 59.8% | 15 | 5 | 3 |
+| **TOTAL** | **8,589** | **2,567** | **6,022** | **70.1%** | **96** | **35 únicos** | **24 únicos** |
 
 ### Métricas de Impacto
 
 **Reducción de Código**:
-- Líneas totales reducidas: **5,663 líneas** (70.9%)
-- Promedio de reducción por componente: 809 líneas
+- Líneas totales reducidas: **6,022 líneas** (70.1%)
+- Promedio de reducción por componente: 753 líneas
 - Mayor reducción: OrderHistory.jsx (90.6%)
 - Menor reducción: OrderFormMobile.jsx (48.6%, pero con 100% de reutilización)
 
 **Modularización**:
-- Archivos nuevos creados: **81 archivos**
-- Hooks reutilizables: **30 hooks únicos** (varios compartidos entre componentes)
-- Utilidades reutilizables: **21 archivos de utils**
-- Componentes UI: **45+ componentes pequeños** (< 150 líneas cada uno)
+- Archivos nuevos creados: **96 archivos**
+- Hooks reutilizables: **35 hooks únicos** (varios compartidos entre componentes)
+- Utilidades reutilizables: **24 archivos de utils**
+- Componentes UI: **52+ componentes pequeños** (< 150 líneas cada uno)
 
 **Reutilización de Código**:
 - OrderFormMobile reutiliza **100% de hooks y utils** de OrderForm
@@ -2332,6 +2333,15 @@ const itemPromotionMap = useMemo(() => {
 4. **Componentes por sección**: Cada sección del formulario es un componente independiente
 5. **Constantes centralizadas**: PRODUCT_CATEGORIES en utils permite consistencia en toda la app
 6. **Data builder pattern**: prepareProductData convierte strings a números de forma confiable
+
+#### Cart.jsx
+1. **Hook crítico useSaleProcessing**: Simplificó 135 líneas de handlePaymentConfirm en un hook reutilizable
+2. **Sistema de impresión modular**: printingHelpers.js centraliza lógica de cola vs Bluetooth (fácil de testear)
+3. **Error handling user-friendly**: errorHandlers.js parsea errores técnicos a mensajes comprensibles
+4. **Flow state management**: useCartPaymentFlow maneja transiciones carrito ↔ pago con animaciones
+5. **Keyboard management**: useCartKeyboard centraliza ESC y auto-focus (reutilizable en otros drawers)
+6. **Payment data builder**: prepareSaleData() garantiza formato consistente para Firebase
+7. **7 componentes UI pequeños**: Cada sección del carrito es independiente y testeable
 
 ---
 
