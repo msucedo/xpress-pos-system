@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import { validatePromotion } from '../services/firebaseService';
+import { calculateSubtotal } from '../utils/promotions/promotionCalculations';
 
 /**
  * Hook para manejar cálculo y validación de promociones aplicables al carrito
@@ -19,10 +21,6 @@ export function usePromotionsCalculation(cart, clientPhone, activePromotions) {
       setPromotionValidations({});
       return;
     }
-
-    // Importar dinámicamente la función de validación
-    const { validatePromotion } = await import('../services/firebaseService');
-    const { calculateSubtotal } = await import('../utils/promotions/promotionCalculations');
 
     const subtotal = calculateSubtotal(cart);
 

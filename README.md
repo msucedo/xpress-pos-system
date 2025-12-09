@@ -3,6 +3,10 @@ xpress
 // OBJETIVO: MEJORAR EXPERIENCIA DE USUARIO
 
 // WIP
+-[]remover script de migration al iniciar la app
+-[]actualizar readme de proyecto
+
+
 -[FIX]verdad absoluta del conteo de efectivo
 -[]reemplazar ordenes por calzados?
 -[]habilitar campañas, tab campañas

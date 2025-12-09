@@ -15,8 +15,8 @@ export default defineConfig({
     // Configuración global
     globals: true,
 
-    // Archivos de setup (si necesitamos configurar algo antes de los tests)
-    setupFiles: [],
+    // Archivos de setup (configurar mocks de Firebase y servicios externos)
+    setupFiles: ['./vitest.setup.js'],
 
     // Cobertura de código
     coverage: {
@@ -24,11 +24,17 @@ export default defineConfig({
       reporter: ['text', 'html', 'json'],
       include: [
         'src/utils/promotions/promotionCalculations.js',
+        'src/utils/promotions/promotionHelpers.js',
         'src/utils/cart/cartHelpers.js',
         'src/utils/employees/employeeHelpers.js',
+        'src/utils/cash/cashCalculations.js',
+        'src/utils/history/filterHelpers.js',
         'src/hooks/usePagination.js',
         'src/hooks/useAutoScroll.js',
-        'src/hooks/useDropdownState.js'
+        'src/hooks/useDropdownState.js',
+        'src/hooks/useCartManagement.js',
+        'src/hooks/useOrderFormData.js',
+        'src/hooks/usePromotionsCalculation.js'
       ],
       exclude: [
         'src/**/*.test.{js,jsx}',
