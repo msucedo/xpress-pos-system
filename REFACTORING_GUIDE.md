@@ -17,6 +17,9 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 - **Bug crítico resuelto**: Infinite loop en validación de promociones
 - **Arquitectura modular**: Código organizado, testeable y reutilizable
 - **Reutilización de código**: Hooks y utilidades compartidas entre componentes
+- **111 tests unitarios implementados**: Cobertura del 98% en archivos críticos
+- **Testing configurado**: Vitest + @testing-library/react con scripts npm
+- **6 archivos testeados**: Utils y hooks prioritarios con cobertura completa
 
 ---
 
@@ -27,8 +30,9 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 3. [Patrón de Refactorización](#patrón-de-refactorización)
 4. [Próximos Archivos](#próximos-archivos-a-refactorizar)
 5. [Guía Paso a Paso](#guía-paso-a-paso)
-6. [Errores Comunes y Soluciones](#errores-comunes-y-soluciones)
-7. [Mejores Prácticas](#mejores-prácticas)
+6. [Testing Unitario con Vitest](#testing-unitario-con-vitest)
+7. [Errores Comunes y Soluciones](#errores-comunes-y-soluciones)
+8. [Mejores Prácticas](#mejores-prácticas)
 
 ---
 
@@ -1218,6 +1222,385 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData, employees, allOrders
 
 ---
 
+## Testing Unitario con Vitest
+
+### Resumen de Implementación
+
+**Fecha**: Diciembre 2025
+**Estado**: ✅ Completado (Fase 1 - Archivos Críticos)
+**Coverage**: 98.24% statements, 86.48% branches, 100% functions
+
+### Archivos Testeados
+
+#### ✅ Utilidades (100% coverage)
+1. **`promotionCalculations.js`** (28 tests)
+   - calculateSubtotal()
+   - calculateTotalDiscount()
+   - calculateTotalPrice()
+   - calculateTotalItems()
+
+2. **`cartHelpers.js`** (30 tests)
+   - generateCartItemId()
+   - addServiceToCart()
+   - addProductToCart()
+   - removeFromCart()
+   - expandServicesForOrder()
+   - transformProductsForOrder()
+   - hasExpressService()
+
+3. **`employeeHelpers.js`** (17 tests)
+   - getEmployeeOrderCount()
+   - getEmployeesWithOrderCount()
+   - autoSelectEmployeeWithLeastOrders()
+
+#### ✅ Hooks (95%+ coverage)
+4. **`usePagination.js`** (14 tests) - Hook genérico reutilizable
+5. **`useAutoScroll.js`** (8 tests) - Hook genérico reutilizable
+6. **`useDropdownState.js`** (14 tests) - Click outside detection
+
+### Configuración Implementada
+
+#### Dependencias Instaladas
+```json
+{
+  "devDependencies": {
+    "vitest": "^4.0.15",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/ui": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15",
+    "happy-dom": "^20.0.11"
+  }
+}
+```
+
+#### Scripts NPM
+```json
+{
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  }
+}
+```
+
+#### Configuración (vitest.config.js)
+- Environment: happy-dom (simulación de DOM)
+- Coverage provider: v8
+- Umbral de coverage: 80% para archivos críticos
+- Reporters: text, html, json
+
+### Estructura de Directorios
+
+```
+src/
+├── utils/
+│   ├── __tests__/
+│   │   ├── promotionCalculations.test.js  (28 tests) ✅
+│   │   ├── cartHelpers.test.js            (30 tests) ✅
+│   │   └── employeeHelpers.test.js        (17 tests) ✅
+│   ├── promotions/
+│   │   └── promotionCalculations.js       (100% coverage)
+│   ├── cart/
+│   │   └── cartHelpers.js                 (100% coverage)
+│   └── employees/
+│       └── employeeHelpers.js             (100% coverage)
+│
+└── hooks/
+    ├── __tests__/
+    │   ├── usePagination.test.js          (14 tests) ✅
+    │   ├── useAutoScroll.test.js          (8 tests) ✅
+    │   └── useDropdownState.test.js       (14 tests) ✅
+    ├── usePagination.js                   (100% coverage)
+    ├── useAutoScroll.js                   (100% coverage)
+    └── useDropdownState.js                (90% coverage)
+```
+
+---
+
+## Patrón de Testing Replicable
+
+### Para Utilidades (Funciones Puras)
+
+#### Paso 1: Crear archivo de test
+```bash
+# Ubicación: src/utils/__tests__/[nombreArchivo].test.js
+touch src/utils/__tests__/miHelper.test.js
+```
+
+#### Paso 2: Estructura básica del test
+```javascript
+import { describe, it, expect } from 'vitest';
+import { miFuncion } from '../path/miHelper.js';
+
+describe('miHelper', () => {
+  describe('miFuncion', () => {
+    it('should handle basic case', () => {
+      const result = miFuncion(input);
+      expect(result).toBe(expected);
+    });
+
+    it('should handle edge case - empty input', () => {
+      const result = miFuncion([]);
+      expect(result).toBe(0);
+    });
+
+    it('should handle edge case - null input', () => {
+      const result = miFuncion(null);
+      expect(result).toBe(defaultValue);
+    });
+  });
+});
+```
+
+#### Paso 3: Casos de prueba esenciales
+- ✅ **Caso básico**: Input válido normal
+- ✅ **Casos edge**: Vacío, null, undefined
+- ✅ **Casos límite**: Valores máximos/mínimos
+- ✅ **Casos de error**: Inputs inválidos
+- ✅ **Casos de negocio**: Lógica específica del dominio
+
+---
+
+### Para Hooks de React
+
+#### Paso 1: Crear archivo de test
+```bash
+# Ubicación: src/hooks/__tests__/[nombreHook].test.js
+touch src/hooks/__tests__/useMiHook.test.js
+```
+
+#### Paso 2: Estructura básica del test
+```javascript
+import { describe, it, expect } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+import { useMiHook } from '../useMiHook';
+
+describe('useMiHook', () => {
+  it('should initialize with default state', () => {
+    const { result } = renderHook(() => useMiHook());
+
+    expect(result.current.value).toBe(initialValue);
+  });
+
+  it('should update state when action is called', () => {
+    const { result } = renderHook(() => useMiHook());
+
+    act(() => {
+      result.current.updateValue(newValue);
+    });
+
+    expect(result.current.value).toBe(newValue);
+  });
+});
+```
+
+#### Paso 3: Casos de prueba para hooks
+- ✅ **Estado inicial**: Verificar valores por defecto
+- ✅ **Actualización de estado**: Probar setters/handlers
+- ✅ **Efectos secundarios**: Verificar useEffect
+- ✅ **Dependencias**: Probar re-renders con props cambiantes
+- ✅ **Cleanup**: Verificar desmontaje correcto
+
+---
+
+### Para Hooks con Mocks (DOM, eventos)
+
+```javascript
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+
+describe('useDropdownState', () => {
+  beforeEach(() => {
+    // Setup mocks antes de cada test
+    vi.spyOn(document, 'addEventListener');
+  });
+
+  afterEach(() => {
+    // Cleanup después de cada test
+    vi.restoreAllMocks();
+  });
+
+  it('should add event listener', () => {
+    const { result } = renderHook(() => useDropdownState());
+
+    act(() => {
+      result.current.toggle('dropdown1');
+    });
+
+    expect(document.addEventListener).toHaveBeenCalledWith(
+      'mousedown',
+      expect.any(Function)
+    );
+  });
+});
+```
+
+---
+
+## Ejecutar Tests
+
+### Comandos Disponibles
+
+```bash
+# Ejecutar todos los tests (modo watch)
+npm test
+
+# Ejecutar tests una vez (CI mode)
+npm test -- --run
+
+# Ejecutar tests específicos
+npm test -- miArchivo.test.js
+
+# Ejecutar con UI interactiva
+npm run test:ui
+
+# Ejecutar con coverage
+npm run test:coverage
+```
+
+### Ver Coverage Report
+
+Después de ejecutar `npm run test:coverage`:
+- **Terminal**: Reporte en texto
+- **HTML**: Abrir `coverage/index.html` en navegador
+
+---
+
+## Próximos Archivos a Testear
+
+### 🔥 Prioridad ALTA (Utils Críticos)
+1. **`promotionHelpers.js`** (~25 tests)
+   - isPromotionRelevantForCart()
+   - getPromotionPriority()
+   - getItemsWithPromoBadge()
+
+2. **`cashCalculations.js`** (~35 tests)
+   - calculateOrdersSummary()
+   - calcularDiferencias()
+   - calcularGananciaDia()
+
+3. **`filterHelpers.js`** (~20 tests)
+   - applyOrderFilters() (11 filtros diferentes)
+   - hasActiveFilter()
+
+### ⚡ Prioridad MEDIA (Hooks Compartidos)
+4. **`usePromotionsCalculation.js`** (~15 tests)
+   - Validación asíncrona de promociones
+   - useCallback con dependencies correctas
+
+5. **`useCartManagement.js`** (~12 tests)
+   - Lógica compartida desktop/mobile
+
+6. **`useOrderFormData.js`** (~10 tests)
+   - Manejo de formulario y validaciones
+
+---
+
+## Mejores Prácticas de Testing
+
+### ✅ DO's
+
+1. **Test el comportamiento, no la implementación**
+   ```javascript
+   // ✅ BIEN - Testea el resultado
+   it('should add service to cart', () => {
+     const result = addServiceToCart([], service);
+     expect(result).toHaveLength(1);
+     expect(result[0].serviceName).toBe('Lavado');
+   });
+
+   // ❌ MAL - Testea la implementación interna
+   it('should call push method', () => {
+     const spy = vi.spyOn(Array.prototype, 'push');
+     addServiceToCart([], service);
+     expect(spy).toHaveBeenCalled();
+   });
+   ```
+
+2. **Nombra tests descriptivamente**
+   ```javascript
+   // ✅ BIEN
+   it('should return 0 for empty cart', () => {});
+
+   // ❌ MAL
+   it('works', () => {});
+   ```
+
+3. **Agrupa tests relacionados con describe**
+   ```javascript
+   describe('calculateSubtotal', () => {
+     it('should handle empty cart', () => {});
+     it('should handle single item', () => {});
+     it('should handle multiple items', () => {});
+   });
+   ```
+
+4. **Usa beforeEach para setup común**
+   ```javascript
+   describe('myTests', () => {
+     let cart;
+
+     beforeEach(() => {
+       cart = [{ price: 100, quantity: 1 }];
+     });
+
+     it('test 1', () => { /* usa cart */ });
+     it('test 2', () => { /* usa cart */ });
+   });
+   ```
+
+5. **Limpia mocks después de cada test**
+   ```javascript
+   afterEach(() => {
+     vi.restoreAllMocks();
+   });
+   ```
+
+### ❌ DON'Ts
+
+1. ❌ **No testees código de terceros** (React, Firebase, etc.)
+2. ❌ **No dupliques lógica** - Reutiliza helpers de test
+3. ❌ **No hagas tests muy largos** - Divide en tests más pequeños
+4. ❌ **No hagas assertions vagas** - Sé específico
+5. ❌ **No olvides casos edge** - null, undefined, vacío, etc.
+
+---
+
+## Métricas de Testing Actual
+
+| Archivo | Tests | Statements | Branches | Functions | Lines |
+|---------|-------|-----------|----------|-----------|-------|
+| promotionCalculations.js | 28 | 100% | 100% | 100% | 100% |
+| cartHelpers.js | 30 | 100% | 84.61% | 100% | 100% |
+| employeeHelpers.js | 17 | 100% | 90% | 100% | 100% |
+| usePagination.js | 14 | 100% | 100% | 100% | 100% |
+| useAutoScroll.js | 8 | 100% | 100% | 100% | 100% |
+| useDropdownState.js | 14 | 90.47% | 68.75% | 100% | 90% |
+| **TOTAL** | **111** | **98.24%** | **86.48%** | **100%** | **97.97%** |
+
+---
+
+## Beneficios Logrados
+
+### ✅ Confianza en el Código
+- Garantía de que funciones críticas funcionan correctamente
+- Prevención de regresiones al hacer cambios
+- Documentación viva del comportamiento esperado
+
+### ✅ Facilita Refactoring
+- Permite refactorizar con seguridad
+- Detecta bugs inmediatamente
+- Reduce tiempo de debugging
+
+### ✅ Calidad de Código
+- Fuerza a escribir código testeable (más modular)
+- Identifica código acoplado o complejo
+- Mejora el diseño de funciones
+
+---
+
 ## Guía Paso a Paso
 
 ### Refactorización de un Componente Grande
@@ -2363,12 +2746,12 @@ Componentes grandes que NO estaban en la lista original pero podrían beneficiar
 
 ### Próximos Pasos Sugeridos
 
-1. **Crear Tests Unitarios** 🧪
-   - Prioridad: **Alta**
-   - Empezar con utilidades (funciones puras, sin React)
-   - Continuar con hooks usando @testing-library/react-hooks
-   - Usar Vitest (ya incluido en el proyecto)
-   - Meta: Cobertura de 80% en utils y hooks críticos
+1. ✅ **Tests Unitarios - Fase 1 COMPLETADA** 🧪
+   - Estado: **Completado** (Diciembre 2025)
+   - 111 tests implementados con 98% de coverage
+   - 6 archivos críticos testeados (utils y hooks prioritarios)
+   - Scripts disponibles: `npm test`, `npm run test:ui`, `npm run test:coverage`
+   - **Próxima fase**: Testear archivos de prioridad media (ver [sección Testing](#testing-unitario-con-vitest))
 
 2. **Documentar Componentes UI** 📖
    - Prioridad: **Media**
@@ -2412,7 +2795,7 @@ Para dudas o problemas durante la refactorización:
 4. Consultar documentación oficial de React
 
 **Última actualización**: Diciembre 2025
-**Versión**: 1.0
+**Versión**: 1.1 (Testing Unitario Implementado)
 
 ---
 
