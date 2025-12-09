@@ -1986,7 +1986,7 @@ export function calculateSubtotal(cart) {
 
 ## Resumen de Logros y Métricas Finales
 
-### Componentes Refactorizados (6 de 6) ✅
+### Componentes Refactorizados (7 de 7) ✅
 
 Todos los componentes de la lista original han sido completados exitosamente:
 
@@ -1998,21 +1998,22 @@ Todos los componentes de la lista original han sido completados exitosamente:
 | 4 | CashRegister.jsx | 1,241 | 284 | 957 | 77.1% | 11 | 6 | 4 |
 | 5 | PromotionForm.jsx | 1,226 | 195 | 1,031 | 84.1% | 24 | 5 | 4 |
 | 6 | OrderFormMobile.jsx | 1,140 | 586 | 554 | 48.6% | 0 | 0 (reutiliza) | 0 (reutiliza) |
-| **TOTAL** | **7,583** | **2,137** | **5,446** | **71.8%** | **69** | **27 únicos** | **17 únicos** |
+| 7 | InventoryForm.jsx | 406 | 189 | 217 | 53.4% | 12 | 3 | 4 |
+| **TOTAL** | **7,989** | **2,326** | **5,663** | **70.9%** | **81** | **30 únicos** | **21 únicos** |
 
 ### Métricas de Impacto
 
 **Reducción de Código**:
-- Líneas totales reducidas: **5,446 líneas** (71.8%)
-- Promedio de reducción por componente: 907 líneas
+- Líneas totales reducidas: **5,663 líneas** (70.9%)
+- Promedio de reducción por componente: 809 líneas
 - Mayor reducción: OrderHistory.jsx (90.6%)
 - Menor reducción: OrderFormMobile.jsx (48.6%, pero con 100% de reutilización)
 
 **Modularización**:
-- Archivos nuevos creados: **70+ archivos**
-- Hooks reutilizables: **27 hooks** (varios compartidos entre componentes)
-- Utilidades reutilizables: **17 archivos de utils**
-- Componentes UI: **40+ componentes pequeños** (< 150 líneas cada uno)
+- Archivos nuevos creados: **81 archivos**
+- Hooks reutilizables: **30 hooks únicos** (varios compartidos entre componentes)
+- Utilidades reutilizables: **21 archivos de utils**
+- Componentes UI: **45+ componentes pequeños** (< 150 líneas cada uno)
 
 **Reutilización de Código**:
 - OrderFormMobile reutiliza **100% de hooks y utils** de OrderForm
@@ -2324,6 +2325,14 @@ const itemPromotionMap = useMemo(() => {
 4. **PaymentScreen reutilizable**: Un componente puede funcionar inline o pantalla completa
 5. **Testing eficiente**: Un bug fix en hooks beneficia ambas versiones automáticamente
 
+#### InventoryForm.jsx
+1. **Formulario CRUD estándar**: Patrón de 3 hooks (form, validation, submit) aplicable a todos los CRUDs
+2. **Validación async/sync separada**: useInventoryValidation combina validaciones síncronas (utils) con async (Firebase)
+3. **Cálculos como utilidades**: calculateProfit y generateEAN13 son funciones puras 100% testeables
+4. **Componentes por sección**: Cada sección del formulario es un componente independiente
+5. **Constantes centralizadas**: PRODUCT_CATEGORIES en utils permite consistencia en toda la app
+6. **Data builder pattern**: prepareProductData convierte strings a números de forma confiable
+
 ---
 
 ## Recomendaciones para Futuras Refactorizaciones
@@ -2336,7 +2345,6 @@ Componentes grandes que NO estaban en la lista original pero podrían beneficiar
 |------------|--------|-----------|-------------|-------|
 | Cart.jsx | 600 | Baja | Media | Ya usa `useCart` hook (parcialmente refactorizado) |
 | CashClosureDetail.jsx | 558 | Baja | Baja | Solo helpers inline, componente view-only |
-| InventoryForm.jsx | 406 | Media | Media | Similar a PromotionForm, CRUD de productos |
 | EmpleadoItem.jsx | 368 | Baja | Baja | Vista de detalle, poco estado |
 | PaymentScreen.jsx | 356 | Baja | Baja | Usado por OrderFormMobile, funciona bien |
 | ClientItem.jsx | 352 | Baja | Baja | Vista de detalle, poco estado |
