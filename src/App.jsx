@@ -27,9 +27,6 @@ import { CartProvider } from './context/CartContext';
 import Notification from './components/Notification';
 import { useWhatsAppNotifications } from './hooks/useWhatsAppNotifications';
 import { useBluetoothConnectionMonitor } from './hooks/useBluetoothConnectionMonitor';
-// Importar scripts de migración para exponerlos en window
-import './utils/migrateEmployees';
-import './utils/migrateOrderTokens';
 import './styles/global.css';
 
 function AppContent() {
