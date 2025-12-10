@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { createSale } from '../services/salesService';
+import { incrementPromotionUsage } from '../services/firebaseService';
 import { prepareSaleData } from '../utils/sales/saleDataBuilder';
 import { handleSalePrinting } from '../utils/sales/printingHelpers';
 import { parseSaleError } from '../utils/sales/errorHandlers';
@@ -120,8 +121,6 @@ async function incrementPromotionsUsage(appliedPromotions, selectedClient) {
   if (!appliedPromotions || appliedPromotions.length === 0) {
     return;
   }
-
-  const { incrementPromotionUsage } = await import('../services/firebaseService');
 
   for (const promo of appliedPromotions) {
     try {
