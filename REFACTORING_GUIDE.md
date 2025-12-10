@@ -12,7 +12,9 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 - **CashRegister.jsx**: Reducido de 1,241 líneas a 284 líneas (77.1% de reducción)
 - **PromotionForm.jsx**: Reducido de 1,226 líneas a 195 líneas (84.1% de reducción)
 - **OrderFormMobile.jsx**: Reducido de 1,140 líneas a 586 líneas (48.6% de reducción)
-- **70+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares
+- **firebaseService.js**: Reducido de 2,348 líneas a 146 líneas (93.8% de reducción)
+- **80+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares, servicios especializados
+- **12 servicios especializados**: Separación por dominio (tracking, orders, services, clients, employees, inventory, backup, settings, expenses, cashRegister, print, promotions)
 - **CERO duplicación**: OrderFormMobile reutiliza 100% de hooks y utils de OrderForm
 - **Bug crítico resuelto**: Infinite loop en validación de promociones
 - **Arquitectura modular**: Código organizado, testeable y reutilizable
@@ -1219,6 +1221,144 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData, employees, allOrders
 3. **Separación clara**: Hooks = lógica, JSX = presentación
 4. **PaymentScreen reutilizable**: Un componente puede funcionar como inline o pantalla completa
 5. **Testing eficiente**: Un bug fix en hooks beneficia ambas versiones automáticamente
+
+---
+
+## Refactorización de firebaseService.js
+
+### Resumen de la Refactorización
+
+**Archivo**: `src/services/firebaseService.js`
+**Reducción**: 2,348 líneas → 146 líneas (93.8% de reducción)
+**Fecha**: Diciembre 2025
+**Commit**: Refactor firebaseService.js: Split into 12 specialized services (2,348 → 146 lines)
+
+### Estrategia: Barrel Export Pattern
+
+**Clave**: Dividir el archivo monolítico en servicios especializados por dominio, manteniendo 100% de compatibilidad con código existente mediante barrel export.
+
+### Archivos Creados (12 servicios)
+
+#### 1. **trackingService.js** (648 bytes)
+- `generateTrackingToken()` - Generación de tokens únicos para órdenes
+
+#### 2. **ordersService.js** (24 KB) - Servicio más grande
+- `getAllOrders()` - Obtener todas las órdenes organizadas por estado
+- `subscribeToOrders()` - Suscripción en tiempo real
+- `addOrder()` - Crear nueva orden con transacciones para inventario
+- `updateOrder()` - Actualizar orden con notificaciones WhatsApp automáticas
+- `deleteOrder()` - Eliminar orden
+- `getOrderById()` - Obtener orden específica
+- `getOrderByTrackingToken()` - Tracking público de órdenes
+
+#### 3. **servicesService.js** (3.9 KB)
+- `getAllServices()`, `subscribeToServices()`, `addService()`, `updateService()`
+- `canDeleteService()` - Validación antes de eliminar (órdenes activas)
+- `deleteService()` - Eliminar servicio con validación
+
+#### 4. **clientsService.js** (5.2 KB)
+- `getAllClients()`, `subscribeToClients()`, `addClient()`, `updateClient()`
+- `findClientByPhone()`, `findClientByName()` - Búsqueda de clientes
+- `canDeleteClient()`, `deleteClient()` - Eliminación con validación
+
+#### 5. **employeesService.js** (6.8 KB)
+- `getAllEmployees()`, `subscribeToEmployees()`, `addEmployee()`, `updateEmployee()`
+- `getAdminCount()` - Cuenta administradores activos
+- `getEmployeeByEmail()` - Búsqueda por email
+- `canDeleteEmployee()`, `deleteEmployee()` - Validación de último admin
+
+#### 6. **inventoryService.js** (5.6 KB)
+- `getAllInventory()`, `subscribeToInventory()`, `addProduct()`, `updateProduct()`
+- `checkBarcodeExists()` - Validación de códigos de barras únicos
+- `deleteProduct()`, `decreaseProductStock()` - Gestión de stock
+
+#### 7. **backupService.js** (1.4 KB)
+- `exportAllData()` - Exportación completa de todas las colecciones
+
+#### 8. **settingsService.js** (3.3 KB)
+- `saveBusinessProfile()`, `getBusinessProfile()` - Perfil del negocio
+- `saveWhatsAppConfig()`, `getWhatsAppConfig()` - Configuración de WhatsApp
+- `getAllSettings()` - Todas las configuraciones
+
+#### 9. **expensesService.js** (633 bytes)
+- `getAllExpenses()` - Obtener todos los gastos
+
+#### 10. **cashRegisterService.js** (4.6 KB)
+- `saveCashRegisterDraft()`, `subscribeToCashRegisterDraft()`, `deleteCashRegisterDraft()`
+- `saveCashRegisterClosure()` - Guardar corte de caja
+- `getAllCashRegisterClosures()`, `getLastCashRegisterClosure()`
+- `subscribeToCashRegisterClosures()` - Suscripción en tiempo real
+
+#### 11. **printService.js** (1.5 KB)
+- `addPrintRecord()` - Agregar registro de impresión
+- `hasPrintRecord()`, `getPrintRecords()` - Consultar historial de impresiones
+
+#### 12. **promotionsService.js** (19 KB) - Segundo más grande
+- `getAllPromotions()`, `subscribeToPromotions()`, `addPromotion()`, `updatePromotion()`, `deletePromotion()`
+- `getActivePromotions()` - Filtrar promociones activas por fecha y configuración
+- `validatePromotion()` - Validación compleja de 7 tipos de promociones
+- `incrementPromotionUsage()`, `checkPromotionUsageByClient()` - Tracking de uso
+
+### Patrón Aplicado: Barrel Export
+
+El archivo `firebaseService.js` se convirtió en un **barrel export** que re-exporta todas las funciones:
+
+```javascript
+// firebaseService.js (146 líneas)
+export { generateTrackingToken } from './firebase/trackingService';
+export { getAllOrders, subscribeToOrders, addOrder, ... } from './firebase/ordersService';
+export { getAllServices, subscribeToServices, ... } from './firebase/servicesService';
+// ... 10 servicios más
+```
+
+### Beneficios
+
+1. **100% Compatible** - CERO cambios necesarios en componentes existentes
+2. **Organización por Dominio** - Cada servicio maneja un área específica
+3. **Archivos Manejables** - El archivo más grande es 24 KB (ordersService.js)
+4. **Fácil de Testear** - Servicios aislados pueden testearse independientemente
+5. **Mejor Mantenibilidad** - Más fácil encontrar y modificar código
+6. **Separación de Concerns** - Cada servicio tiene una responsabilidad única
+7. **Fácil Rollback** - firebaseService.ORIGINAL.js preservado como backup
+
+### Imports Siguen Funcionando Igual
+
+```javascript
+// Antes y Después - MISMO CÓDIGO ✅
+import { addOrder, getAllOrders } from '../services/firebaseService';
+import { validatePromotion, getActivePromotions } from '../services/firebaseService';
+import { addClient, updateClient } from '../services/firebaseService';
+```
+
+### Estructura de Archivos
+
+```
+src/services/
+├── firebaseService.js (146 líneas - barrel export)
+├── firebaseService.ORIGINAL.js (2,348 líneas - backup)
+└── firebase/
+    ├── trackingService.js (648 bytes)
+    ├── ordersService.js (24 KB)
+    ├── servicesService.js (3.9 KB)
+    ├── clientsService.js (5.2 KB)
+    ├── employeesService.js (6.8 KB)
+    ├── inventoryService.js (5.6 KB)
+    ├── backupService.js (1.4 KB)
+    ├── settingsService.js (3.3 KB)
+    ├── expensesService.js (633 bytes)
+    ├── cashRegisterService.js (4.6 KB)
+    ├── printService.js (1.5 KB)
+    └── promotionsService.js (19 KB)
+```
+
+### Lecciones Aprendidas
+
+1. **Barrel Export es Seguro** - Mantiene compatibilidad total sin modificar componentes
+2. **Servicios JavaScript Puros** - No aplican reglas de React (hooks, components, JSX)
+3. **Backup es Esencial** - Permite rollback rápido si algo falla
+4. **Validación Continua** - Compilar durante refactorización para detectar errores temprano
+5. **Separación por Dominio** - 12 servicios es manejable, más de 20 sería excesivo
+6. **Funciones con 63 exports** - firebaseService tenía 63 funciones diferentes, organizadas ahora por dominio
 
 ---
 
@@ -2972,7 +3112,7 @@ Para dudas o problemas durante la refactorización:
 4. Consultar documentación oficial de React
 
 **Última actualización**: Diciembre 2025
-**Versión**: 1.2 (Testing Fase 2 Completada - 346 tests)
+**Versión**: 1.3 (firebaseService.js Refactorizado - 93.8% reducción)
 **Última Actualización**: Diciembre 2025
 
 ---
