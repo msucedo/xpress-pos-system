@@ -6,6 +6,7 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 
 ### Logros Alcanzados
 
+#### Refactorización de Componentes Grandes
 - **OrderForm.jsx**: Reducido de 1,368 líneas a 498 líneas (63.5% de reducción)
 - **OrderDetailView.jsx**: Reducido de 1,328 líneas a 454 líneas (66% de reducción)
 - **OrderHistory.jsx**: Reducido de 1,280 líneas a 120 líneas (90.6% de reducción)
@@ -13,12 +14,26 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 - **PromotionForm.jsx**: Reducido de 1,226 líneas a 195 líneas (84.1% de reducción)
 - **OrderFormMobile.jsx**: Reducido de 1,140 líneas a 586 líneas (48.6% de reducción)
 - **firebaseService.js**: Reducido de 2,348 líneas a 146 líneas (93.8% de reducción)
+- **Reports.jsx**: ✅ Reducido de 1,149 líneas a 144 líneas (87.5% de reducción)
+
+#### Arquitectura y Estructura
+- **✅ Fast Refresh fix completado** (Diciembre 11, 2025): Eliminadas advertencias de HMR de Vite
+  - AuthContext y NotificationContext refactorizados
+  - 48 archivos actualizados (19 usando useAuth, 29 usando useNotification)
+  - Hooks separados de componentes según principios de Fast Refresh
+- **✅ Unificación de carpetas**: `src/context/` + `src/contexts/` → `src/contexts/`
+- **Violación de SRP corregida**: Contextos ahora solo exportan providers, hooks en archivos separados
+- **Estado de desarrollo mejorado**: Sin pérdida de estado durante hot reload
+
+#### Modularización y Organización
 - **80+ archivos nuevos creados**: Utilidades, hooks personalizados, componentes modulares, servicios especializados
 - **12 servicios especializados**: Separación por dominio (tracking, orders, services, clients, employees, inventory, backup, settings, expenses, cashRegister, print, promotions)
 - **CERO duplicación**: OrderFormMobile reutiliza 100% de hooks y utils de OrderForm
 - **Bug crítico resuelto**: Infinite loop en validación de promociones
 - **Arquitectura modular**: Código organizado, testeable y reutilizable
 - **Reutilización de código**: Hooks y utilidades compartidas entre componentes
+
+#### Testing y Calidad
 - **346 tests unitarios implementados**: Cobertura del ~99% en archivos críticos (Fase 2 completada)
 - **Testing configurado**: Vitest + @testing-library/react con scripts npm
 - **11 archivos testeados**: 6 Fase 1 + 5 Fase 2 (utils y hooks prioritarios con cobertura completa)
@@ -3099,6 +3114,284 @@ Componentes grandes que NO estaban en la lista original pero podrían beneficiar
 6. **useCallback sin dependencies** ➡️ Revisa, probablemente causa bugs
 7. **Nuevas features en OrderForm** ➡️ Verifica si aplican a OrderFormMobile
 8. **Cambios en hooks compartidos** ➡️ Testa en TODOS los componentes que los usan
+
+---
+
+## Refactorización de Arquitectura (Diciembre 2025)
+
+### Mejora de Fast Refresh y Consistencia de Estructura
+
+Esta sección documenta la refactorización de arquitectura realizada para resolver problemas de Hot Module Replacement (HMR) de Vite y mejorar la estructura general del proyecto.
+
+### Problema Identificado
+
+**Violación de principios de Fast Refresh:**
+- Los archivos de contexto exportaban hooks + componentes en el mismo archivo
+- Vite no podía determinar si el archivo era un componente o utilidad
+- Resultado: Advertencias de HMR y pérdida de estado durante desarrollo
+
+```
+❌ Could not Fast Refresh ("useAdminCheck" export is incompatible)
+❌ Could not Fast Refresh ("CartContext" export is incompatible)
+```
+
+**Inconsistencia de estructura:**
+- Existían dos carpetas: `src/context/` y `src/contexts/`
+- CartContext en una carpeta, Auth y Notification en otra
+
+### Cambios Implementados
+
+#### ✅ COMPLETADO: Arreglo de Fast Refresh
+
+**1. AuthContext y NotificationContext (Diciembre 11, 2025)**
+
+**Archivos modificados:**
+- `src/contexts/AuthContext.jsx` - Removidos exports de hooks
+- `src/contexts/NotificationContext.jsx` - Removido export de hook
+
+**Archivos creados:**
+- `src/hooks/useAuth.js` - Contiene `useAuth()` y `useAdminCheck()`
+- `src/hooks/useNotification.js` - Contiene `useNotification()`
+
+**Archivos actualizados:** 48 archivos
+- 19 archivos importando `useAuth`/`useAdminCheck`
+- 29 archivos importando `useNotification`
+
+**Resultado:**
+```
+✅ Fast Refresh funcionando correctamente
+✅ No hay advertencias de HMR
+✅ Estado preservado durante desarrollo
+✅ Recargas instantáneas sin pérdida de estado
+```
+
+**Arquitectura final:**
+```
+src/
+├── contexts/
+│   ├── AuthContext.jsx          → Solo AuthProvider (componente)
+│   ├── NotificationContext.jsx  → Solo NotificationProvider (componente)
+│   └── CartContext.jsx           → Solo CartProvider (componente)
+└── hooks/
+    ├── useAuth.js               → Hooks useAuth + useAdminCheck
+    └── useNotification.js       → Hook useNotification
+```
+
+#### ✅ COMPLETADO: Unificación de Carpetas de Contextos
+
+**Problema:**
+```
+src/
+├── context/     ← CartContext.jsx (singular, inconsistente)
+└── contexts/    ← AuthContext, NotificationContext (plural)
+```
+
+**Solución:**
+- Movido `src/context/CartContext.jsx` → `src/contexts/CartContext.jsx`
+- Actualizados imports en 2 archivos: `App.jsx`, `hooks/useCart.js`
+- Eliminada carpeta `src/context/`
+
+**Resultado:**
+```
+✅ Estructura consistente
+✅ Todos los contextos en src/contexts/
+✅ Imports actualizados sin errores
+```
+
+### Lecciones Aprendidas
+
+#### Principio Violado: Single Responsibility Principle (SRP)
+
+**❌ Antes (Malo):**
+```jsx
+// AuthContext.jsx - Haciendo TRES cosas
+export const AuthContext = createContext()      // 1. Contexto
+export const useAuth = () => { ... }            // 2. Hook consumidor
+export const useAdminCheck = () => { ... }      // 3. Otro hook
+export const AuthProvider = () => { ... }       // 4. Componente
+```
+
+**Problema:**
+- Vite Fast Refresh no puede distinguir el propósito del archivo
+- Múltiples responsabilidades en un archivo
+- Dificulta testing y mantenimiento
+
+**✅ Después (Correcto):**
+```jsx
+// contexts/AuthContext.jsx - UNA responsabilidad
+export const AuthContext = createContext()     // Exportado para hooks externos
+export const AuthProvider = () => { ... }       // Solo componente provider
+
+// hooks/useAuth.js - UNA responsabilidad
+export const useAuth = () => { ... }            // Solo hooks consumidores
+export const useAdminCheck = () => { ... }
+```
+
+**Beneficios:**
+- ✅ Fast Refresh funciona correctamente
+- ✅ Cada archivo tiene una responsabilidad clara
+- ✅ Testing más fácil (hooks y contextos por separado)
+- ✅ Mejor escalabilidad
+
+#### Documentación de Referencia
+
+- [Vite Plugin React - Consistent Components Exports](https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports)
+- [React Fast Refresh](https://github.com/facebook/react/tree/main/packages/react-refresh)
+
+### ✅ Refactorizaciones Completadas
+
+#### ✅ COMPLETADO: Refactorización de Reports.jsx (Diciembre 11, 2025)
+
+**Problema identificado:**
+- Reports.jsx tenía **1,149 líneas** (archivo más grande del proyecto)
+- 7 estados con useState
+- 5 useEffect hooks
+- Múltiples responsabilidades: tabs, filtros, gráficos, corte de caja, historial
+- Violaba Single Responsibility Principle
+
+**Solución implementada:**
+
+**Hooks creados (334 líneas total):**
+- ✅ `src/hooks/useReportsData.js` (51 líneas)
+  - Maneja suscripciones a Firebase: orders, todayDraft, closures
+  - 3 useEffect con subscripciones independientes
+
+- ✅ `src/hooks/useReportsFilters.js` (247 líneas)
+  - Estado activeFilter y lógica de filtrado
+  - Funciones getFilteredOrders(), getFilteredExpenses(), getFilteredClosures()
+  - Helpers: getDateRange(), isTodayInRange(), hasDraftData()
+  - Cálculo de rangos de fechas y agregación de datos
+
+- ✅ `src/hooks/useReportsTab.js` (36 líneas)
+  - Estados: activeTab, selectedClosure, isDetailModalOpen
+  - Handlers de tabs y modales (handleViewClosureDetails, handleCloseDetailModal)
+
+**Componentes UI creados (843 líneas total):**
+- ✅ `src/components/reports/CashRegisterTab.jsx` (16 líneas)
+  - Renderiza componente CashRegister
+  - Props: filteredOrders, activeFilter
+
+- ✅ `src/components/reports/HistoryTab.jsx` (50 líneas)
+  - Renderiza OrderHistory y CashClosureHistory
+  - Maneja modal de detalles de corte
+  - Props: activeTab, selectedClosure, modal handlers
+
+- ✅ `src/components/reports/ChartsTab.jsx` (777 líneas)
+  - Renderiza todos los charts y estadísticas
+  - Componentes: RevenueChart, ServicesChart, PaymentMethodsChart, ExpensesByCategoryChart, ProfitTrendChart, PeriodComparisonChart
+  - Lógica de cálculos: stats, rankings top clients/services, comparación de períodos
+  - Props: orders, todayDraft, closures, filtered data, helpers
+
+**Resultado alcanzado:**
+```
+Reports.jsx: 1,149 líneas → 144 líneas (87.5% reducción)
++ 6 archivos nuevos con responsabilidades claras
+Total: 1,177 líneas bien organizadas vs 1,149 líneas monolíticas
+```
+
+**Beneficios logrados:**
+- ✅ Hooks reutilizables para otros componentes
+- ✅ Componentes especializados más fáciles de testear
+- ✅ Separación clara de responsabilidades
+- ✅ Mejor legibilidad y mantenibilidad
+- ✅ Fast Refresh funcionando correctamente
+- ✅ Código 87.5% más pequeño en el orquestador
+- ✅ Lógica de negocio encapsulada y documentada
+
+**Commits:**
+- `21cbffa` - refactor: Split Reports.jsx into specialized hooks and components (1,149 → 144 lines)
+
+### Tareas Pendientes
+
+#### ⏳ PENDIENTE: Optimización de CartContext.jsx
+
+**Problema actual:**
+- 541 líneas (muy grande para un contexto)
+- ~250 líneas de lógica de promociones mezclada
+- Múltiples responsabilidades
+
+**Plan:**
+1. Crear `src/hooks/useCartPromotions.js`
+   - Extraer funciones: `isPromotionRelevantForCart()`, `getPromotionPriority()`, `getItemsWithPromoBadge()`, etc.
+   - Extraer estados: appliedPromotions, promotionValidations
+   - ~250 líneas
+
+2. Optimizar `src/contexts/CartContext.jsx`
+   - Mantener solo estado básico del carrito
+   - CRUD operations (add, remove, update)
+   - LocalStorage sync
+   - Usar hook useCartPromotions
+   - Resultado: ~290 líneas (46% reducción)
+
+**Estimación:** 1-2 horas
+
+**Estructura final:**
+```
+contexts/CartContext.jsx (290 líneas) - 46% más pequeño
+hooks/useCartPromotions.js (250 líneas) - Nueva lógica separada
+```
+
+### Cómo Continuar Esta Refactorización
+
+#### Para completar Reports.jsx:
+
+1. **Crear hooks restantes:**
+   ```bash
+   # Copiar estructura de useReportsData.js como referencia
+   # Extraer lógica de Reports.jsx líneas 75-206 para useReportsFilters.js
+   # Extraer lógica de Reports.jsx líneas 19-22, 765-773 para useReportsTab.js
+   ```
+
+2. **Crear componentes UI:**
+   ```bash
+   # Extraer JSX de Reports.jsx líneas 1112-1117 para CashRegisterTab.jsx
+   # Extraer JSX de Reports.jsx líneas 1119-1129 para HistoryTab.jsx
+   # Extraer JSX de Reports.jsx líneas 833-1108 para ChartsTab.jsx
+   ```
+
+3. **Refactorizar Reports.jsx:**
+   - Importar los 3 hooks
+   - Importar los 3 componentes de tab
+   - Simplificar a orchestrador de ~250 líneas
+   - Mantener solo: PageHeader, tab navigation, renderizado condicional
+
+4. **Verificar:**
+   ```bash
+   npm run dev
+   # Probar todas las tabs
+   # Verificar que no hay errores de console
+   # Confirmar Fast Refresh funciona
+   ```
+
+#### Para completar CartContext:
+
+1. **Crear useCartPromotions.js:**
+   - Copiar líneas 74-330 de CartContext.jsx
+   - Convertir a custom hook
+   - Retornar: appliedPromotions, promotionValidations, functions
+
+2. **Optimizar CartContext.jsx:**
+   - Importar useCartPromotions
+   - Remover lógica de promociones
+   - Mantener solo estado básico + CRUD + localStorage
+   - Pasar datos de promociones desde hook al value
+
+3. **Actualizar componentes que usan el carrito:**
+   - Verificar que Cart.jsx sigue funcionando
+   - Verificar que Inventory.jsx sigue funcionando
+
+### Métricas de Progreso
+
+| Tarea | Estado | Progreso | Impacto |
+|-------|--------|----------|---------|
+| Fix Fast Refresh AuthContext | ✅ Completado | 100% | 19 archivos |
+| Fix Fast Refresh NotificationContext | ✅ Completado | 100% | 29 archivos |
+| Unificar carpetas de contextos | ✅ Completado | 100% | 3 archivos |
+| Refactorizar Reports.jsx | ✅ Completado | 100% | 1,149 → 144 líneas |
+| Optimizar CartContext.jsx | ⏳ Pendiente | 0% | 541 → 290 líneas |
+
+**Total completado:** 51 archivos actualizados, 9 archivos nuevos creados, Fast Refresh funcionando
+**Total pendiente:** Optimización de CartContext.jsx (opcional)
 
 ---
 
