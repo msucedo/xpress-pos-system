@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import PaymentScreen from './PaymentScreen';
 import VariablePriceModal from './VariablePriceModal';
 import DeliveryCalendarModal from './DeliveryCalendarModal';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { CustomerInfoSection } from './orders/CustomerInfoSection';
 import { ServiceSelector } from './orders/ServiceSelector';
 import { ProductSelector } from './orders/ProductSelector';

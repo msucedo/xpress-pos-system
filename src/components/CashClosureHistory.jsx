@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getAllCashRegisterClosures } from '../services/firebaseService';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import CashClosureHistorySkeleton from './CashClosureHistorySkeleton';
 import './CashClosureHistory.css';
 

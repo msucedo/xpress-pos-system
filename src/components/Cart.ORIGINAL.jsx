@@ -8,7 +8,7 @@ import { createSale, addSalePrintRecord } from '../services/salesService';
 import { printTicket } from '../services/printService';
 import { addPrintJob } from '../services/printQueueService';
 import { getPrinterMethodPreference, PRINTER_METHODS } from '../utils/printerConfig';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { useAuth } from '../contexts/AuthContext';
 import './Cart.css';
 

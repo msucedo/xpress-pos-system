@@ -6,7 +6,7 @@ import PromotionBadge from './PromotionBadge';
 import ImageUpload from './ImageUpload';
 import { ValidatedPhoneInput } from './inputs';
 import { useAuth } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import './OrderFormMobile.css';
 
 // Función para generar IDs únicos

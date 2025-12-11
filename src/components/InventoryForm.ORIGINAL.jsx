@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAdminCheck } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { checkBarcodeExists } from '../services/firebaseService';
 import ImageUpload from './ImageUpload';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';

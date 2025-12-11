@@ -12,8 +12,8 @@ import {
 } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useServices } from '../hooks/useServices';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import './Services.css';
 
 const Services = () => {

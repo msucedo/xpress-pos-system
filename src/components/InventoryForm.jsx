@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAdminCheck } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useAdminCheck } from '../hooks/useAuth';
+import { useNotification } from '../hooks/useNotification';
 import { useInventoryForm } from '../hooks/useInventoryForm';
 import { useInventoryValidation } from '../hooks/useInventoryValidation';
 import { useInventorySubmit } from '../hooks/useInventorySubmit';

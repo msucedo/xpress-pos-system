@@ -1,5 +1,5 @@
 import { useInputValidation } from './useInputValidation';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para búsqueda de productos por código de barras en el carrito

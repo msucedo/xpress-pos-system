@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useInputValidation } from './useInputValidation';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para manejar descuentos manuales en el carrito

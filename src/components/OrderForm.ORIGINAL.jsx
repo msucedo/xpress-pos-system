@@ -9,7 +9,7 @@ import DeliveryCalendarModal from './DeliveryCalendarModal';
 import PromotionBadge from './PromotionBadge';
 import { ValidatedPhoneInput } from './inputs';
 import { useAuth } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import './OrderForm.css';
 
 // Función para generar IDs únicos

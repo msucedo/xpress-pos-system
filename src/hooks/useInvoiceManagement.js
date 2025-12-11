@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { getBusinessProfile, updateOrder } from '../services/firebaseService';
 import { generateInvoicePDF } from '../utils/invoiceGenerator';
 import { generateInvoiceFileName, dataURItoBlob, isMobileDevice } from '../utils/orders/orderHelpers';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAuth } from '../contexts/AuthContext';
+import { useNotification } from './useNotification';
+import { useAuth } from './useAuth';
 
 /**
  * Hook para manejar generación, visualización y descarga de facturas

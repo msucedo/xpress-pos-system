@@ -3,7 +3,7 @@ xpress
 // OBJETIVO: MEJORAR EXPERIENCIA DE USUARIO
 
 // WIP
--[]remover script de migration al iniciar la app
+-[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
 -[]actualizar readme de proyecto
 
 
@@ -62,6 +62,7 @@ xpress
      │ 16. Configurar CI/CD básico      
 
 // COMPLETADO
+-[]remover script de migration al iniciar la app
 -[]actualizar en el dashboard, como se calcula la card de "ingresos hoy", que tome los ingresos totales del corte de caja
 -[]agregar una promo "precio final" a un producto o servicio
 -[]desde la tab inventario deberiamos poder vender un producto, escanear directamente en el search bar del header y de ahi mostrar la info del producto o el check out o opcion de añadirlo al carrito

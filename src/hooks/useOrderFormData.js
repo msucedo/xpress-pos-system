@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para manejar el estado del formulario de orden y validaciones

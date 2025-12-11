@@ -1,4 +1,4 @@
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import './ValidationBanner.css';
 
 const ValidationBanner = () => {

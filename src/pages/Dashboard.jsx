@@ -9,8 +9,8 @@ import { updateOrder } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useEmployees } from '../hooks/useEmployees';
 import { useCashRegisterClosures } from '../hooks/useCashRegisterClosures';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAuth } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAuth } from '../hooks/useAuth';
 import './Dashboard.css';
 
 const Dashboard = () => {

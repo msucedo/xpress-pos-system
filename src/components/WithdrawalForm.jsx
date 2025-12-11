@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
 import './ExpenseForm.css'; // Reutilizamos los estilos de ExpenseForm
 

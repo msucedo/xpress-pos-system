@@ -3,7 +3,7 @@ import { printTicket, getPrinterStatus } from '../services/printService';
 import { addPrintJob } from '../services/printQueueService';
 import { addPrintRecord } from '../services/firebaseService';
 import { shouldUseQueuePrinting, getPrintOptions, createPrintRecord, getPrintSuccessMessage, getPrintErrorMessage } from '../utils/printing/printHelpers';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para manejar acciones de orden (imprimir, WhatsApp, etc.)

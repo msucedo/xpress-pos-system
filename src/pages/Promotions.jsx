@@ -14,8 +14,8 @@ import {
 import { usePromotions } from '../hooks/usePromotions';
 import { useServices } from '../hooks/useServices';
 import { useInventory } from '../hooks/useInventory';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import './Promotions.css';
 
 const Promotions = () => {

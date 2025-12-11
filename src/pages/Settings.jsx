@@ -5,8 +5,8 @@ import SettingsFormSkeleton from '../components/SettingsFormSkeleton';
 import ToggleSkeleton from '../components/ToggleSkeleton';
 import { downloadBackup, getBackupInfo } from '../utils/backup';
 import { saveBusinessProfile, getBusinessProfile, saveWhatsAppConfig, getWhatsAppConfig } from '../services/firebaseService';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import {
   getPrinterMethodPreference,
   setPrinterMethodPreference,

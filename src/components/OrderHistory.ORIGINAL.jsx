@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { subscribeToOrders, subscribeToEmployees } from '../services/firebaseService';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import OrderHistorySkeleton from './OrderHistorySkeleton';
 import './OrderHistory.css';
 

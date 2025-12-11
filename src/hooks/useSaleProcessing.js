@@ -4,7 +4,7 @@ import { incrementPromotionUsage } from '../services/firebaseService';
 import { prepareSaleData } from '../utils/sales/saleDataBuilder';
 import { handleSalePrinting } from '../utils/sales/printingHelpers';
 import { parseSaleError } from '../utils/sales/errorHandlers';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para procesar ventas del carrito

@@ -1,4 +1,4 @@
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useAdminCheck } from '../hooks/useAuth';
 import { usePromotionForm } from '../hooks/usePromotionForm';
 import { usePromotionItems } from '../hooks/usePromotionItems';
 import { usePromotionValidation } from '../hooks/usePromotionValidation';

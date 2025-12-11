@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useAdminCheck } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useAdminCheck } from '../hooks/useAuth';
+import { useNotification } from '../hooks/useNotification';
 import { ValidatedTextInput, ValidatedPhoneInput, ValidatedEmailInput } from './inputs';
 import './EmpleadoForm.css';
 

@@ -16,8 +16,8 @@ import {
 import { useOrders } from '../hooks/useOrders';
 import { useClients } from '../hooks/useClients';
 import { useEmployees } from '../hooks/useEmployees';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import './Clients.css';
 
 const Clients = () => {

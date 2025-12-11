@@ -1,6 +1,6 @@
 import { useCart } from '../hooks/useCart';
 import { useInventory } from '../hooks/useInventory';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { useCartPaymentFlow } from '../hooks/useCartPaymentFlow';
 import { useSaleProcessing } from '../hooks/useSaleProcessing';
 import { useCartBarcodeSearch } from '../hooks/useCartBarcodeSearch';

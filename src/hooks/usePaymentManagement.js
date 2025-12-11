@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { calculateRemainingPayment, isFullyPaid as checkFullyPaid, getServicesWithoutPrice } from '../utils/payments/paymentHelpers';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 
 /**
  * Hook para manejar el estado de pago de una orden

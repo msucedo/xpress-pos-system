@@ -13,8 +13,8 @@ import {
   deleteProduct
 } from '../services/firebaseService';
 import { useInventory } from '../hooks/useInventory';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import './Inventory.css';
 

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 import {
   saveCashRegisterClosure,
   deleteCashRegisterDraft

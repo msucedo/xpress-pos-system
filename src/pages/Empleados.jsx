@@ -13,8 +13,8 @@ import {
   deleteEmployee,
   updateOrder
 } from '../services/firebaseService';
-import { useNotification } from '../contexts/NotificationContext';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useNotification } from '../hooks/useNotification';
+import { useAdminCheck } from '../hooks/useAuth';
 import './Empleados.css';
 
 const Empleados = () => {

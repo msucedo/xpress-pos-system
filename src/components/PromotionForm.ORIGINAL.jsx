@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { deleteField } from 'firebase/firestore';
 import { useAdminCheck } from '../contexts/AuthContext';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
 import './PromotionForm.css';
 

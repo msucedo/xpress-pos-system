@@ -5,7 +5,7 @@ import VariablePriceModal from './VariablePriceModal';
 import { getRelativeTimeWithHour } from '../utils/orders/orderHelpers';
 import { checkAllItemsCompleted, getNextStatus, canMoveToStatus } from '../utils/orders/statusHelpers';
 import { getServicesWithoutPrice } from '../utils/payments/paymentHelpers';
-import { useAdminCheck } from '../contexts/AuthContext';
+import { useAdminCheck } from '../hooks/useAuth';
 
 // Custom Hooks
 import { useOrderDetail } from '../hooks/useOrderDetail';

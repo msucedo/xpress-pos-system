@@ -16,7 +16,7 @@ import {
 } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useEmployees } from '../hooks/useEmployees';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { printTicket } from '../services/printService';
 import { addPrintJob } from '../services/printQueueService';
 import { detectPlatform } from '../services/printService';

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from './useNotification';
 import { validateForm } from '../utils/promotions/promotionValidations';
 
 /**

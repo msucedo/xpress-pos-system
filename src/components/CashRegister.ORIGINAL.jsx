@@ -11,7 +11,7 @@ import {
   subscribeToEmployees,
   subscribeToCashRegisterClosures
 } from '../services/firebaseService';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { useCashRegisterDraft } from '../hooks/useCashRegisterDraft';
 import './CashRegister.css';
 

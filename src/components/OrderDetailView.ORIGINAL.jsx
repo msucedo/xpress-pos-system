@@ -8,7 +8,7 @@ import { generateInvoicePDF } from '../utils/invoiceGenerator';
 import { printTicket, getPrinterStatus } from '../services/printService';
 import { addPrintJob } from '../services/printQueueService';
 import { getPrinterMethodPreference, PRINTER_METHODS } from '../utils/printerConfig';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { useAdminCheck, useAuth } from '../contexts/AuthContext';
 import './OrderDetailView.css';
 

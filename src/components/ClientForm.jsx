@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNotification } from '../contexts/NotificationContext';
+import { useNotification } from '../hooks/useNotification';
 import { ValidatedTextInput, ValidatedPhoneInput, ValidatedEmailInput } from './inputs';
 import './ClientForm.css';
 
