@@ -24,7 +24,7 @@ import BluetoothConnectionAlert from './components/BluetoothConnectionAlert';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from './contexts/CartContext';
 import Notification from './components/Notification';
 import { useWhatsAppNotifications } from './hooks/useWhatsAppNotifications';
 import { useBluetoothConnectionMonitor } from './hooks/useBluetoothConnectionMonitor';
