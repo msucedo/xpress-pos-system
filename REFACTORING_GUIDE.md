@@ -15,6 +15,7 @@ Este documento detalla el proceso de refactorización aplicado a **OrderForm.jsx
 - **OrderFormMobile.jsx**: Reducido de 1,140 líneas a 586 líneas (48.6% de reducción)
 - **firebaseService.js**: Reducido de 2,348 líneas a 146 líneas (93.8% de reducción)
 - **Reports.jsx**: ✅ Reducido de 1,149 líneas a 144 líneas (87.5% de reducción)
+- **CartContext.jsx**: ✅ Reducido de 541 líneas a 229 líneas (57.7% de reducción)
 
 #### Arquitectura y Estructura
 - **✅ Fast Refresh fix completado** (Diciembre 11, 2025): Eliminadas advertencias de HMR de Vite
@@ -3301,84 +3302,62 @@ Total: 1,177 líneas bien organizadas vs 1,149 líneas monolíticas
 **Commits:**
 - `21cbffa` - refactor: Split Reports.jsx into specialized hooks and components (1,149 → 144 lines)
 
-### Tareas Pendientes
+#### ✅ COMPLETADO: Optimización de CartContext.jsx (Diciembre 11, 2025)
 
-#### ⏳ PENDIENTE: Optimización de CartContext.jsx
+**Problema identificado:**
+- CartContext.jsx tenía **541 líneas** (muy grande para un contexto)
+- ~370 líneas de lógica de promociones mezclada
+- Múltiples responsabilidades violando SRP
 
-**Problema actual:**
-- 541 líneas (muy grande para un contexto)
-- ~250 líneas de lógica de promociones mezclada
-- Múltiples responsabilidades
+**Solución implementada:**
 
-**Plan:**
-1. Crear `src/hooks/useCartPromotions.js`
-   - Extraer funciones: `isPromotionRelevantForCart()`, `getPromotionPriority()`, `getItemsWithPromoBadge()`, etc.
-   - Extraer estados: appliedPromotions, promotionValidations
-   - ~250 líneas
+**Hook creado (370 líneas):**
+- ✅ `src/hooks/useCartPromotions.js` (370 líneas)
+  - Estados: appliedPromotions, promotionValidations
+  - Funciones: isPromotionRelevantForCart(), getPromotionPriority(), getItemsWithPromoBadge()
+  - Cálculos: activePromotions, itemPromotionMap, checkApplicablePromotions()
+  - useEffect: Recalculación automática de promociones
+  - clearPromotions(): Función para limpiar promociones
 
-2. Optimizar `src/contexts/CartContext.jsx`
-   - Mantener solo estado básico del carrito
-   - CRUD operations (add, remove, update)
-   - LocalStorage sync
-   - Usar hook useCartPromotions
-   - Resultado: ~290 líneas (46% reducción)
+**Optimizado CartContext.jsx:**
+- Antes: 541 líneas (god component)
+- Después: 229 líneas (clean context)
+- Reducción: 57.7% (312 líneas eliminadas, mejor que el 46% proyectado!)
+- Ahora contiene solo:
+  - Estado básico del carrito
+  - CRUD operations (add, remove, update, clear)
+  - localStorage sync con debounce
+  - Cálculos básicos (subtotal, discount, total)
+  - Delegación a useCartPromotions
 
-**Estimación:** 1-2 horas
-
-**Estructura final:**
+**Resultado alcanzado:**
 ```
-contexts/CartContext.jsx (290 líneas) - 46% más pequeño
-hooks/useCartPromotions.js (250 líneas) - Nueva lógica separada
+CartContext.jsx: 541 líneas → 229 líneas (57.7% reducción)
+useCartPromotions.js: 370 líneas (nuevo hook reutilizable)
+Total: 599 líneas bien organizadas vs 541 líneas monolíticas
 ```
 
-### Cómo Continuar Esta Refactorización
+**Beneficios logrados:**
+- ✅ Hook de promociones reutilizable
+- ✅ Más fácil de testear independientemente
+- ✅ Separación clara de responsabilidades (SRP)
+- ✅ 57.7% más pequeño el contexto
+- ✅ Mejor mantenibilidad
+- ✅ Fast Refresh funcionando correctamente
+- ✅ API del contexto permanece igual (sin cambios en componentes)
 
-#### Para completar Reports.jsx:
+**Commits:**
+- `97ede81` - refactor: Extract promotions logic from CartContext into useCartPromotions hook (541 → 229 lines)
 
-1. **Crear hooks restantes:**
-   ```bash
-   # Copiar estructura de useReportsData.js como referencia
-   # Extraer lógica de Reports.jsx líneas 75-206 para useReportsFilters.js
-   # Extraer lógica de Reports.jsx líneas 19-22, 765-773 para useReportsTab.js
-   ```
+### ✅ Todas las Tareas de Arquitectura Completadas
 
-2. **Crear componentes UI:**
-   ```bash
-   # Extraer JSX de Reports.jsx líneas 1112-1117 para CashRegisterTab.jsx
-   # Extraer JSX de Reports.jsx líneas 1119-1129 para HistoryTab.jsx
-   # Extraer JSX de Reports.jsx líneas 833-1108 para ChartsTab.jsx
-   ```
+Todas las mejoras de arquitectura planificadas han sido completadas exitosamente:
+- ✅ Fast Refresh fix para AuthContext y NotificationContext
+- ✅ Unificación de carpetas de contextos
+- ✅ Refactorización de Reports.jsx (1,149 → 144 líneas)
+- ✅ Optimización de CartContext.jsx (541 → 229 líneas)
 
-3. **Refactorizar Reports.jsx:**
-   - Importar los 3 hooks
-   - Importar los 3 componentes de tab
-   - Simplificar a orchestrador de ~250 líneas
-   - Mantener solo: PageHeader, tab navigation, renderizado condicional
-
-4. **Verificar:**
-   ```bash
-   npm run dev
-   # Probar todas las tabs
-   # Verificar que no hay errores de console
-   # Confirmar Fast Refresh funciona
-   ```
-
-#### Para completar CartContext:
-
-1. **Crear useCartPromotions.js:**
-   - Copiar líneas 74-330 de CartContext.jsx
-   - Convertir a custom hook
-   - Retornar: appliedPromotions, promotionValidations, functions
-
-2. **Optimizar CartContext.jsx:**
-   - Importar useCartPromotions
-   - Remover lógica de promociones
-   - Mantener solo estado básico + CRUD + localStorage
-   - Pasar datos de promociones desde hook al value
-
-3. **Actualizar componentes que usan el carrito:**
-   - Verificar que Cart.jsx sigue funcionando
-   - Verificar que Inventory.jsx sigue funcionando
+**No hay tareas pendientes de arquitectura.**
 
 ### Métricas de Progreso
 
@@ -3388,10 +3367,17 @@ hooks/useCartPromotions.js (250 líneas) - Nueva lógica separada
 | Fix Fast Refresh NotificationContext | ✅ Completado | 100% | 29 archivos |
 | Unificar carpetas de contextos | ✅ Completado | 100% | 3 archivos |
 | Refactorizar Reports.jsx | ✅ Completado | 100% | 1,149 → 144 líneas |
-| Optimizar CartContext.jsx | ⏳ Pendiente | 0% | 541 → 290 líneas |
+| Optimizar CartContext.jsx | ✅ Completado | 100% | 541 → 229 líneas |
 
-**Total completado:** 51 archivos actualizados, 9 archivos nuevos creados, Fast Refresh funcionando
-**Total pendiente:** Optimización de CartContext.jsx (opcional)
+**🎉 TODAS LAS TAREAS COMPLETADAS 🎉**
+
+**Total de mejoras realizadas:**
+- 52 archivos actualizados
+- 10 archivos nuevos creados (3 hooks + 6 componentes + 1 hook de promociones)
+- 2 archivos refactorizados de manera significativa (Reports.jsx, CartContext.jsx)
+- Fast Refresh funcionando perfectamente
+- Arquitectura limpia siguiendo Single Responsibility Principle
+- Código más mantenible y testeable
 
 ---
 
