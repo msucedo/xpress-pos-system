@@ -1,0 +1,16 @@
+/* AnimatedCard Styles */
+
+.animated-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: default;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* When card is clickable */
+.animated-card:has(onClick),
+.animated-card[onclick] {
+  cursor: pointer;
+}
