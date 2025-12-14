@@ -63,7 +63,7 @@ export const iconMap = {
   // ========================================
   // DINERO Y FINANZAS
   // ========================================
-  'money': 'flat-color-icons:money-bag',
+  'money': 'flat-color-icons:money-transfer',
   'cash': 'flat-color-icons:currency-exchange',
   'payment': 'flat-color-icons:paid',
   'credit-card': 'flat-color-icons:pay',

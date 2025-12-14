@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  modalBackdropVariants,
+  modalContentVariants,
+  modalTransition,
+} from '../animations';
 import './ConfirmDialog.css';
 
+/**
+ * ConfirmDialog con animaciones Framer Motion
+ * Mantiene toda la lógica de async processing
+ */
 const ConfirmDialog = ({
   isOpen,
   title,
@@ -35,8 +45,6 @@ const ConfirmDialog = ({
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const handleBackdropClick = (e) => {
     // Prevent closing while processing
     if (e.target === e.currentTarget && !isProcessing) {
@@ -63,39 +71,59 @@ const ConfirmDialog = ({
   };
 
   return (
-    <div className="confirm-backdrop" onClick={handleBackdropClick}>
-      <div className={`confirm-dialog confirm-${type}`}>
-        <div className="confirm-header">
-          <h3 className="confirm-title">{title}</h3>
-        </div>
-        <div className="confirm-body">
-          <p className="confirm-message">{message}</p>
-        </div>
-        <div className="confirm-footer">
-          <button
-            className="confirm-btn confirm-btn-cancel"
-            onClick={onCancel}
-            disabled={isProcessing}
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div
+          className="confirm-backdrop"
+          onClick={handleBackdropClick}
+          variants={modalBackdropVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={modalTransition.backdrop}
+        >
+          <motion.div
+            className={`confirm-dialog confirm-${type}`}
+            variants={modalContentVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={modalTransition.content}
+            onClick={(e) => e.stopPropagation()}
           >
-            {cancelText}
-          </button>
-          <button
-            className={`confirm-btn confirm-btn-confirm confirm-btn-${type}`}
-            onClick={handleConfirm}
-            disabled={isProcessing}
-          >
-            {isProcessing ? (
-              <>
-                <span className="confirm-spinner"></span>
-                Guardando...
-              </>
-            ) : (
-              confirmText
-            )}
-          </button>
-        </div>
-      </div>
-    </div>
+            <div className="confirm-header">
+              <h3 className="confirm-title">{title}</h3>
+            </div>
+            <div className="confirm-body">
+              <p className="confirm-message">{message}</p>
+            </div>
+            <div className="confirm-footer">
+              <button
+                className="confirm-btn confirm-btn-cancel"
+                onClick={onCancel}
+                disabled={isProcessing}
+              >
+                {cancelText}
+              </button>
+              <button
+                className={`confirm-btn confirm-btn-confirm confirm-btn-${type}`}
+                onClick={handleConfirm}
+                disabled={isProcessing}
+              >
+                {isProcessing ? (
+                  <>
+                    <span className="confirm-spinner"></span>
+                    Guardando...
+                  </>
+                ) : (
+                  confirmText
+                )}
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

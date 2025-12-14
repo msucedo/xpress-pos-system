@@ -1,3 +1,5 @@
+import { AnimatedCard } from './animated';
+import { Icon } from '../icons';
 import './PromotionCard.css';
 
 const PromotionCard = ({ promotion, onEdit, onDelete, isAdmin }) => {
@@ -110,11 +112,16 @@ const PromotionCard = ({ promotion, onEdit, onDelete, isAdmin }) => {
   const status = getPromotionStatus();
 
   return (
-    <div className={`promotion-card ${!isActive ? 'inactive' : ''}`}>
+    <AnimatedCard
+      className={`promotion-card ${!isActive ? 'inactive' : ''}`}
+      hoverable={true}
+    >
       <div className="promotion-header">
         <div className="promotion-title-section">
           <div className="promotion-name">
-            <span className="promotion-emoji">{emoji || '🎉'}</span>
+            <span className="promotion-emoji">
+              {emoji ? <Icon name={emoji} size={24} /> : <Icon name="celebration" size={24} />}
+            </span>
             {name}
           </div>
           <div className="promotion-type">{getTypeLabel()}</div>
@@ -131,35 +138,35 @@ const PromotionCard = ({ promotion, onEdit, onDelete, isAdmin }) => {
       <div className="promotion-details">
         {formatDateRange() && (
           <div className="promotion-detail">
-            <span className="detail-icon">📅</span>
+            <span className="detail-icon"><Icon name="calendar" size={16} /></span>
             <span className="detail-text">{formatDateRange()}</span>
           </div>
         )}
 
         {formatDaysOfWeek() && (
           <div className="promotion-detail">
-            <span className="detail-icon">📆</span>
+            <span className="detail-icon"><Icon name="calendar" size={16} /></span>
             <span className="detail-text">{formatDaysOfWeek()}</span>
           </div>
         )}
 
         {maxUses && (
           <div className="promotion-detail">
-            <span className="detail-icon">🎫</span>
+            <span className="detail-icon"><Icon name="tag" size={16} /></span>
             <span className="detail-text">{currentUses || 0} / {maxUses} usos</span>
           </div>
         )}
 
         {minPurchaseAmount && (
           <div className="promotion-detail">
-            <span className="detail-icon">💰</span>
+            <span className="detail-icon"><Icon name="money" size={16} /></span>
             <span className="detail-text">Mínimo ${minPurchaseAmount}</span>
           </div>
         )}
 
         {onePerClient && (
           <div className="promotion-detail">
-            <span className="detail-icon">👤</span>
+            <span className="detail-icon"><Icon name="user" size={16} /></span>
             <span className="detail-text">1 uso por cliente</span>
           </div>
         )}
@@ -174,7 +181,7 @@ const PromotionCard = ({ promotion, onEdit, onDelete, isAdmin }) => {
               onEdit(promotion);
             }}
           >
-            ✏️ Editar
+            <Icon name="edit" size={16} /> Editar
           </button>
           <button
             className="btn-action delete"
@@ -183,11 +190,11 @@ const PromotionCard = ({ promotion, onEdit, onDelete, isAdmin }) => {
               onDelete(promotion);
             }}
           >
-            🗑️ Eliminar
+            <Icon name="delete" size={16} /> Eliminar
           </button>
         </div>
       )}
-    </div>
+    </AnimatedCard>
   );
 };
 

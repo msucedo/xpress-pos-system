@@ -5,6 +5,7 @@ import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import Modal from '../components/Modal';
 import OrderDetailView from '../components/OrderDetailView';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { Icon } from '../icons';
 import { updateOrder } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useEmployees } from '../hooks/useEmployees';
@@ -181,14 +182,14 @@ const Dashboard = () => {
       console.log('✅ [FIREBASE] Orden actualizada exitosamente');
 
       // Siempre mostrar notificación de orden actualizada
-      showSuccess('Orden actualizada exitosamente ✓');
+      showSuccess('Orden actualizada exitosamente');
 
       // Si hubo cambio a "enEntrega", mostrar segunda notificación según resultado del WhatsApp
       if (result.whatsappResult) {
         const whatsapp = result.whatsappResult;
 
         if (whatsapp.success) {
-          showSuccess(`WhatsApp enviado a ${updatedOrder.client} ✓`);
+          showSuccess(`WhatsApp enviado a ${updatedOrder.client}`);
         } else if (whatsapp.skipped) {
           showInfo('WhatsApp no configurado, enviar mensaje manualmente.');
         } else {
@@ -421,14 +422,14 @@ const Dashboard = () => {
   const completedThisWeek = getCompletedThisWeek();
 
   const stats = [
-    { icon: '📦', label: 'Para Entregar', value: (orders.enEntrega?.length || 0).toString(), type: 'entregas' },
-    { icon: '🔄', label: 'En Proceso', value: (orders.proceso?.length || 0).toString(), type: 'proceso' },
-    { icon: '💰', label: 'Pagos Pendientes', value: pendingPayments.toString(), type: 'pagos' },
-    { icon: '💵', label: 'Ingresos Hoy', value: `$${todayIncome}`, type: 'ingresos' },
-    { icon: '📥', label: 'Órdenes Recibidas Hoy', value: ordersReceivedToday.toString(), type: 'recibidas' },
-    { icon: '✅', label: 'Órdenes Listas', value: (orders.listos?.length || 0).toString(), type: 'listos' },
-    { icon: '📊', label: 'Total Órdenes Activas', value: totalActiveOrders.toString(), type: 'activas' },
-    { icon: '🎯', label: 'Completadas Esta Semana', value: completedThisWeek.toString(), type: 'completadas' },
+    { icon: <Icon name="delivery" size={32} />, label: 'Para Entregar', value: (orders.enEntrega?.length || 0).toString(), type: 'entregas' },
+    { icon: <Icon name="processing" size={32} />, label: 'En Proceso', value: (orders.proceso?.length || 0).toString(), type: 'proceso' },
+    { icon: <Icon name="money" size={32} />, label: 'Pagos Pendientes', value: pendingPayments.toString(), type: 'pagos' },
+    { icon: <Icon name="cash" size={32} />, label: 'Ingresos Hoy', value: `$${todayIncome}`, type: 'ingresos' },
+    { icon: <Icon name="download" size={32} />, label: 'Órdenes Recibidas Hoy', value: ordersReceivedToday.toString(), type: 'recibidas' },
+    { icon: <Icon name="success" size={32} />, label: 'Órdenes Listas', value: (orders.listos?.length || 0).toString(), type: 'listos' },
+    { icon: <Icon name="chart" size={32} />, label: 'Total Órdenes Activas', value: totalActiveOrders.toString(), type: 'activas' },
+    { icon: <Icon name="completed" size={32} />, label: 'Completadas Esta Semana', value: completedThisWeek.toString(), type: 'completadas' },
   ];
 
   return (
@@ -456,7 +457,7 @@ const Dashboard = () => {
         {/* Calzado en Espera del Cliente (Órdenes Atrasadas) */}
         <div className="task-group">
           <div className="task-group-header">
-            <div className="task-group-icon atrasadas">⏰</div>
+            <div className="task-group-icon atrasadas"><Icon name="clock" size={24} /></div>
             <div className="task-group-title-wrapper">
               <div className="task-group-name">
                 Calzado en Espera del Cliente
@@ -491,7 +492,7 @@ const Dashboard = () => {
         {/* Entregas de Hoy */}
         <div className="task-group">
           <div className="task-group-header">
-            <div className="task-group-icon entregas">📦</div>
+            <div className="task-group-icon entregas"><Icon name="delivery" size={24} /></div>
             <div className="task-group-title-wrapper">
               <div className="task-group-name">Entregas Programadas para Hoy</div>
               <div className="task-group-count">{todayDeliveries.length} {todayDeliveries.length === 1 ? 'cliente esperando' : 'clientes esperando'}</div>

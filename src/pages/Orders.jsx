@@ -7,6 +7,7 @@ import OrderCard from '../components/OrderCard';
 import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import PageHeader from '../components/PageHeader';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { Icon } from '../icons';
 import {
   updateOrder,
   findClientByPhone,
@@ -529,10 +530,10 @@ const Orders = () => {
   };
 
   const tabs = [
-    { key: 'recibidos', label: 'Recibidos', icon: '📥', color: '#3b82f6' },
-    { key: 'proceso', label: 'En Proceso', icon: '🔧', color: '#f59e0b' },
-    { key: 'listos', label: 'Listos', icon: '✅', color: '#10b981' },
-    { key: 'enEntrega', label: 'En Entrega', icon: '🚚', color: '#8b5cf6' }
+    { key: 'recibidos', label: 'Recibidos', icon: 'download', color: '#3b82f6' },
+    { key: 'proceso', label: 'En Proceso', icon: 'processing', color: '#f59e0b' },
+    { key: 'listos', label: 'Listos', icon: 'success', color: '#10b981' },
+    { key: 'enEntrega', label: 'En Entrega', icon: 'delivery', color: '#8b5cf6' }
   ];
 
   const currentOrders = filterOrders(orders[activeTab]).sort((a, b) => {
@@ -547,7 +548,7 @@ const Orders = () => {
       <PageHeader
         title="Órdenes"
         buttonLabel="Nueva Orden"
-        buttonIcon="➕"
+        buttonIcon={<Icon name="add" size={18} />}
         onButtonClick={handleOpenNewOrder}
         showSearch={true}
         searchValue={searchTerm}
@@ -566,7 +567,7 @@ const Orders = () => {
               '--tab-color': tab.color
             }}
           >
-            <span className="tab-icon">{tab.icon}</span>
+            <span className="tab-icon"><Icon name={tab.icon} size={20} /></span>
             <span className="tab-label">{tab.label}</span>
             <span className="tab-count">{filterOrders(orders[tab.key]).length}</span>
           </button>
@@ -585,13 +586,13 @@ const Orders = () => {
           </>
         ) : error ? (
           <div className="empty-state">
-            <div className="empty-icon">⚠️</div>
+            <div className="empty-icon"><Icon name="warning" size={48} /></div>
             <h3>Error al cargar órdenes</h3>
             <p>{error}</p>
           </div>
         ) : currentOrders.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📦</div>
+            <div className="empty-icon"><Icon name="package" size={48} /></div>
             <h3>No hay órdenes</h3>
             <p>No se encontraron órdenes en esta categoría</p>
           </div>

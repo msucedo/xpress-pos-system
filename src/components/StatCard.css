@@ -79,61 +79,8 @@
     justify-content: center;
     font-size: 32px;
     flex-shrink: 0;
-}
-
-.stat-card.entregas .stat-icon {
-    background: linear-gradient(135deg, #00ff88 0%, #00d9a3 100%);
-    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
-}
-
-.stat-card.proceso .stat-icon {
-    background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
-    box-shadow: 0 6px 20px rgba(0, 217, 255, 0.3);
-}
-
-.stat-card.pagos .stat-icon {
-    background: var(--gradient-primary);
-    box-shadow: 0 6px 20px rgba(255, 0, 110, 0.3);
-}
-
-.stat-card.ingresos .stat-icon {
-    background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
-}
-
-.stat-card.recibidas .stat-icon {
-    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
-}
-
-.stat-card.listos .stat-icon {
-    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-}
-
-.stat-card.activas .stat-icon {
-    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
-}
-
-.stat-card.completadas .stat-icon {
-    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-}
-
-.stat-card.gastos .stat-icon {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
-}
-
-.stat-card.ganancia .stat-icon {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
-}
-
-.stat-card.ticket-promedio .stat-icon {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .stat-info {
