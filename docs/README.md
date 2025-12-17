@@ -111,8 +111,11 @@ import { Icon } from '@/icons';
 - [x] Sistema de nombres semánticos
 - [x] Documentación completa
 
-#### Ejemplos de Migración
+#### Páginas con Tabs/Iconos
 - [x] Reports.jsx - AnimatedTabs + Icon (✅ **EJEMPLO COMPLETO**)
+- [x] Orders.jsx - AnimatedTabs + Icon (✅ **COMPLETADO**)
+- [x] Empleados.jsx - Icon (✅ **COMPLETADO**)
+- [x] Dashboard.jsx - Icon (✅ **COMPLETADO** - No tiene tabs, solo stats)
 
 ### 🔄 Pendiente de Migración
 
@@ -137,13 +140,6 @@ import { Icon } from '@/icons';
 - [ ] WithdrawalForm.jsx
 
 **Nota:** AnimatedForm puede usarse como wrapper o referencia para crear feedback visual
-
-#### Tabs (3+ páginas)
-- [ ] Orders.jsx
-- [ ] Empleados.jsx
-- [ ] Dashboard.jsx
-
-**Guía:** Seguir el ejemplo de Reports.jsx
 
 #### Emojis → Iconos (50+ archivos)
 - [ ] Contexts: AuthContext.jsx, CartContext.jsx

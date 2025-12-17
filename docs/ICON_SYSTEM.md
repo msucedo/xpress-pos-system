@@ -361,21 +361,124 @@ const sizes = { sm: 16, md: 24, lg: 32, xl: 48 };
 
 ---
 
+## ✅ Ejemplos Prácticos de Migración
+
+### Páginas Completadas
+
+#### 1. Reports.jsx ✅
+**Migración:** AnimatedTabs + Icon
+**Ubicación:** `src/pages/Reports.jsx`
+
+```jsx
+import { AnimatedTabs } from '../components/animated';
+import { Icon } from '../icons';
+
+const tabs = [
+  {
+    id: 'reportes',
+    label: 'Reportes',
+    icon: <Icon name="chart" size={20} />,
+    content: <ChartsTab {...props} />
+  },
+  // ...más tabs
+];
+
+<AnimatedTabs tabs={tabs} defaultTab="reportes" onTabChange={setActiveTab} />
+```
+
+#### 2. Orders.jsx ✅
+**Migración:** AnimatedTabs + Icon + Botón icon-only
+**Ubicación:** `src/pages/Orders.jsx`
+
+**Botón Nueva Orden:**
+```jsx
+<PageHeader
+  title="Órdenes"
+  buttonIcon={<Icon name="add" size={32} />}  // Sin buttonLabel
+  onButtonClick={handleOpenNewOrder}
+/>
+```
+
+**Tabs con AnimatedTabs:**
+```jsx
+const renderOrdersList = (tabKey) => (
+  <div className="orders-list">
+    {/* contenido de la tab */}
+  </div>
+);
+
+const tabs = [
+  {
+    id: 'recibidos',
+    label: 'Recibidos',
+    icon: <Icon name="download" size={20} />,
+    content: renderOrdersList('recibidos')
+  },
+  // ...más tabs
+];
+
+<AnimatedTabs tabs={tabs} defaultTab="recibidos" onTabChange={setActiveTab} responsive={true} />
+```
+
+#### 3. Empleados.jsx ✅
+**Migración:** Icon + Botón icon-only
+**Ubicación:** `src/pages/Empleados.jsx`
+
+**Antes:**
+```jsx
+buttonLabel="Agregar Empleado"
+buttonIcon="➕"
+```
+
+**Después:**
+```jsx
+buttonIcon={<Icon name="add" size={32} />}  // Sin buttonLabel
+```
+
+**Empty State:**
+```jsx
+// Antes
+<div className="empty-icon">😕</div>
+
+// Después
+<div className="empty-icon"><Icon name="question" size={48} /></div>
+```
+
+#### 4. Dashboard.jsx ✅
+**Migración:** Icon (sin tabs)
+**Ubicación:** `src/pages/Dashboard.jsx`
+
+```jsx
+const stats = [
+  { icon: <Icon name="delivery" size={32} />, label: 'Para Entregar', value: '5' },
+  { icon: <Icon name="processing" size={32} />, label: 'En Proceso', value: '12' },
+  { icon: <Icon name="money" size={32} />, label: 'Pagos Pendientes', value: '3' },
+  // ...más stats
+];
+```
+
+---
+
 ## 🚀 Migración Masiva
 
 ### Archivos a Migrar
 
+**✅ Completado:**
+1. `src/pages/Reports.jsx` - AnimatedTabs + Icon
+2. `src/pages/Orders.jsx` - AnimatedTabs + Icon
+3. `src/pages/Empleados.jsx` - Icon
+4. `src/pages/Dashboard.jsx` - Icon
+
 **Prioridad Alta:**
-1. `src/pages/Reports.jsx` ✅ (COMPLETADO - ejemplo)
-2. `src/components/PromotionCard.jsx`
-3. `src/components/InventoryCard.jsx`
-4. `src/utils/inventoryConstants.js`
-5. `src/utils/promotions/promotionInitialState.js`
+1. `src/components/PromotionCard.jsx`
+2. `src/components/InventoryCard.jsx`
+3. `src/utils/inventoryConstants.js`
+4. `src/utils/promotions/promotionInitialState.js`
 
 **Prioridad Media:**
 - Todos los componentes de formulario (15+ archivos)
 - Componentes de modal
-- Tabs en páginas (Orders.jsx, Empleados.jsx, Dashboard.jsx)
+- Empty states en otros componentes
 
 **Prioridad Baja:**
 - Contexts (AuthContext, CartContext)

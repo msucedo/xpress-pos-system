@@ -23,8 +23,12 @@ const PageHeader = ({
         {title && <h1 className="page-title">{title}</h1>}
 
         <div className="header-actions">
-          {buttonLabel && (
-            <button className="btn-add-compact" onClick={onButtonClick} title={buttonLabel}>
+          {(buttonLabel || buttonIcon) && (
+            <button
+              className={buttonLabel ? "btn-add-compact" : "btn-icon-only"}
+              onClick={onButtonClick}
+              title={buttonLabel || 'Agregar'}
+            >
               {buttonIcon || '+'}
             </button>
           )}
@@ -96,7 +100,7 @@ const PageHeader = ({
 PageHeader.propTypes = {
   title: PropTypes.string,
   buttonLabel: PropTypes.string,
-  buttonIcon: PropTypes.string,
+  buttonIcon: PropTypes.node,
   onButtonClick: PropTypes.func,
   showSearch: PropTypes.bool,
   searchValue: PropTypes.string,

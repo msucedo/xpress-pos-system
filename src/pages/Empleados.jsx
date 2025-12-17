@@ -6,6 +6,7 @@ import EmpleadoForm from '../components/EmpleadoForm';
 import OrderDetailView from '../components/OrderDetailView';
 import PageHeader from '../components/PageHeader';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { Icon } from '../icons';
 import {
   subscribeToEmployees,
   addEmployee,
@@ -302,8 +303,7 @@ const Empleados = () => {
       {/* Header */}
       <PageHeader
         title="Empleados"
-        buttonLabel="Agregar Empleado"
-        buttonIcon="➕"
+        buttonIcon={<Icon name="add" size={32} />}
         onButtonClick={handleOpenNewEmpleado}
         showSearch={true}
         searchValue={searchTerm}
@@ -359,7 +359,7 @@ const Empleados = () => {
           ))
         ) : (
           <div className="empty-state">
-            <div className="empty-icon">😕</div>
+            <div className="empty-icon"><Icon name="question" size={48} /></div>
             <div className="empty-text">No se encontraron empleados</div>
             <div className="empty-subtext">
               {empleados.length === 0 && searchTerm === '' && activeFilter === 'all'

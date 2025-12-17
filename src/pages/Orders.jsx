@@ -7,6 +7,7 @@ import OrderCard from '../components/OrderCard';
 import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import PageHeader from '../components/PageHeader';
 import ConfirmDialog from '../components/ConfirmDialog';
+import { AnimatedTabs } from '../components/animated';
 import { Icon } from '../icons';
 import {
   updateOrder,
@@ -215,16 +216,6 @@ const Orders = () => {
       console.error('❌ [FIREBASE] Error saving order:', error);
       showError('Error al guardar la orden. Por favor intenta de nuevo.');
     }
-  };
-
-  const getStatusInfo = (status) => {
-    const statusMap = {
-      recibidos: { label: 'Recibidos', icon: '📥', color: '#3b82f6' },
-      proceso: { label: 'En Proceso', icon: '🔧', color: '#f59e0b' },
-      listos: { label: 'Listos', icon: '✅', color: '#10b981' },
-      enEntrega: { label: 'En Entrega', icon: '🚚', color: '#8b5cf6' }
-    };
-    return statusMap[status] || statusMap.recibidos;
   };
 
   const handleCancelOrder = (order) => {
@@ -529,52 +520,15 @@ const Orders = () => {
     }
   };
 
-  const tabs = [
-    { key: 'recibidos', label: 'Recibidos', icon: 'download', color: '#3b82f6' },
-    { key: 'proceso', label: 'En Proceso', icon: 'processing', color: '#f59e0b' },
-    { key: 'listos', label: 'Listos', icon: 'success', color: '#10b981' },
-    { key: 'enEntrega', label: 'En Entrega', icon: 'delivery', color: '#8b5cf6' }
-  ];
+  // Helper function to render orders list for a specific tab
+  const renderOrdersList = (tabKey) => {
+    const currentOrders = filterOrders(orders[tabKey]).sort((a, b) => {
+      const dateA = new Date(a.createdAt || 0);
+      const dateB = new Date(b.createdAt || 0);
+      return dateB - dateA; // Descendente (más reciente primero)
+    });
 
-  const currentOrders = filterOrders(orders[activeTab]).sort((a, b) => {
-    const dateA = new Date(a.createdAt || 0);
-    const dateB = new Date(b.createdAt || 0);
-    return dateB - dateA; // Descendente (más reciente primero)
-  });
-
-  return (
-    <div className="orders-page">
-      {/* Header */}
-      <PageHeader
-        title="Órdenes"
-        buttonLabel="Nueva Orden"
-        buttonIcon={<Icon name="add" size={18} />}
-        onButtonClick={handleOpenNewOrder}
-        showSearch={true}
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        searchPlaceholder="Buscar por cliente, orden o teléfono..."
-      />
-
-      {/* Status Tabs */}
-      <div className="status-tabs">
-        {tabs.map(tab => (
-          <button
-            key={tab.key}
-            className={`status-tab ${activeTab === tab.key ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab.key)}
-            style={{
-              '--tab-color': tab.color
-            }}
-          >
-            <span className="tab-icon"><Icon name={tab.icon} size={20} /></span>
-            <span className="tab-label">{tab.label}</span>
-            <span className="tab-count">{filterOrders(orders[tab.key]).length}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Orders List */}
+    return (
       <div className="orders-list">
         {loading ? (
           <>
@@ -602,13 +556,64 @@ const Orders = () => {
               <OrderCard
                 key={order.id}
                 order={order}
-                activeTab={activeTab}
+                activeTab={tabKey}
                 onOrderClick={handleOrderClick}
               />
             ))}
           </>
         )}
       </div>
+    );
+  };
+
+  // Tabs configuration for AnimatedTabs
+  const tabs = [
+    {
+      id: 'recibidos',
+      label: 'Recibidos',
+      icon: <Icon name="download" size={20} />,
+      content: renderOrdersList('recibidos')
+    },
+    {
+      id: 'proceso',
+      label: 'En Proceso',
+      icon: <Icon name="processing" size={20} />,
+      content: renderOrdersList('proceso')
+    },
+    {
+      id: 'listos',
+      label: 'Listos',
+      icon: <Icon name="success" size={20} />,
+      content: renderOrdersList('listos')
+    },
+    {
+      id: 'enEntrega',
+      label: 'En Entrega',
+      icon: <Icon name="delivery" size={20} />,
+      content: renderOrdersList('enEntrega')
+    }
+  ];
+
+  return (
+    <div className="orders-page">
+      {/* Header */}
+      <PageHeader
+        title="Órdenes"
+        buttonIcon={<Icon name="add" size={32} />}
+        onButtonClick={handleOpenNewOrder}
+        showSearch={true}
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Buscar por cliente, orden o teléfono..."
+      />
+
+      {/* Animated Tabs with Orders */}
+      <AnimatedTabs
+        tabs={tabs}
+        defaultTab="recibidos"
+        onTabChange={setActiveTab}
+        responsive={true}
+      />
 
       {/* Modal for New Order or Order Detail */}
       <Modal
