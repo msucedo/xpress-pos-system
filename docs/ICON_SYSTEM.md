@@ -506,6 +506,137 @@ const stats = [
 
 ---
 
+## 🎨 Mejora Futura: IconPickerModal
+
+### Objetivo
+Crear un selector visual de iconos para reemplazar los campos de texto de emoji en formularios.
+
+### Alcance
+**Formularios a actualizar:**
+1. `EmpleadoForm.jsx` (líneas 210-222) - Categoría: "users"
+2. `ServiceForm.jsx` (líneas 186-201) - Categoría: "services"
+3. `BasicInfoSection.jsx` (Promociones, líneas 14-24) - Categoría: "promotions"
+4. `InventoryForm` (Productos) - Categoría: "products"
+
+### Arquitectura Propuesta
+
+#### Componentes
+1. **IconPickerModal.jsx** - Modal principal con grid de iconos
+2. **IconPickerButton.jsx** - Botón trigger con preview
+3. **IconGrid.jsx** - Grid virtualizado de iconos
+4. **IconCategories.jsx** - Tabs de categorías
+
+#### Estructura de Archivos
+```
+src/components/iconPicker/
+├── IconPickerModal.jsx
+├── IconPickerModal.css
+├── IconPickerButton.jsx
+├── IconPickerButton.css
+├── IconGrid.jsx
+├── IconCategories.jsx
+├── index.js
+└── __tests__/
+    ├── IconPickerModal.test.js
+    └── IconPickerButton.test.js
+```
+
+### Características Clave
+
+#### UI/UX
+- ✅ Modal animado con AnimatedModal
+- ✅ Grid responsive (8 cols desktop → 3 cols móvil)
+- ✅ Búsqueda en tiempo real
+- ✅ Filtrado por categorías
+- ✅ Preview del icono seleccionado
+- ✅ Hover states animados (scale 1.1)
+- ✅ Estados: normal, hover, selected
+
+#### Performance
+- ✅ Lazy loading del modal (dynamic import)
+- ✅ useMemo para filtrado de iconos
+- ✅ useCallback para handlers
+- ✅ Virtualización opcional (react-window)
+
+#### Accesibilidad
+- ✅ role="dialog" y aria-labels
+- ✅ Keyboard navigation (Tab, Enter, Escape)
+- ✅ Focus trap dentro del modal
+- ✅ aria-selected para icono activo
+
+#### Testing
+- ✅ Tests unitarios con Vitest
+- ✅ Testing de búsqueda y filtrado
+- ✅ Testing de accesibilidad
+- ✅ Testing de keyboard navigation
+
+### Uso en Formularios
+
+**Antes:**
+```jsx
+<input
+  type="text"
+  name="emoji"
+  value={formData.emoji}
+  onChange={handleChange}
+  placeholder="🎉"
+  maxLength="2"
+/>
+```
+
+**Después:**
+```jsx
+import { IconPickerButton } from './iconPicker';
+
+<IconPickerButton
+  label="Icono del Servicio"
+  value={formData.emoji}
+  onChange={(iconName) => setFormData({ ...formData, emoji: iconName })}
+  category="services"
+  required={true}
+  error={errors.emoji}
+/>
+```
+
+### Categorías de Iconos
+
+Basado en iconMap.js (~120 iconos):
+
+| Categoría | Cantidad | Ejemplos |
+|-----------|----------|----------|
+| products | 10 | package, box, inventory, shop |
+| services | 8 | tools, settings, processing |
+| users | 6 | user, employee, team, admin |
+| promotions | 5 | celebration, gift, offer |
+| status | 8 | success, error, warning |
+| actions | 15 | add, edit, delete, save |
+| navigation | 10 | home, back, forward, menu |
+| finance | 8 | money, cash, payment |
+| documents | 8 | document, file, clipboard |
+| misc | 40+ | calendar, notification, etc. |
+
+### Fases de Implementación
+
+1. **Fase 1:** Componente base (modal + grid estático)
+2. **Fase 2:** Búsqueda y filtros
+3. **Fase 3:** IconPickerButton wrapper
+4. **Fase 4:** Optimización (virtualización, memoization)
+5. **Fase 5:** Integración en formularios
+6. **Fase 6:** Tests y documentación
+
+### Beneficios
+
+- ✅ UX mejorada (visual vs texto)
+- ✅ Previene errores de emoji inválidos
+- ✅ Búsqueda rápida de iconos
+- ✅ Consistencia en toda la app
+- ✅ Responsive y accesible
+- ✅ Reutilizable en múltiples formularios
+
+**Nota:** Esta mejora está documentada para implementación futura cuando haya suficiente contexto disponible.
+
+---
+
 ## 🔗 Referencias
 
 - [Iconify React Docs](https://iconify.design/docs/icon-components/react/)
