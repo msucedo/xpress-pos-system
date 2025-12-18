@@ -18,7 +18,7 @@ export const PRODUCT_CATEGORIES = [
  */
 export const DEFAULT_PRODUCT_STATE = {
   name: '',
-  category: 'Tenis',
+  category: 'Accesorios',
   description: '',
   barcode: '',
   emoji: '📦',

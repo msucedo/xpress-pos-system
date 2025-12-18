@@ -31,7 +31,7 @@ export function loadInitialProductData(initialData, defaultState) {
 
   return {
     name: initialData.name || '',
-    category: initialData.category || 'Tenis',
+    category: initialData.category || 'Accesorios',
     description: initialData.description || '',
     barcode: initialData.barcode || '',
     emoji: initialData.emoji || '📦',

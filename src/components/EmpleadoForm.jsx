@@ -212,8 +212,8 @@ const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
           label="Icono del Empleado (opcional)"
           value={formData.emoji}
           onChange={(iconName) => setFormData({ ...formData, emoji: iconName })}
-          category="users"
-          placeholder="Seleccionar icono"
+          category="characters"
+          placeholder="Seleccionar personaje"
         />
 
         <div className="form-group full-width">

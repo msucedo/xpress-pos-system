@@ -65,6 +65,22 @@ export const ICON_CATEGORIES = {
   misc: {
     label: 'Otros',
     icons: ['info', 'help', 'question', 'star', 'favorite', 'bookmark', 'flag', 'database', 'server', 'code', 'bug', 'launch', 'rocket', 'locked', 'unlocked']
+  },
+  characters: {
+    label: 'Personajes',
+    icons: [
+      'aang', 'agent-smith', 'anonymous', 'baby-yoda', 'batman', 'beast', 'black-blood', 'bmo',
+      'c3po', 'captain-america', 'chewbacca', 'chucky', 'cartman', 'cookie-monster', 'cylon',
+      'darth-vader', 'deadpool', 'dobby', 'nemo', 'finn', 'freddy', 'bender', 'fry', 'professor-farnsworth',
+      'gizmo', 'goofy', 'billy-mandy', 'green-lantern', 'grinch', 'groot', 'hammerstein', 'harry-potter',
+      'hercules', 'homer', 'hulk', 'ice-king', 'iron-man', 'jake', 'jason', 'jetpack', 'jerry',
+      'jimmy-neutron', 'joe-pineapples', 'john-wick', 'joker', 'joker-suicide', 'kenny', 'kyle',
+      'voldemort', 'luigi', 'lumpy-space', 'mek-quake', 'martian', 'dali', 'mongrol', 'mike', 'sulley',
+      'morty', 'mummy', 'mystique', 'navi', 'neo', 'pennywise', 'popeye', 'pumbaa', 'r2d2',
+      'scooby', 'fred-jones', 'shaggy', 'scream', 'shrek', 'simba', 'sonic', 'smurf', 'spongebob',
+      'stan', 'steven', 'stitch', 'stormtrooper', 'mario', 'thanos', 'the-coon', 'thor', 'timon',
+      'tom', 'totoro', 'trinity', 'venom', 'walter-white', 'wall-e', 'wolverine', 'woody', 'yoda'
+    ]
   }
 };
 
