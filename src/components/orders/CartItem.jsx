@@ -1,3 +1,4 @@
+import { Icon } from '../../icons';
 import PromotionBadge from '../PromotionBadge';
 
 /**
@@ -7,7 +8,7 @@ import PromotionBadge from '../PromotionBadge';
 export function CartItem({ item, assignedPromo, onRemove }) {
   return (
     <div className="cart-item">
-      <div className="cart-item-icon">{item.icon}</div>
+      <div className="cart-item-icon"><Icon name={item.icon} size={20} /></div>
       <div className="cart-item-info">
         <span className="cart-item-name">
           {item.type === 'service' ? item.serviceName : item.name}

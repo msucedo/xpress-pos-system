@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getOrderByTrackingToken, getBusinessProfile } from '../services/firebaseService';
+import { Icon } from '../icons';
 import '../styles/OrderTracking.css';
 
 /**
@@ -376,7 +377,7 @@ function OrderTracking() {
             <div className="products-list">
               {order.products.map((product, index) => (
                 <div key={index} className="product-item">
-                  <span className="product-emoji">{product.emoji || '🛍️'}</span>
+                  <span className="product-emoji"><Icon name={product.emoji || 'package'} size={18} /></span>
                   <span className="product-name">{product.name}</span>
                   <span className="product-quantity">×{product.quantity}</span>
                 </div>

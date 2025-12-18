@@ -1,3 +1,4 @@
+import { Icon } from '../../icons';
 import { isPromotionRelevantForCart } from '../../utils/promotions/promotionHelpers';
 
 /**
@@ -36,7 +37,7 @@ export function PromotionsBanner({
 
         return (
           <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
-            <span className="promo-emoji">{promo.emoji || '🎉'}</span>
+            <span className="promo-emoji"><Icon name={promo.emoji || 'celebration'} size={18} /></span>
             <span className="promo-name">{promo.name}</span>
             {isApplied && <span className="applied-badge">✓ APLICADA</span>}
             {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}

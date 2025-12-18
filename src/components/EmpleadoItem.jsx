@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { subscribeToOrders, updateOrder } from '../services/firebaseService';
 import AdminBadge from './AdminBadge';
+import { Icon } from '../icons';
 import './EmpleadoItem.css';
 
 const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError }) => {
@@ -172,13 +173,14 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
 
     const grouped = {};
     services.forEach(service => {
-      const icon = service.icon || '🧼';
+      const icon = service.icon || 'settings';
       grouped[icon] = (grouped[icon] || 0) + 1;
     });
 
-    return Object.entries(grouped).map(([icon, count]) => (
-      <span key={icon} className="service-icon">
-        {icon}{count > 1 ? ` ${count}` : ''}
+    return Object.entries(grouped).map(([iconName, count]) => (
+      <span key={iconName} className="service-icon">
+        <Icon name={iconName} size={18} />
+        {count > 1 ? ` ${count}` : ''}
       </span>
     ));
   };
@@ -187,7 +189,7 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
     <div className="empleado-item-wrapper">
       <div className="empleado-item" onClick={() => onClick && onClick(empleado)}>
         <div className={`empleado-avatar ${!isActive ? 'inactive' : ''} ${empleado.emoji ? 'with-emoji' : ''}`}>
-          {empleado.emoji || getInitials(empleado.name)}
+          {empleado.emoji ? <Icon name={empleado.emoji} size={24} /> : getInitials(empleado.name)}
         </div>
         <div className="empleado-info">
           <div className="empleado-name">

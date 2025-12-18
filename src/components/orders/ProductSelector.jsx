@@ -1,3 +1,5 @@
+import { Icon } from '../../icons';
+
 /**
  * Selector de productos disponibles del inventario
  * Extraído de OrderForm.jsx para reutilización
@@ -24,7 +26,7 @@ export function ProductSelector({ products, onAddToCart }) {
               onClick={() => onAddToCart(product, 'product')}
               title={`${product.name} - $${product.salePrice} (Stock: ${product.stock})`}
             >
-              <span className="service-icon-large">{product.emoji || '📦'}</span>
+              <span className="service-icon-large"><Icon name={product.emoji || 'package'} size={48} /></span>
               {product.stock <= product.minStock && (
                 <span className="stock-warning">⚠️</span>
               )}

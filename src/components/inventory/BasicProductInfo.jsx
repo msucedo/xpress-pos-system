@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { ValidatedAlphanumericInput } from '../inputs';
+import { IconPickerButton } from '../iconPicker';
 import { PRODUCT_CATEGORIES } from '../../utils/inventory/inventoryConstants';
 
 /**
@@ -7,6 +8,16 @@ import { PRODUCT_CATEGORIES } from '../../utils/inventory/inventoryConstants';
  * Maneja nombre, categoría y emoji
  */
 export function BasicProductInfo({ formData, errors, onChange }) {
+  // Handler para el cambio de icono
+  const handleIconChange = (iconName) => {
+    onChange({
+      target: {
+        name: 'emoji',
+        value: iconName
+      }
+    });
+  };
+
   return (
     <>
       {/* Nombre */}
@@ -38,20 +49,14 @@ export function BasicProductInfo({ formData, errors, onChange }) {
         {errors.category && <span className="error-message">{errors.category}</span>}
       </div>
 
-      {/* Emoji */}
-      <div className="form-group">
-        <label htmlFor="emoji">Emoji del Producto</label>
-        <input
-          type="text"
-          id="emoji"
-          name="emoji"
-          value={formData.emoji}
-          onChange={onChange}
-          placeholder="📦"
-          maxLength="2"
-        />
-        <span className="emoji-preview">{formData.emoji || '📦'}</span>
-      </div>
+      {/* Icono del Producto */}
+      <IconPickerButton
+        label="Icono del Producto (opcional)"
+        value={formData.emoji}
+        onChange={handleIconChange}
+        category="products"
+        placeholder="Seleccionar icono"
+      />
     </>
   );
 }

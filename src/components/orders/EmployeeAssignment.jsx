@@ -1,3 +1,4 @@
+import { Icon } from '../../icons';
 import { getEmployeesWithOrderCount } from '../../utils/employees/employeeHelpers';
 
 /**
@@ -29,7 +30,7 @@ export function EmployeeAssignment({
             onClick={() => onSelectEmployee(selectedEmployee?.id === emp.id ? null : emp)}
             title={`${emp.name} - ${emp.orderCount} órdenes activas`}
           >
-            <span className="employee-emoji">{emp.emoji || '👤'}</span>
+            <span className="employee-emoji"><Icon name={emp.emoji || 'user'} size={24} /></span>
             <span className="employee-order-count">{emp.orderCount}</span>
           </button>
         ))}

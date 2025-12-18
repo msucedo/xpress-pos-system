@@ -1,3 +1,5 @@
+import { Icon } from '../../icons';
+
 /**
  * Selector de servicios disponibles
  * Extraído de OrderForm.jsx para reutilización
@@ -18,7 +20,7 @@ export function ServiceSelector({ services, onAddToCart }) {
             onClick={() => onAddToCart(service, 'service')}
             title={`${service.name} - $${service.price}`}
           >
-            <span className="service-icon-large">{service.emoji || '🛠️'}</span>
+            <span className="service-icon-large"><Icon name={service.emoji || 'settings'} size={48} /></span>
           </button>
         ))}
       </div>

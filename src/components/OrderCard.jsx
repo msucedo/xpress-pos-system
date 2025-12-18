@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '../icons';
 import { subscribeToEmployees } from '../services/firebaseService';
 import './OrderCard.css';
 
@@ -37,7 +38,7 @@ const formatDeliveryDate = (dateString) => {
 };
 
 // Componente Principal: OrderCard
-const OrderCard = ({ order, onOrderClick }) => {
+const OrderCard = ({ order, onOrderClick, services = [] }) => {
   const [employees, setEmployees] = useState([]);
 
   // Suscribirse a empleados para obtener emoji
@@ -82,14 +83,23 @@ const OrderCard = ({ order, onOrderClick }) => {
     const grouped = {};
 
     activeServices.forEach(service => {
-      const emoji = service.icon || '🛠️';
+      // Buscar servicio actual por nombre para obtener icono actualizado
+      const currentService = services.find(s => s.name === service.serviceName);
+      let emoji = currentService?.emoji || service.icon || 'settings';
+
+      // Si emoji contiene caracteres emoji (no es nombre de icono Iconify), usar fallback
+      // Emoji characters are typically in these Unicode ranges
+      if (emoji && emoji.length <= 4 && /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{27BF}]/u.test(emoji)) {
+        emoji = 'settings';
+      }
+
       if (!grouped[emoji]) {
         grouped[emoji] = { emoji, count: 0 };
       }
       grouped[emoji].count++;
     });
     return Object.values(grouped);
-  }, [activeServices]);
+  }, [activeServices, services]);
 
   // Obtener la primera imagen de la galería
   const firstImage = useMemo(() => {
@@ -147,7 +157,7 @@ const OrderCard = ({ order, onOrderClick }) => {
         )}
         {authorEmoji && (
           <div className="order-author-badge" title={`Autor: ${order.author || 'Sin asignar'}`}>
-            {authorEmoji}
+            <Icon name={authorEmoji} size={16} />
           </div>
         )}
         <div className={`order-delivery-badge ${dateInfo.className}`}>
@@ -162,13 +172,13 @@ const OrderCard = ({ order, onOrderClick }) => {
             key={index}
             className={`pairs-count-badge ${allServicesCompleted ? 'completed' : ''}`}
           >
-            {service.emoji} {service.count}
+            <Icon name={service.emoji} size={18} /> {service.count}
           </div>
         ))}
 
         {activeServices.length === 0 && (
           <div className="pairs-count-badge">
-            🛠️ 0 Servicios
+            <Icon name="settings" size={18} /> 0 Servicios
           </div>
         )}
       </div>

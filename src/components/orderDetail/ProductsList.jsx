@@ -1,3 +1,5 @@
+import { Icon } from '../../icons';
+
 /**
  * Componente para lista de productos de la orden
  */
@@ -14,7 +16,7 @@ export function ProductsList({ products }) {
           <div key={product.id || index} className="pair-detail-card product-card">
             <div className="pair-card-header">
               <div className="pair-header-left">
-                <span className="pair-number">{product.emoji || '📦'} Producto #{index + 1}</span>
+                <span className="pair-number"><Icon name={product.emoji || 'package'} size={20} /> Producto #{index + 1}</span>
                 <span className="product-quantity-badge">x{product.quantity}</span>
               </div>
               <span className="pair-price-badge">${product.salePrice * product.quantity}</span>

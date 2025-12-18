@@ -1,3 +1,4 @@
+import { Icon } from '../icons';
 import './InventoryCard.css';
 
 const InventoryCard = ({ product, onClick }) => {
@@ -12,20 +13,8 @@ const InventoryCard = ({ product, onClick }) => {
     ? product.images[0]
     : null;
 
-  const getCategoryIcon = (category) => {
-    const icons = {
-      'Tenis': '👟',
-      'Zapatos': '👞',
-      'Botas': '🥾',
-      'Accesorios': '🎒',
-      'Gorras': '🧢',
-      'Bolsas': '👜'
-    };
-    return icons[category] || '📦';
-  };
-
-  // Get the emoji to display: custom emoji > category icon
-  const displayEmoji = product.emoji || getCategoryIcon(product.category);
+  // Get the icon name to display
+  const displayIcon = product.emoji || 'package';
 
   return (
     <div className="inventory-card" onClick={() => onClick && onClick(product)}>
@@ -35,11 +24,11 @@ const InventoryCard = ({ product, onClick }) => {
           <img src={productImage} alt={product.name} className="product-image" />
         ) : (
           <div className="product-image-placeholder">
-            {displayEmoji}
+            <Icon name={displayIcon} size={48} />
           </div>
         )}
         <div className="product-category-badge">
-          {displayEmoji} {product.category}
+          <Icon name={displayIcon} size={16} /> {product.category}
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAdminCheck } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
+import { IconPickerButton } from './iconPicker';
 import './ServiceForm.css';
 
 const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
@@ -183,22 +184,15 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="service-form-content">
-        <div className="form-group">
-          <label className="form-label">
-            Emoji <span className="required">*</span>
-          </label>
-          <input
-            type="text"
-            name="emoji"
-            className={`form-input ${errors.emoji ? 'error' : ''}`}
-            placeholder="Ej: 🧼"
-            value={formData.emoji}
-            onChange={handleChange}
-            maxLength="2"
-          />
-          {errors.emoji && <span className="error-message">{errors.emoji}</span>}
-          <span className="field-hint">Emoji que representa el servicio</span>
-        </div>
+        <IconPickerButton
+          label="Icono del Servicio"
+          value={formData.emoji}
+          onChange={(iconName) => setFormData({ ...formData, emoji: iconName })}
+          category="services"
+          required={true}
+          error={errors.emoji}
+          placeholder="Seleccionar icono del servicio"
+        />
 
         <ValidatedAlphanumericInput
           name="name"

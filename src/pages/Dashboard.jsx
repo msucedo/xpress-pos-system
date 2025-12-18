@@ -5,10 +5,12 @@ import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import Modal from '../components/Modal';
 import OrderDetailView from '../components/OrderDetailView';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AuthorSelect from '../components/AuthorSelect';
 import { Icon } from '../icons';
 import { updateOrder } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useEmployees } from '../hooks/useEmployees';
+import { useServices } from '../hooks/useServices';
 import { useCashRegisterClosures } from '../hooks/useCashRegisterClosures';
 import { useNotification } from '../hooks/useNotification';
 import { useAuth } from '../hooks/useAuth';
@@ -40,6 +42,8 @@ const Dashboard = () => {
   }, isLoading: ordersLoading, error: ordersError } = useOrders({ limitCount: 200 });
 
   const { data: employeesData = [], isLoading: employeesLoading } = useEmployees();
+
+  const { data: services = [], isLoading: servicesLoading } = useServices();
 
   // Use React Query hook for cash register closures
   const { data: closures = [], isLoading: closuresLoading } = useCashRegisterClosures();
@@ -483,6 +487,7 @@ const Dashboard = () => {
                   key={order.id}
                   order={order}
                   onOrderClick={handleOrderClick}
+                  services={services}
                 />
               ))
             )}
@@ -515,6 +520,7 @@ const Dashboard = () => {
                   key={order.id}
                   order={order}
                   onOrderClick={handleOrderClick}
+                  services={services}
                 />
               ))
             )}
@@ -535,24 +541,12 @@ const Dashboard = () => {
                 <span className="order-header-date">Recibida {headerData.createdAt}</span>
               </div>
               <div className="order-header-author">
-                <select
-                  className="order-header-author-select"
+                <AuthorSelect
                   value={headerData.authorId || ''}
                   onChange={headerData.onAuthorChange}
-                  onClick={(e) => e.stopPropagation()}
+                  employees={headerData.activeEmployees || []}
                   disabled={headerData.isReadOnly}
-                  style={{
-                    opacity: headerData.isReadOnly ? 0.6 : 1,
-                    cursor: headerData.isReadOnly ? 'not-allowed' : 'pointer'
-                  }}
-                >
-                  <option value="">Sin autor</option>
-                  {headerData.activeEmployees?.map(employee => (
-                    <option key={employee.id} value={employee.id}>
-                      {employee.emoji ? `${employee.emoji} ` : ''}{employee.name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
           ) : undefined}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAdminCheck } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedTextInput, ValidatedPhoneInput, ValidatedEmailInput } from './inputs';
+import { IconPickerButton } from './iconPicker';
 import './EmpleadoForm.css';
 
 const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
@@ -207,19 +208,13 @@ const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
           </div>
         )}
 
-        <div className="form-group">
-          <label htmlFor="emoji">Emoji (opcional)</label>
-          <input
-            type="text"
-            id="emoji"
-            name="emoji"
-            value={formData.emoji}
-            onChange={handleChange}
-            placeholder="👨‍💼"
-            maxLength="4"
-          />
-          <span className="field-hint">Pega o escribe un emoji para representar al empleado</span>
-        </div>
+        <IconPickerButton
+          label="Icono del Empleado (opcional)"
+          value={formData.emoji}
+          onChange={(iconName) => setFormData({ ...formData, emoji: iconName })}
+          category="users"
+          placeholder="Seleccionar icono"
+        />
 
         <div className="form-group full-width">
           <label htmlFor="notes">Notas (opcional)</label>

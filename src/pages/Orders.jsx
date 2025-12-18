@@ -7,6 +7,7 @@ import OrderCard from '../components/OrderCard';
 import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import PageHeader from '../components/PageHeader';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AuthorSelect from '../components/AuthorSelect';
 import { AnimatedTabs } from '../components/animated';
 import { Icon } from '../icons';
 import {
@@ -18,6 +19,7 @@ import {
 } from '../services/firebaseService';
 import { useOrders } from '../hooks/useOrders';
 import { useEmployees } from '../hooks/useEmployees';
+import { useServices } from '../hooks/useServices';
 import { useNotification } from '../hooks/useNotification';
 import { printTicket } from '../services/printService';
 import { addPrintJob } from '../services/printQueueService';
@@ -66,6 +68,7 @@ const Orders = () => {
   // Use React Query hooks for real-time data
   const { data: orders = EMPTY_ORDERS, isLoading: ordersLoading, error: ordersError } = useOrders({ limitCount: 200 });
   const { data: employeesData = [], isLoading: employeesLoading } = useEmployees();
+  const { data: services = [], isLoading: servicesLoading } = useServices();
 
   // Filter only active employees
   const employees = useMemo(() => {
@@ -73,7 +76,7 @@ const Orders = () => {
   }, [employeesData]);
 
   // Combined loading and error states
-  const loading = ordersLoading || employeesLoading;
+  const loading = ordersLoading || employeesLoading || servicesLoading;
   const error = ordersError;
 
   // Handle errors
@@ -558,6 +561,7 @@ const Orders = () => {
                 order={order}
                 activeTab={tabKey}
                 onOrderClick={handleOrderClick}
+                services={services}
               />
             ))}
           </>
@@ -628,24 +632,12 @@ const Orders = () => {
               <span className="order-header-date">Recibida {headerData.createdAt}</span>
             </div>
             <div className="order-header-author">
-              <select
-                className="order-header-author-select"
+              <AuthorSelect
                 value={headerData.authorId || ''}
                 onChange={headerData.onAuthorChange}
-                onClick={(e) => e.stopPropagation()}
+                employees={headerData.activeEmployees || []}
                 disabled={headerData.isReadOnly}
-                style={{
-                  opacity: headerData.isReadOnly ? 0.6 : 1,
-                  cursor: headerData.isReadOnly ? 'not-allowed' : 'pointer'
-                }}
-              >
-                <option value="">Sin autor</option>
-                {headerData.activeEmployees?.map(employee => (
-                  <option key={employee.id} value={employee.id}>
-                    {employee.emoji ? `${employee.emoji} ` : ''}{employee.name}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
         ) : undefined}

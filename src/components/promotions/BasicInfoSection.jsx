@@ -1,25 +1,34 @@
 import PropTypes from 'prop-types';
 import { ValidatedAlphanumericInput } from '../inputs';
+import { IconPickerButton } from '../iconPicker';
 
 /**
  * Sección de información básica del formulario de promoción
  * Maneja: emoji, nombre, descripción y estado activo
  */
 export function BasicInfoSection({ formData, errors, onChange }) {
+  // Handler para el cambio de icono
+  const handleIconChange = (iconName) => {
+    onChange({
+      target: {
+        name: 'emoji',
+        value: iconName
+      }
+    });
+  };
+
   return (
     <div className="form-section">
       <h3>Información Básica</h3>
 
       <div className="form-row">
-        <div className="form-group emoji-picker">
-          <label>Emoji</label>
-          <input
-            type="text"
-            name="emoji"
+        <div className="form-group">
+          <IconPickerButton
+            label="Icono"
             value={formData.emoji}
-            onChange={onChange}
-            maxLength={2}
-            placeholder="🎉"
+            onChange={handleIconChange}
+            category="promotions"
+            placeholder="Seleccionar icono"
           />
         </div>
 

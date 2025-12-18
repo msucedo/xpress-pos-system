@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { STATUS_OPTIONS, PAYMENT_STATUS_OPTIONS, PAYMENT_METHOD_OPTIONS } from '../../utils/history/filterConstants';
+import { Icon } from '../../icons';
 
 /**
  * Componente de dropdown de filtros para OrderHistory
@@ -244,7 +245,7 @@ const FilterDropdown = memo(({
                   checked={filters.author.includes(employee.id)}
                   onChange={() => toggleCheckbox('author', employee.id)}
                 />
-                <span>{employee.emoji ? `${employee.emoji} ` : ''}{employee.name}</span>
+                <span>{employee.emoji && <Icon name={employee.emoji} size={16} />} {employee.name}</span>
               </label>
             ))}
           </div>

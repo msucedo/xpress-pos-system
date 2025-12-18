@@ -1,3 +1,4 @@
+import { Icon } from '../icons';
 import './ServiceCard.css';
 
 const ServiceCard = ({ service, onEdit }) => {
@@ -12,7 +13,7 @@ const ServiceCard = ({ service, onEdit }) => {
       <div className="service-header">
         <div className="service-title-section">
           <div className="service-name">
-            <span className="service-emoji">{emoji || '⚙️'}</span>
+            <span className="service-emoji"><Icon name={emoji || 'settings'} size={24} /></span>
             {name}
           </div>
           <div className="service-duration">⏱️ {duration}</div>

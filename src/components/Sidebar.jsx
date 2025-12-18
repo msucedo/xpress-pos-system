@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import AdminBadge from './AdminBadge';
+import { Icon } from '../icons';
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -46,7 +47,7 @@ const Sidebar = () => {
             onClick={toggleLogoutMenu}
           >
             <div className={`sidebar-employee-avatar ${employee.emoji ? 'sidebar-employee-with-emoji' : ''}`}>
-              {employee.emoji || getInitials(employee.name)}
+              {employee.emoji ? <Icon name={employee.emoji} size={20} /> : getInitials(employee.name)}
             </div>
             <div className="sidebar-employee-details">
               <div className="sidebar-employee-name">

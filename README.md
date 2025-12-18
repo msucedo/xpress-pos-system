@@ -3,6 +3,7 @@ xpress
 // OBJETIVO: MEJORAR EXPERIENCIA DE USUARIO
 
 // WIP
+-[]aplicar iconos de characters a tab empleados
 -[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
 -[]actualizar readme de proyecto
 
@@ -17,6 +18,7 @@ xpress
 // PRIORIDAD MEDIA
 
 // PRIORIDAD BAJA
+-[]actualizar tooltip del nombre del empelado asignado en carditem cuando actualizas el nombre de un empleado
 -[FEATURE]en el header agregar icono de notificaciones y que aparezca un desplegable con las ultimas 10 notificaciones lanzadas
 -[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[FEATURE]agregar notificacion push de cuando se recibe una respuesta de wapp, aparte de notificar con el badge rojo

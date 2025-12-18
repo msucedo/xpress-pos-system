@@ -14,6 +14,7 @@ import { useInvoiceManagement } from '../hooks/useInvoiceManagement';
 import { usePaymentManagement } from '../hooks/usePaymentManagement';
 import { useOrderStatusManagement } from '../hooks/useOrderStatusManagement';
 import { useImageModal } from '../hooks/useImageModal';
+import { useServices } from '../hooks/useServices';
 
 // UI Components
 import { OrderImages } from './orderDetail/OrderImages';
@@ -44,6 +45,9 @@ const OrderDetailView = ({
   employees = []
 }) => {
   const isAdmin = useAdminCheck();
+
+  // Obtener servicios actuales para mostrar iconos actualizados
+  const { data: currentServices = [] } = useServices();
 
   // Determinar si la orden es de solo lectura
   const isReadOnly = readOnly || ['completados', 'cancelado'].includes(order.orderStatus);
@@ -324,6 +328,7 @@ const OrderDetailView = ({
           {/* Información de Servicios */}
           <ServicesList
             services={localServices}
+            currentServices={currentServices}
             flippingServices={flippingServices}
             onServiceClick={handleServiceClick}
             isReadOnly={isReadOnly}

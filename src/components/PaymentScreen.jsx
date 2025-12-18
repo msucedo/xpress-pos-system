@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Icon } from '../icons';
 import './PaymentScreen.css';
 
 const PaymentScreen = ({
@@ -186,7 +187,7 @@ const PaymentScreen = ({
             <div className="items-list">
               {groupedServices.map((service, index) => (
                 <div key={index} className="item-row">
-                  <span className="item-icon">{service.icon}</span>
+                  <span className="item-icon"><Icon name={service.icon || 'settings'} size={20} /></span>
                   <span className="item-name">
                     {service.serviceName}
                     {service.quantity > 1 && (
@@ -207,7 +208,7 @@ const PaymentScreen = ({
             <div className="items-list">
               {products.map((product, index) => (
                 <div key={product.id || index} className="item-row">
-                  <span className="item-icon">{product.emoji || '📦'}</span>
+                  <span className="item-icon"><Icon name={product.emoji || 'package'} size={20} /></span>
                   <span className="item-name">
                     {product.name} <span className="item-quantity">x{product.quantity}</span>
                   </span>
@@ -233,7 +234,7 @@ const PaymentScreen = ({
                     <span className="promotions-list">
                       {appliedPromotions.map((promo, idx) => (
                         <span key={idx} className="promo-tag">
-                          {promo.emoji || '🎉'} {promo.name}
+                          <Icon name={promo.emoji || 'celebration'} size={16} /> {promo.name}
                         </span>
                       ))}
                     </span>

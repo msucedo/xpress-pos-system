@@ -5,6 +5,7 @@ import DeliveryCalendarModal from './DeliveryCalendarModal';
 import PromotionBadge from './PromotionBadge';
 import ImageUpload from './ImageUpload';
 import { ValidatedPhoneInput } from './inputs';
+import { Icon } from '../icons';
 import { useAuth } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { useOrderFormData } from '../hooks/useOrderFormData';
@@ -324,7 +325,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                     onClick={() => handleAddToCart(service, 'service')}
                     title={`${service.name} - $${service.price}`}
                   >
-                    <span className="service-icon-mobile">{service.emoji || '🧼'}</span>
+                    <span className="service-icon-mobile"><Icon name={service.emoji || 'cleaning'} size={32} /></span>
                   </button>
                 ))}
               </div>
@@ -343,7 +344,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                       onClick={() => handleAddToCart(product, 'product')}
                       title={`${product.name} - $${product.salePrice} (Stock: ${product.stock})`}
                     >
-                      <span className="service-icon-mobile">{product.emoji || '📦'}</span>
+                      <span className="service-icon-mobile"><Icon name={product.emoji || 'package'} size={32} /></span>
                     </button>
                   ))}
                 </div>
@@ -484,7 +485,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                         onClick={() => setSelectedEmployee(selectedEmployee?.id === emp.id ? null : emp)}
                         title={`${emp.name} - ${orderCount} órdenes activas`}
                       >
-                        <span className="employee-emoji-mobile">{emp.emoji || '👤'}</span>
+                        <span className="employee-emoji-mobile"><Icon name={emp.emoji || 'user'} size={32} /></span>
                         <span className="employee-order-count-mobile">{orderCount}</span>
                       </button>
                     );
