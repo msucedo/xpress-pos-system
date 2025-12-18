@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
+import { Icon } from '../icons';
 import './ExpenseForm.css'; // Reutilizamos los estilos de ExpenseForm
 
 const WithdrawalForm = ({ withdrawal, efectivoDisponible, onSave, onCancel }) => {
@@ -94,7 +95,7 @@ const WithdrawalForm = ({ withdrawal, efectivoDisponible, onSave, onCancel }) =>
       <form onSubmit={handleSubmit}>
         {efectivoDisponible !== undefined && (
           <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#e3f2fd', borderLeft: '4px solid #2196f3', borderRadius: '4px' }}>
-            <strong>💰 Efectivo Disponible: {formatCurrency(efectivoDisponible)}</strong>
+            <strong><Icon name="money" size={20} /> Efectivo Disponible: {formatCurrency(efectivoDisponible)}</strong>
           </div>
         )}
 

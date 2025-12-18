@@ -725,6 +725,208 @@ const getIconName = (type) => {
 <div className="empty-icon"><Icon name="package" size={64} /></div>
 ```
 
+#### 12. ServiceCard.jsx ✅
+**Migración:** Icon para duración
+**Ubicación:** `src/components/ServiceCard.jsx`
+
+**Migrados:**
+- Duración: `⏱️` → `<Icon name="clock" size={16} />`
+- Emoji principal: Ya usa `<Icon name={emoji || 'settings'} size={24} />` ✅
+
+**Antes:**
+```jsx
+<div className="service-duration">⏱️ {duration}</div>
+```
+
+**Después:**
+```jsx
+<div className="service-duration"><Icon name="clock" size={16} /> {duration}</div>
+```
+
+#### 13. ServiceForm.jsx ✅
+**Migración:** Icon para menú, botones y header + IconPickerButton + constantes
+**Ubicación:** `src/components/ServiceForm.jsx`
+
+**Migrados:**
+- Menú de 3 puntos: `⋮` → `<Icon name="more" size={20} />`
+- Duplicar: `📋` → `<Icon name="clipboard" size={16} />`
+- Loading: `⏳` → `<Icon name="loading" size={16} />`
+- Eliminar: `🗑️` → `<Icon name="delete" size={16} />`
+- Header icon: `{formData.emoji}` → `<Icon name={formData.emoji} size={32} />`
+- Botón guardar: `💾` → `<Icon name="save" size={16} />`
+- Botón crear: `✨` → `<Icon name="sparkles" size={16} />`
+- Constantes: `emoji: '⚙️'` → `emoji: 'settings'`
+- IconPickerButton ya implementado con categoría "services" ✅
+
+**Antes:**
+```jsx
+// Menú
+<button className="service-menu-button">⋮</button>
+
+// Duplicar
+<span className="menu-icon">{isSubmitting ? '⏳' : '📋'}</span>
+
+// Eliminar
+<span className="menu-icon">🗑️</span>
+
+// Header
+<div className="form-icon">{formData.emoji}</div>
+
+// Botones
+{isSubmitting ? '⏳ Guardando...' : (initialData ? '💾 Guardar Cambios' : '✨ Crear Servicio')}
+
+// Constantes
+emoji: '⚙️'
+```
+
+**Después:**
+```jsx
+// Menú
+<button className="service-menu-button">
+  <Icon name="more" size={20} />
+</button>
+
+// Duplicar
+<span className="menu-icon">
+  <Icon name={isSubmitting ? 'loading' : 'clipboard'} size={16} />
+</span>
+
+// Eliminar
+<span className="menu-icon"><Icon name="delete" size={16} /></span>
+
+// Header
+<div className="form-icon"><Icon name={formData.emoji} size={32} /></div>
+
+// Botones
+{isSubmitting ? (
+  <><Icon name="loading" size={16} /> Guardando...</>
+) : initialData ? (
+  <><Icon name="save" size={16} /> Guardar Cambios</>
+) : (
+  <><Icon name="sparkles" size={16} /> Crear Servicio</>
+)}
+
+// Constantes
+emoji: 'settings'
+```
+
+#### 14. promotionInitialState.js ✅
+**Migración:** Constantes de emoji a nombres de iconos
+**Ubicación:** `src/utils/promotions/promotionInitialState.js`
+
+**Migrados:**
+- Estado inicial: `emoji: '🎉'` → `emoji: 'celebration'`
+- Fallback: `emoji: initialData.emoji || '🎉'` → `emoji: initialData.emoji || 'celebration'`
+
+**Antes:**
+```js
+export const INITIAL_FORM_STATE = {
+  name: '',
+  description: '',
+  emoji: '🎉',
+  // ...
+};
+
+// En loadInitialData
+emoji: initialData.emoji || '🎉',
+```
+
+**Después:**
+```js
+export const INITIAL_FORM_STATE = {
+  name: '',
+  description: '',
+  emoji: 'celebration',
+  // ...
+};
+
+// En loadInitialData
+emoji: initialData.emoji || 'celebration',
+```
+
+#### 15. BasicInfoSection.jsx (Promociones) ✅
+**Migración:** IconPickerButton - Ya implementado
+**Ubicación:** `src/components/promotions/BasicInfoSection.jsx`
+
+**Estado:**
+- ✅ IconPickerButton ya implementado con categoría "promotions"
+- ✅ No requiere cambios de código
+- Solo documentación
+
+**Implementación actual:**
+```jsx
+<IconPickerButton
+  label="Icono"
+  value={formData.emoji}
+  onChange={handleIconChange}
+  category="promotions"
+  placeholder="Seleccionar icono"
+/>
+```
+
+#### 16. BasicProductInfo.jsx (Inventario) ✅
+**Migración:** IconPickerButton - Ya implementado
+**Ubicación:** `src/components/inventory/BasicProductInfo.jsx`
+
+**Estado:**
+- ✅ IconPickerButton ya implementado con categoría "products"
+- ✅ No requiere cambios de código
+- Solo documentación
+
+**Implementación actual:**
+```jsx
+<IconPickerButton
+  label="Icono del Producto (opcional)"
+  value={formData.emoji}
+  onChange={handleIconChange}
+  category="products"
+  placeholder="Seleccionar icono"
+/>
+```
+
+#### 17. InventoryForm.jsx ✅
+**Migración:** Icon para botón loading
+**Ubicación:** `src/components/InventoryForm.jsx`
+
+**Migrados:**
+- Botón submit loading: `⏳ Guardando...` → `<Icon name="loading" size={16} /> Guardando...`
+
+**Antes:**
+```jsx
+{isSubmitting
+  ? '⏳ Guardando...'
+  : (initialData ? 'Guardar Cambios' : 'Agregar Producto')
+}
+```
+
+**Después:**
+```jsx
+{isSubmitting ? (
+  <>
+    <Icon name="loading" size={16} /> Guardando...
+  </>
+) : (
+  initialData ? 'Guardar Cambios' : 'Agregar Producto'
+)}
+```
+
+#### 18. WithdrawalForm.jsx ✅
+**Migración:** Icon para banner de efectivo
+**Ubicación:** `src/components/WithdrawalForm.jsx`
+
+**Migrados:**
+- Banner efectivo disponible: `💰 Efectivo Disponible` → `<Icon name="money" size={20} /> Efectivo Disponible`
+
+**Antes:**
+```jsx
+<strong>💰 Efectivo Disponible: {formatCurrency(efectivoDisponible)}</strong>
+```
+
+**Después:**
+```jsx
+<strong><Icon name="money" size={20} /> Efectivo Disponible: {formatCurrency(efectivoDisponible)}</strong>
+```
+
 ---
 
 ## 🚀 Migración Masiva
@@ -743,12 +945,19 @@ const getIconName = (type) => {
 9. `src/components/PageHeader.jsx` - Icon (cart)
 10. `src/components/Notification.jsx` - Icon (success, error, warning, info, close)
 11. `src/pages/Inventory.jsx` - Icon (stats: package, alert, money; empty state: package)
+12. `src/components/ServiceCard.jsx` - Icon (clock para duración)
+13. `src/components/ServiceForm.jsx` - Icon (menú, botones, header) + IconPickerButton (categoría "services") + constantes
+14. `src/utils/promotions/promotionInitialState.js` - Constantes (emoji strings → icon names)
+15. `src/components/promotions/BasicInfoSection.jsx` - IconPickerButton (categoría "promotions") - Ya implementado ✅
+16. `src/components/inventory/BasicProductInfo.jsx` - IconPickerButton (categoría "products") - Ya implementado ✅
+17. `src/components/InventoryForm.jsx` - Icon (loading en botón submit)
+18. `src/components/WithdrawalForm.jsx` - Icon (money en banner de efectivo)
 
 **Prioridad Alta:**
-1. `src/utils/inventoryConstants.js`
-2. `src/utils/promotions/promotionInitialState.js`
-3. `src/components/ServiceCard.jsx`
-4. `src/components/ServiceForm.jsx`
+1. ~~`src/utils/inventoryConstants.js`~~ (archivo no existe)
+2. ~~`src/utils/promotions/promotionInitialState.js`~~ ✅
+3. ~~`src/components/ServiceCard.jsx`~~ ✅
+4. ~~`src/components/ServiceForm.jsx`~~ ✅
 
 **Prioridad Media:**
 - Todos los componentes de formulario (15+ archivos)
@@ -789,9 +998,9 @@ Selector visual de iconos implementado para reemplazar los campos de texto de em
 ### Alcance ✅
 **Formularios actualizados:**
 1. ✅ `EmpleadoForm.jsx` - Categoría: "characters" (99 personajes)
-2. ⏳ `ServiceForm.jsx` - Categoría: "services"
-3. ⏳ `BasicInfoSection.jsx` (Promociones) - Categoría: "promotions"
-4. ⏳ `InventoryForm` (Productos) - Categoría: "products"
+2. ✅ `ServiceForm.jsx` - Categoría: "services"
+3. ✅ `BasicInfoSection.jsx` (Promociones) - Categoría: "promotions"
+4. ✅ `BasicProductInfo.jsx` (Productos) - Categoría: "products"
 
 ### Arquitectura Implementada ✅
 
@@ -917,9 +1126,10 @@ Basado en iconMap.js (~120 iconos):
 - Optimización con React hooks (useMemo, useCallback)
 
 **Próximos pasos:**
-- ⏳ Integrar IconPickerButton en ServiceForm.jsx (categoría "services")
-- ⏳ Integrar IconPickerButton en BasicInfoSection.jsx de Promociones (categoría "promotions")
-- ⏳ Integrar IconPickerButton en InventoryForm (categoría "products")
+- ✅ Integrar IconPickerButton en ServiceForm.jsx (categoría "services") - COMPLETADO
+- ✅ Integrar IconPickerButton en BasicInfoSection.jsx de Promociones (categoría "promotions") - YA ESTABA IMPLEMENTADO
+- ✅ Integrar IconPickerButton en BasicProductInfo.jsx (categoría "products") - YA ESTABA IMPLEMENTADO
+- **Fase 2:** Continuar con archivos de Prioridad Media (15+ archivos con emojis detectados: CashRegister, OrderDetailView, PaymentScreen, ValidationBanner, etc.)
 
 ---
 

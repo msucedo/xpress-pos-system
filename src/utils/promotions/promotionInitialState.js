@@ -6,7 +6,7 @@
 export const INITIAL_FORM_STATE = {
   name: '',
   description: '',
-  emoji: '🎉',
+  emoji: 'celebration',
   type: 'percentage',
   isActive: true,
   discountValue: '',
@@ -46,7 +46,7 @@ export function loadInitialData(initialData) {
   return {
     name: initialData.name || '',
     description: initialData.description || '',
-    emoji: initialData.emoji || '🎉',
+    emoji: initialData.emoji || 'celebration',
     type: initialData.type || 'percentage',
     isActive: initialData.isActive !== undefined ? initialData.isActive : true,
     discountValue: initialData.discountValue || '',

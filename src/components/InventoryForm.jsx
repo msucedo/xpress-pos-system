@@ -10,6 +10,7 @@ import { BarcodeSection } from './inventory/BarcodeSection';
 import { PricingSection } from './inventory/PricingSection';
 import { StockSection } from './inventory/StockSection';
 import { ProductDescription } from './inventory/ProductDescription';
+import { Icon } from '../icons';
 import './InventoryForm.css';
 
 /**
@@ -175,10 +176,13 @@ const InventoryForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
               cursor: isSubmitting ? 'not-allowed' : 'pointer'
             }}
           >
-            {isSubmitting
-              ? '⏳ Guardando...'
-              : (initialData ? 'Guardar Cambios' : 'Agregar Producto')
-            }
+            {isSubmitting ? (
+              <>
+                <Icon name="loading" size={16} /> Guardando...
+              </>
+            ) : (
+              initialData ? 'Guardar Cambios' : 'Agregar Producto'
+            )}
           </button>
         </div>
       </div>

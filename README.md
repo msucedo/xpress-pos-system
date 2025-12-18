@@ -18,6 +18,7 @@ xpress
 // PRIORIDAD MEDIA
 
 // PRIORIDAD BAJA
+-[bug]en tab promociones, si una promo es specificprice, no sale en la card el precio, arriba a la derecha de la card
 -[]actualizar tooltip del nombre del empelado asignado en carditem cuando actualizas el nombre de un empleado
 -[FEATURE]en el header agregar icono de notificaciones y que aparezca un desplegable con las ultimas 10 notificaciones lanzadas
 -[feature/smoothness]agregar animaciones para que se sienta smooth la app

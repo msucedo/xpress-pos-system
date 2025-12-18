@@ -3,6 +3,7 @@ import { useAdminCheck } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
 import { IconPickerButton } from './iconPicker';
+import { Icon } from '../icons';
 import './ServiceForm.css';
 
 const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
@@ -14,7 +15,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
     duration: '',
     price: '',
     description: '',
-    emoji: '⚙️'
+    emoji: 'settings'
   });
 
   const [errors, setErrors] = useState({});
@@ -27,7 +28,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
         duration: initialData.duration || '',
         price: initialData.price || '',
         description: initialData.description || '',
-        emoji: initialData.emoji || '⚙️'
+        emoji: initialData.emoji || 'settings'
       });
     }
   }, [initialData]);
@@ -146,7 +147,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
             onClick={() => setShowMenu(!showMenu)}
             type="button"
           >
-            ⋮
+            <Icon name="more" size={20} />
           </button>
           {showMenu && (
             <div className="service-menu-dropdown">
@@ -156,7 +157,9 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
                 type="button"
                 disabled={isSubmitting}
               >
-                <span className="menu-icon">{isSubmitting ? '⏳' : '📋'}</span>
+                <span className="menu-icon">
+                  <Icon name={isSubmitting ? 'loading' : 'clipboard'} size={16} />
+                </span>
                 <span className="menu-text">
                   {isSubmitting ? 'Duplicando...' : 'Duplicar Servicio'}
                 </span>
@@ -167,7 +170,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
                 type="button"
                 disabled={isSubmitting}
               >
-                <span className="menu-icon">🗑️</span>
+                <span className="menu-icon"><Icon name="delete" size={16} /></span>
                 <span className="menu-text">Eliminar Servicio</span>
               </button>
             </div>
@@ -176,7 +179,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
       )}
 
       <div className="service-form-header">
-        <div className="form-icon">{formData.emoji}</div>
+        <div className="form-icon"><Icon name={formData.emoji} size={32} /></div>
         <h2 className="form-title">{initialData ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
         <p className="form-description">
           {initialData ? 'Actualiza la información del servicio' : 'Registra un nuevo servicio en el catálogo'}
@@ -266,10 +269,19 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
               cursor: isSubmitting ? 'not-allowed' : 'pointer'
             }}
           >
-            {isSubmitting
-              ? '⏳ Guardando...'
-              : (initialData ? '💾 Guardar Cambios' : '✨ Crear Servicio')
-            }
+            {isSubmitting ? (
+              <>
+                <Icon name="loading" size={16} /> Guardando...
+              </>
+            ) : initialData ? (
+              <>
+                <Icon name="save" size={16} /> Guardar Cambios
+              </>
+            ) : (
+              <>
+                <Icon name="sparkles" size={16} /> Crear Servicio
+              </>
+            )}
           </button>
         </div>
       </form>

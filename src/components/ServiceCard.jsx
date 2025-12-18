@@ -16,7 +16,7 @@ const ServiceCard = ({ service, onEdit }) => {
             <span className="service-emoji"><Icon name={emoji || 'settings'} size={24} /></span>
             {name}
           </div>
-          <div className="service-duration">⏱️ {duration}</div>
+          <div className="service-duration"><Icon name="clock" size={16} /> {duration}</div>
         </div>
         <div className="service-price">${price}</div>
       </div>
