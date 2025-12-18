@@ -1,11 +1,11 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import ClientItem from '../components/ClientItem';
 import ClientItemSkeleton from '../components/ClientItemSkeleton';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import ClientForm from '../components/ClientForm';
 import OrderDetailView from '../components/OrderDetailView';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import StatCard from '../components/StatCard';
 import {
   addClient,
@@ -651,7 +651,7 @@ const Clients = () => {
       </div>
 
       {/* Modal for New/Edit Client */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={editingClient ? 'Editar Cliente' : 'Nuevo Cliente'}
@@ -663,11 +663,11 @@ const Clients = () => {
           onDelete={handleDeleteClient}
           initialData={editingClient}
         />
-      </Modal>
+      </AnimatedModal>
 
       {/* Modal para ver detalle de orden */}
       {selectedOrder && (
-        <Modal
+        <AnimatedModal
           isOpen={isOrderModalOpen}
           onClose={handleCloseOrderModal}
           headerContent={headerData ? (
@@ -714,7 +714,7 @@ const Clients = () => {
             renderHeader={setHeaderData}
             employees={employees}
           />
-        </Modal>
+        </AnimatedModal>
       )}
 
       {/* Confirm Dialog */}

@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import OrderForm from '../components/OrderForm';
 import OrderFormMobile from '../components/OrderFormMobile';
 import OrderDetailView from '../components/OrderDetailView';
 import OrderCard from '../components/OrderCard';
 import OrderCardSkeleton from '../components/OrderCardSkeleton';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import AuthorSelect from '../components/AuthorSelect';
 import { AnimatedTabs } from '../components/animated';
 import { Icon } from '../icons';
@@ -620,7 +620,7 @@ const Orders = () => {
       />
 
       {/* Modal for New Order or Order Detail */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={selectedOrder ? undefined : 'Nueva Orden'}
@@ -676,7 +676,7 @@ const Orders = () => {
             />
           )
         )}
-      </Modal>
+      </AnimatedModal>
 
       {/* Confirm Dialog */}
       <ConfirmDialog

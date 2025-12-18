@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import ConfirmDialog from './ConfirmDialog';
+import { ConfirmDialog } from './animated';
 import PaymentScreen from './PaymentScreen';
 import VariablePriceModal from './VariablePriceModal';
 import { getRelativeTimeWithHour } from '../utils/orders/orderHelpers';

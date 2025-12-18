@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import InventoryCard from '../components/InventoryCard';
 import InventoryCardSkeleton from '../components/InventoryCardSkeleton';
 import InventoryStatsSkeleton from '../components/InventoryStatsSkeleton';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import InventoryForm from '../components/InventoryForm';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import Cart from '../components/Cart';
+import { Icon } from '../icons';
 import {
   addProduct,
   updateProduct,
@@ -217,21 +218,21 @@ const Inventory = () => {
       ) : (
         <div className="inventory-stats">
           <div className="stat-item">
-            <div className="stat-icon">📦</div>
+            <div className="stat-icon"><Icon name="package" size={32} /></div>
             <div className="stat-content">
               <div className="stat-value">{totalProducts}</div>
               <div className="stat-label">Total Productos</div>
             </div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">⚠️</div>
+            <div className="stat-icon"><Icon name="alert" size={32} /></div>
             <div className="stat-content">
               <div className="stat-value">{lowStockCount}</div>
               <div className="stat-label">Stock Bajo</div>
             </div>
           </div>
           <div className="stat-item">
-            <div className="stat-icon">💰</div>
+            <div className="stat-icon"><Icon name="money" size={32} /></div>
             <div className="stat-content">
               <div className="stat-value">${totalValue.toFixed(2)}</div>
               <div className="stat-label">Valor Total</div>
@@ -292,7 +293,7 @@ const Inventory = () => {
           ))
         ) : (
           <div className="empty-state">
-            <div className="empty-icon">📦</div>
+            <div className="empty-icon"><Icon name="package" size={64} /></div>
             <div className="empty-text">No se encontraron productos</div>
             <div className="empty-subtext">
               {products.length === 0 && searchTerm === '' && categoryFilter === 'all' && stockFilter === 'all'
@@ -304,7 +305,7 @@ const Inventory = () => {
       </div>
 
       {/* Modal for New/Edit Product */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={editingProduct ? 'Editar Producto' : 'Nuevo Producto'}
@@ -316,7 +317,7 @@ const Inventory = () => {
           onDelete={handleDeleteProduct}
           initialData={editingProduct}
         />
-      </Modal>
+      </AnimatedModal>
 
       {/* Confirm Dialog */}
       <ConfirmDialog

@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import ServiceForm from '../components/ServiceForm';
 import ServiceCard from '../components/ServiceCard';
 import ServiceCardSkeleton from '../components/ServiceCardSkeleton';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import {
   addService,
   updateService,
@@ -246,7 +246,7 @@ const Services = () => {
       </div>
 
       {/* Modal for Service Form */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={selectedService ? 'Editar Servicio' : 'Nuevo Servicio'}
@@ -257,7 +257,7 @@ const Services = () => {
           onDelete={handleDeleteService}
           initialData={selectedService}
         />
-      </Modal>
+      </AnimatedModal>
 
       {/* Confirm Dialog */}
       <ConfirmDialog

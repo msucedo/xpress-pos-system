@@ -1,20 +1,21 @@
 import { useNotification } from '../hooks/useNotification';
+import { Icon } from '../icons';
 import './Notification.css';
 
 const Notification = () => {
   const { notifications, removeNotification } = useNotification();
 
-  const getIcon = (type) => {
+  const getIconName = (type) => {
     switch (type) {
       case 'success':
-        return '✅';
+        return 'success';
       case 'error':
-        return '❌';
+        return 'error';
       case 'warning':
-        return '⚠️';
+        return 'warning';
       case 'info':
       default:
-        return 'ℹ️';
+        return 'info';
     }
   };
 
@@ -25,14 +26,16 @@ const Notification = () => {
           key={notification.id}
           className={`notification notification-${notification.type}`}
         >
-          <div className="notification-icon">{getIcon(notification.type)}</div>
+          <div className="notification-icon">
+            <Icon name={getIconName(notification.type)} size={20} />
+          </div>
           <div className="notification-message">{notification.message}</div>
           <button
             className="notification-close"
             onClick={() => removeNotification(notification.id)}
             aria-label="Cerrar notificación"
           >
-            ✕
+            <Icon name="close" size={16} />
           </button>
         </div>
       ))}

@@ -113,6 +113,14 @@ export const iconMap = {
   'sync': 'flat-color-icons:synchronize',
 
   // ========================================
+  // SERVICIOS Y TRABAJO
+  // ========================================
+  'services': 'flat-color-icons:services',
+  'service': 'flat-color-icons:services',
+  'briefcase': 'flat-color-icons:services',
+  'work': 'flat-color-icons:services',
+
+  // ========================================
   // USUARIOS Y PERSONAS
   // ========================================
   'user': 'flat-color-icons:businessman',
@@ -162,7 +170,7 @@ export const iconMap = {
   // COMMERCE & SHOPPING
   // ========================================
   'cart': 'flat-color-icons:shop',
-  'order': 'flat-color-icons:shipping',
+  'order': 'flat-color-icons:view-details',
   'delivery': 'flat-color-icons:in-transit',
   'shipping': 'flat-color-icons:shipped',
   'tag': 'flat-color-icons:price-tag',

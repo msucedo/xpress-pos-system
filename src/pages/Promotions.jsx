@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import PromotionForm from '../components/PromotionForm';
 import PromotionCard from '../components/PromotionCard';
 import PromotionCardSkeleton from '../components/PromotionCardSkeleton';
 import StatCardSkeleton from '../components/StatCardSkeleton';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import {
   addPromotion,
   updatePromotion,
@@ -271,7 +271,7 @@ const Promotions = () => {
       )}
 
       {/* Modal */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={selectedPromotion ? 'Editar Promoción' : 'Nueva Promoción'}
@@ -286,7 +286,7 @@ const Promotions = () => {
           products={products}
           isSubmitting={isSubmitting}
         />
-      </Modal>
+      </AnimatedModal>
 
       {/* Confirm Dialog */}
       <ConfirmDialog

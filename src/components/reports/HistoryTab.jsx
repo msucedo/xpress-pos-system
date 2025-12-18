@@ -1,6 +1,6 @@
 import CashClosureHistory from '../CashClosureHistory';
 import OrderHistory from '../OrderHistory';
-import Modal from '../Modal';
+import { AnimatedModal } from '../animated';
 import CashClosureDetail from '../CashClosureDetail';
 
 /**
@@ -33,7 +33,7 @@ const HistoryTab = ({
 
       {/* Detail Modal */}
       {isDetailModalOpen && selectedClosure && (
-        <Modal
+        <AnimatedModal
           isOpen={isDetailModalOpen}
           onClose={onCloseModal}
           title=""
@@ -43,7 +43,7 @@ const HistoryTab = ({
             closure={selectedClosure}
             onClose={onCloseModal}
           />
-        </Modal>
+        </AnimatedModal>
       )}
     </>
   );

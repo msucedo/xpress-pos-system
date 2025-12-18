@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from './Modal';
 import ExpenseForm from './ExpenseForm';
 import WithdrawalForm from './WithdrawalForm';
-import ConfirmDialog from './ConfirmDialog';
+import { ConfirmDialog } from './animated';
 import { subscribeToCashRegisterDraft } from '../services/firebaseService';
 import { useCashRegisterDraft } from '../hooks/useCashRegisterDraft';
 import { useCashRegisterData } from '../hooks/useCashRegisterData';

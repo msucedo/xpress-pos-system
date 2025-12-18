@@ -11,3 +11,4 @@ export { default as AnimatedForm } from './AnimatedForm';
 export { default as AnimatedTabs } from './AnimatedTabs';
 export { default as AnimatedCard } from './AnimatedCard';
 export { default as AnimatedNotification } from './AnimatedNotification';
+export { default as ConfirmDialog } from './ConfirmDialog';

@@ -4,7 +4,7 @@ import {
   modalBackdropVariants,
   modalContentVariants,
   modalTransition,
-} from '../animations';
+} from '../../animations';
 import './ConfirmDialog.css';
 
 /**

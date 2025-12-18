@@ -2,9 +2,9 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import StatCard from '../components/StatCard';
 import OrderCard from '../components/OrderCard';
 import OrderCardSkeleton from '../components/OrderCardSkeleton';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import OrderDetailView from '../components/OrderDetailView';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import AuthorSelect from '../components/AuthorSelect';
 import { Icon } from '../icons';
 import { updateOrder } from '../services/firebaseService';
@@ -530,7 +530,7 @@ const Dashboard = () => {
 
       {/* Modal para ver detalle de orden */}
       {selectedOrder && (
-        <Modal
+        <AnimatedModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           headerContent={headerData ? (
@@ -565,7 +565,7 @@ const Dashboard = () => {
             renderHeader={setHeaderData}
             employees={employees}
           />
-        </Modal>
+        </AnimatedModal>
       )}
 
       {/* Confirm Dialog */}

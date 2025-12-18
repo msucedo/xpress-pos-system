@@ -39,7 +39,7 @@ const InventoryCard = ({ product, onClick }) => {
           {product.barcode && (
             <div className="product-codes">
               <span className="product-barcode" title="Código de Barras">
-                📊 {product.barcode}
+                <Icon name="tag" size={14} /> {product.barcode}
               </span>
             </div>
           )}
@@ -48,7 +48,7 @@ const InventoryCard = ({ product, onClick }) => {
         {/* Stock Section */}
         <div className="product-stock-section">
           <div className={`stock-badge ${isLowStock ? 'low-stock' : 'normal-stock'}`}>
-            {isLowStock ? '⚠️' : '✓'} Stock: {product.stock}
+            <Icon name={isLowStock ? 'alert' : 'check'} size={16} /> Stock: {product.stock}
             {isLowStock && ` (Mín: ${product.minStock})`}
           </div>
         </div>

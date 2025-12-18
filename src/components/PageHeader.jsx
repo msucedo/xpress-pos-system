@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Icon } from '../icons';
 import './PageHeader.css';
 
 const PageHeader = ({
@@ -39,7 +40,7 @@ const PageHeader = ({
               onClick={onCartClick}
               title={`${cartItemCount} producto${cartItemCount > 1 ? 's' : ''} en el carrito`}
             >
-              🛒
+              <Icon name="cart" size={20} />
               <span className="cart-badge">{cartItemCount}</span>
             </button>
           )}

@@ -549,6 +549,182 @@ import { IconPickerButton } from './iconPicker';
 - Grid responsivo con preview
 - SVG locales (no Iconify)
 
+#### 6. PromotionCard.jsx ✅
+**Migración:** Icon para todos los iconos
+**Ubicación:** `src/components/PromotionCard.jsx`
+
+**Migrados:**
+- Icono principal de promoción (emoji del usuario)
+- Iconos de detalles: `calendar`, `tag`, `money`, `user`
+- Iconos de acciones: `edit`, `delete`
+
+**Ejemplo:**
+```jsx
+<div className="promotion-detail">
+  <span className="detail-icon"><Icon name="calendar" size={16} /></span>
+  <span className="detail-text">{formatDateRange()}</span>
+</div>
+```
+
+#### 7. InventoryCard.jsx ✅
+**Migración:** Icon para badges y código de barras
+**Ubicación:** `src/components/InventoryCard.jsx`
+
+**Migrados:**
+- Código de barras: `📊` → `<Icon name="tag" size={14} />`
+- Stock bajo: `⚠️` → `<Icon name="alert" size={16} />`
+- Stock normal: `✓` → `<Icon name="check" size={16} />`
+
+**Antes:**
+```jsx
+<span className="product-barcode">
+  📊 {product.barcode}
+</span>
+<div className="stock-badge">
+  {isLowStock ? '⚠️' : '✓'} Stock: {product.stock}
+</div>
+```
+
+**Después:**
+```jsx
+<span className="product-barcode">
+  <Icon name="tag" size={14} /> {product.barcode}
+</span>
+<div className="stock-badge">
+  <Icon name={isLowStock ? 'alert' : 'check'} size={16} /> Stock: {product.stock}
+</div>
+```
+
+#### 8. Sidebar.jsx ✅
+**Migración:** Icon para toda la navegación
+**Ubicación:** `src/components/Sidebar.jsx`
+
+**Migrados todos los iconos de navegación:**
+- Dashboard: `home`
+- Órdenes: `order`
+- Clientes: `team`
+- Servicios: `services`
+- Empleados: `employee`
+- Inventario: `package`
+- Promociones: `promotion`
+- Reportes: `reports`
+- Configuración: `settings`
+- Cerrar Sesión: `close`
+
+**Antes:**
+```jsx
+const menuItems = [
+  { path: '/', icon: '🏠', label: 'Dashboard' },
+  { path: '/orders', icon: '📦', label: 'Órdenes' },
+  // ...
+];
+
+<span className="menu-icon">{item.icon}</span>
+```
+
+**Después:**
+```jsx
+const menuItems = [
+  { path: '/', icon: 'home', label: 'Dashboard' },
+  { path: '/orders', icon: 'order', label: 'Órdenes' },
+  // ...
+];
+
+<span className="menu-icon"><Icon name={item.icon} size={20} /></span>
+```
+
+#### 9. PageHeader.jsx ✅
+**Migración:** Icon para carrito
+**Ubicación:** `src/components/PageHeader.jsx`
+
+**Migrado:**
+- Icono de carrito: `🛒` → `<Icon name="cart" size={20} />`
+
+**Antes:**
+```jsx
+<button className="cart-indicator-btn">
+  🛒
+  <span className="cart-badge">{cartItemCount}</span>
+</button>
+```
+
+**Después:**
+```jsx
+<button className="cart-indicator-btn">
+  <Icon name="cart" size={20} />
+  <span className="cart-badge">{cartItemCount}</span>
+</button>
+```
+
+#### 10. Notification.jsx ✅
+**Migración:** Icon para todos los estados
+**Ubicación:** `src/components/Notification.jsx`
+
+**Migrados todos los iconos de notificación:**
+- Success: `✅` → `success`
+- Error: `❌` → `error`
+- Warning: `⚠️` → `warning`
+- Info: `ℹ️` → `info`
+- Close: `✕` → `close`
+
+**Antes:**
+```jsx
+const getIcon = (type) => {
+  switch (type) {
+    case 'success': return '✅';
+    case 'error': return '❌';
+    case 'warning': return '⚠️';
+    default: return 'ℹ️';
+  }
+};
+
+<div className="notification-icon">{getIcon(notification.type)}</div>
+<button className="notification-close">✕</button>
+```
+
+**Después:**
+```jsx
+const getIconName = (type) => {
+  switch (type) {
+    case 'success': return 'success';
+    case 'error': return 'error';
+    case 'warning': return 'warning';
+    default: return 'info';
+  }
+};
+
+<div className="notification-icon">
+  <Icon name={getIconName(notification.type)} size={20} />
+</div>
+<button className="notification-close">
+  <Icon name="close" size={16} />
+</button>
+```
+
+#### 11. Inventory.jsx (Page) ✅
+**Migración:** Icon para stats y empty states
+**Ubicación:** `src/pages/Inventory.jsx`
+
+**Migrados:**
+- Stat icons: `📦` → `package`, `⚠️` → `alert`, `💰` → `money`
+- Empty state: `📦` → `package`
+
+**Antes:**
+```jsx
+<div className="stat-icon">📦</div>
+<div className="stat-icon">⚠️</div>
+<div className="stat-icon">💰</div>
+<div className="empty-icon">📦</div>
+```
+
+**Después:**
+```jsx
+<div className="stat-icon"><Icon name="package" size={32} /></div>
+<div className="stat-icon"><Icon name="alert" size={32} /></div>
+<div className="stat-icon"><Icon name="money" size={32} /></div>
+<div className="empty-icon"><Icon name="package" size={64} /></div>
+```
+
 ---
 
 ## 🚀 Migración Masiva
@@ -561,12 +737,18 @@ import { IconPickerButton } from './iconPicker';
 3. `src/pages/Empleados.jsx` - Icon
 4. `src/pages/Dashboard.jsx` - Icon
 5. `src/components/EmpleadoForm.jsx` - IconPickerButton (categoría "characters", 99 personajes)
+6. `src/components/PromotionCard.jsx` - Icon (calendario, tag, money, user, edit, delete)
+7. `src/components/InventoryCard.jsx` - Icon (tag, alert, check)
+8. `src/components/Sidebar.jsx` - Icon (navegación: home, order, team, services, employee, package, promotion, reports, settings)
+9. `src/components/PageHeader.jsx` - Icon (cart)
+10. `src/components/Notification.jsx` - Icon (success, error, warning, info, close)
+11. `src/pages/Inventory.jsx` - Icon (stats: package, alert, money; empty state: package)
 
 **Prioridad Alta:**
-1. `src/components/PromotionCard.jsx`
-2. `src/components/InventoryCard.jsx`
-3. `src/utils/inventoryConstants.js`
-4. `src/utils/promotions/promotionInitialState.js`
+1. `src/utils/inventoryConstants.js`
+2. `src/utils/promotions/promotionInitialState.js`
+3. `src/components/ServiceCard.jsx`
+4. `src/components/ServiceForm.jsx`
 
 **Prioridad Media:**
 - Todos los componentes de formulario (15+ archivos)

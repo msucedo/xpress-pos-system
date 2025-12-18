@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import EmpleadoItem from '../components/EmpleadoItem';
 import EmpleadoItemSkeleton from '../components/EmpleadoItemSkeleton';
-import Modal from '../components/Modal';
+import { AnimatedModal } from '../components/animated';
 import EmpleadoForm from '../components/EmpleadoForm';
 import OrderDetailView from '../components/OrderDetailView';
 import PageHeader from '../components/PageHeader';
-import ConfirmDialog from '../components/ConfirmDialog';
+import { ConfirmDialog } from '../components/animated';
 import { Icon } from '../icons';
 import {
   subscribeToEmployees,
@@ -371,7 +371,7 @@ const Empleados = () => {
       </div>
 
       {/* Modal for New/Edit Empleado */}
-      <Modal
+      <AnimatedModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={editingEmpleado ? 'Editar Empleado' : 'Nuevo Empleado'}
@@ -383,11 +383,11 @@ const Empleados = () => {
           onDelete={handleDeleteEmpleado}
           initialData={editingEmpleado}
         />
-      </Modal>
+      </AnimatedModal>
 
       {/* Modal para ver detalle de orden */}
       {selectedOrder && (
-        <Modal
+        <AnimatedModal
           isOpen={isOrderModalOpen}
           onClose={handleCloseOrderModal}
           headerContent={headerData ? (
@@ -434,7 +434,7 @@ const Empleados = () => {
             renderHeader={setHeaderData}
             employees={empleados}
           />
-        </Modal>
+        </AnimatedModal>
       )}
 
       {/* Confirm Dialog */}
