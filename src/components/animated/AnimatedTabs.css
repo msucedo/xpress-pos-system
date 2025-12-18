@@ -30,6 +30,7 @@
 .animated-tabs-buttons {
   display: flex;
   gap: 8px;
+  justify-content: space-evenly;
   background: rgba(255, 255, 255, 0.03);
   padding: 6px;
   border-radius: 16px;
@@ -67,11 +68,15 @@
 }
 
 .animated-tab-button:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: var(--bg-primary-10);
 }
 
 .animated-tab-button.active {
-  color: white;
+  border-color: var(--color-primary);
+  background: var(--bg-primary-10);
+  color: var(--color-primary);
 }
 
 .tab-icon {
