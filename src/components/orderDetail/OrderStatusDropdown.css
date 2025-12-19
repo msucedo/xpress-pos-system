@@ -1,0 +1,184 @@
+/* Order Status Dropdown Component */
+.order-status-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.order-status-dropdown-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  min-height: 42px;
+  border: 2px solid var(--status-border-color, rgba(107, 114, 128, 0.3));
+  background-color: var(--status-bg-color, rgba(107, 114, 128, 0.1));
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--status-color, #6b7280);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.order-status-dropdown-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.order-status-dropdown-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--status-focus-color, rgba(107, 114, 128, 0.2));
+}
+
+.order-status-dropdown-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Status colors */
+.order-status-dropdown-button.status-recibidos {
+  --status-border-color: rgba(59, 130, 246, 0.4);
+  --status-bg-color: rgba(59, 130, 246, 0.1);
+  --status-color: #3b82f6;
+  --status-focus-color: rgba(59, 130, 246, 0.2);
+}
+
+.order-status-dropdown-button.status-proceso {
+  --status-border-color: rgba(251, 191, 36, 0.4);
+  --status-bg-color: rgba(251, 191, 36, 0.1);
+  --status-color: #fbbf24;
+  --status-focus-color: rgba(251, 191, 36, 0.2);
+}
+
+.order-status-dropdown-button.status-listos {
+  --status-border-color: rgba(34, 197, 94, 0.4);
+  --status-bg-color: rgba(34, 197, 94, 0.1);
+  --status-color: #22c55e;
+  --status-focus-color: rgba(34, 197, 94, 0.2);
+}
+
+.order-status-dropdown-button.status-enEntrega {
+  --status-border-color: rgba(168, 85, 247, 0.4);
+  --status-bg-color: rgba(168, 85, 247, 0.1);
+  --status-color: #a855f7;
+  --status-focus-color: rgba(168, 85, 247, 0.2);
+}
+
+.order-status-dropdown-selected {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.order-status-dropdown-label {
+  flex: 1;
+}
+
+.order-status-dropdown-placeholder {
+  opacity: 0.7;
+}
+
+.order-status-dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+  margin-left: auto;
+}
+
+.order-status-dropdown-arrow-open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.order-status-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: var(--color-gray-800);
+  border: 2px solid rgba(107, 114, 128, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  max-height: 300px;
+  overflow-y: auto;
+  animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order-status-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  background-color: var(--color-gray-900);
+  transition: all 0.2s;
+  color: var(--option-color, var(--color-white));
+  font-size: 0.875rem;
+  border-left: 3px solid transparent;
+}
+
+/* Option colors */
+.order-status-dropdown-option.status-recibidos {
+  --option-color: #3b82f6;
+}
+
+.order-status-dropdown-option.status-proceso {
+  --option-color: #fbbf24;
+}
+
+.order-status-dropdown-option.status-listos {
+  --option-color: #22c55e;
+}
+
+.order-status-dropdown-option.status-enEntrega {
+  --option-color: #a855f7;
+}
+
+.order-status-dropdown-option:hover {
+  background-color: rgba(107, 114, 128, 0.15);
+  border-left-color: var(--option-color);
+}
+
+.order-status-dropdown-option-selected {
+  background-color: rgba(107, 114, 128, 0.25);
+  border-left-color: var(--option-color);
+}
+
+.order-status-dropdown-option-text {
+  flex: 1;
+}
+
+/* Scrollbar personalizado para el dropdown */
+.order-status-dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.order-status-dropdown-menu::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.order-status-dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.5);
+  border-radius: 8px;
+}
+
+.order-status-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.7);
+}

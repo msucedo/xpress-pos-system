@@ -1,3 +1,4 @@
+import { Icon } from '../../icons';
 import { getPaymentMethodLabel } from '../../utils/payments/paymentHelpers';
 
 /**
@@ -14,7 +15,7 @@ export function PaymentInfo({
 }) {
   return (
     <div className="detail-card">
-      <h3 className="detail-card-title">💰 Información de Pago</h3>
+      <h3 className="detail-card-title"><Icon name="money" size={20} /> Información de Pago</h3>
       <div className="detail-card-content">
         {/* Si hay descuentos, mostrar subtotal */}
         {order.totalDiscount > 0 && (

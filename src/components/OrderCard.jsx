@@ -83,8 +83,10 @@ const OrderCard = ({ order, onOrderClick, services = [] }) => {
     const grouped = {};
 
     activeServices.forEach(service => {
-      // Buscar servicio actual por nombre para obtener icono actualizado
-      const currentService = services.find(s => s.name === service.serviceName);
+      // Buscar servicio actual por ID para obtener icono actualizado (fallback a nombre para retrocompatibilidad)
+      const currentService = service.serviceId
+        ? services.find(s => s.id === service.serviceId)
+        : services.find(s => s.name === service.serviceName);
       let emoji = currentService?.emoji || service.icon || 'settings';
 
       // Si emoji contiene caracteres emoji (no es nombre de icono Iconify), usar fallback

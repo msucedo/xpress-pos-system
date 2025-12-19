@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '../icons';
 import './VariablePriceModal.css';
 
-const VariablePriceModal = ({ services, onConfirm, onCancel }) => {
+const VariablePriceModal = ({ services, currentServices = [], onConfirm, onCancel }) => {
   // Inicializar precios en 0 para servicios sin precio
   const [prices, setPrices] = useState({});
   const [errors, setErrors] = useState({});
@@ -71,6 +72,15 @@ const VariablePriceModal = ({ services, onConfirm, onCancel }) => {
     }).format(amount || 0);
   };
 
+  // Helper para obtener el icono actualizado de un servicio
+  const getServiceIcon = (service) => {
+    // Buscar servicio actual por ID para obtener icono actualizado (fallback a nombre para retrocompatibilidad)
+    const current = service.serviceId
+      ? currentServices.find(s => s.id === service.serviceId)
+      : currentServices.find(s => s.name === service.serviceName);
+    return current?.emoji || service.icon || 'settings';
+  };
+
   return (
     <div className="variable-price-modal-overlay">
       <div className="variable-price-modal">
@@ -85,7 +95,7 @@ const VariablePriceModal = ({ services, onConfirm, onCancel }) => {
           {services.map(service => (
             <div key={service.id} className="vpm-service-item">
               <div className="vpm-service-info">
-                <div className="vpm-service-icon">{service.icon}</div>
+                <div className="vpm-service-icon"><Icon name={getServiceIcon(service)} size={32} /></div>
                 <div className="vpm-service-details">
                   <div className="vpm-service-name">{service.serviceName}</div>
                   <div className="vpm-service-note">Precio por definir</div>

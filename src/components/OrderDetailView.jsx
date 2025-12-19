@@ -287,6 +287,7 @@ const OrderDetailView = ({
       {showVariablePriceModal && (
         <VariablePriceModal
           services={variablePriceServices}
+          currentServices={currentServices}
           onConfirm={handleVariablePricesConfirm}
           onCancel={handleVariablePricesCancel}
         />
@@ -443,6 +444,7 @@ const OrderDetailView = ({
             paymentMethod={paymentData.paymentMethod}
             allowEditMethod={true}
             orderStatus={orderStatus}
+            currentServices={currentServices}
             onConfirm={handlePaymentConfirm}
             onCancel={handlePaymentCancel}
           />

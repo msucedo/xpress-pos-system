@@ -15,8 +15,10 @@ export function ServicesList({
 
   // Helper para obtener el icono actualizado de un servicio
   const getServiceIcon = (service) => {
-    // Buscar servicio actual por nombre para obtener icono actualizado
-    const current = currentServices.find(s => s.name === service.serviceName);
+    // Buscar servicio actual por ID para obtener icono actualizado (fallback a nombre para retrocompatibilidad)
+    const current = service.serviceId
+      ? currentServices.find(s => s.id === service.serviceId)
+      : currentServices.find(s => s.name === service.serviceName);
     let icon = current?.emoji || service.icon || 'settings';
 
     // Si icon contiene caracteres emoji (no es nombre de icono Iconify), usar fallback
@@ -29,7 +31,7 @@ export function ServicesList({
 
   return (
     <div className="order-pairs-section">
-      <h3 className="section-title">🧼 Servicios ({regularServices.length})</h3>
+      <h3 className="section-title"><Icon name="cleaning" size={20} /> Servicios ({regularServices.length})</h3>
       <div className="pairs-grid">
         {regularServices.map((service, index) => {
           const serviceIcon = getServiceIcon(service);

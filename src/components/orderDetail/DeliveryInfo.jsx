@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Icon } from '../../icons';
 import { formatDeliveryDateDisplay } from '../../utils/orders/orderHelpers';
 import { OrderStatusSelector } from './OrderStatusSelector';
 
@@ -17,7 +18,7 @@ export function DeliveryInfo({
 
   return (
     <div className="detail-card">
-      <h3 className="detail-card-title">📅 Información de Entrega</h3>
+      <h3 className="detail-card-title"><Icon name="calendar" size={20} /> Información de Entrega</h3>
       <div className="detail-card-content">
         <div className="detail-row">
           <span className="detail-label">Fecha de Entrega:</span>
@@ -39,7 +40,7 @@ export function DeliveryInfo({
                     zIndex: 1
                   }}
                 >
-                  📅
+                  <Icon name="calendar" size={16} />
                 </button>
                 <input
                   ref={dateInputRef}

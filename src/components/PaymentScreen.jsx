@@ -14,11 +14,21 @@ const PaymentScreen = ({
   allowEditMethod = false,
   requireFullPayment = false,
   orderStatus,
+  currentServices = [],
   onConfirm,
   onCancel
 }) => {
   const [amountReceived, setAmountReceived] = useState('');
   const [selectedMethod, setSelectedMethod] = useState(paymentMethod);
+
+  // Helper para obtener el icono actualizado de un servicio
+  const getServiceIcon = (service) => {
+    // Buscar servicio actual por ID para obtener icono actualizado (fallback a nombre para retrocompatibilidad)
+    const current = service.serviceId
+      ? currentServices.find(s => s.id === service.serviceId)
+      : currentServices.find(s => s.name === service.serviceName);
+    return current?.emoji || service.icon || 'settings';
+  };
 
   // Agrupar servicios por nombre
   const groupedServices = useMemo(() => {
@@ -28,7 +38,7 @@ const PaymentScreen = ({
       if (!grouped[serviceName]) {
         grouped[serviceName] = {
           serviceName: serviceName,
-          icon: service.icon,
+          icon: getServiceIcon(service),
           price: service.price || 0,
           quantity: 0
         };
@@ -36,7 +46,7 @@ const PaymentScreen = ({
       grouped[serviceName].quantity++;
     });
     return Object.values(grouped);
-  }, [services]);
+  }, [services, currentServices]);
 
   // Calcular total (interno, usado solo si no se pasa subtotal como prop)
   const calculatedSubtotal = useMemo(() => {

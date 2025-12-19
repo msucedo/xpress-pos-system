@@ -41,14 +41,14 @@ export function canMoveToStatus(newStatus, services) {
 /**
  * Obtiene las opciones de estado disponibles para la orden
  *
- * @returns {Array} Array de objetos con value y label
+ * @returns {Array} Array de objetos con value, label e icon
  */
 export function getOrderStatusOptions() {
   return [
-    { value: 'recibidos', label: '📥 Recibidos' },
-    { value: 'proceso', label: '🔧 En Proceso' },
-    { value: 'listos', label: '✅ Listos' },
-    { value: 'enEntrega', label: '🚚 En Entrega' }
+    { value: 'recibidos', label: 'Recibidos', icon: 'inbox' },
+    { value: 'proceso', label: 'En Proceso', icon: 'settings' },
+    { value: 'listos', label: 'Listos', icon: 'check-circle' },
+    { value: 'enEntrega', label: 'En Entrega', icon: 'delivery' }
   ];
 }
 

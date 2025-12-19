@@ -1,4 +1,6 @@
+import { Icon } from '../../icons';
 import { getOrderStatusOptions } from '../../utils/orders/statusHelpers';
+import OrderStatusDropdown from './OrderStatusDropdown';
 
 /**
  * Componente para selector de estado de orden con validaciones
@@ -15,31 +17,24 @@ export function OrderStatusSelector({
     <>
       <div className="detail-row">
         <span className="detail-label">Estado de la Orden:</span>
-        <select
-          className={`order-status-select status-${orderStatus}`}
+        <OrderStatusDropdown
           value={orderStatus}
           onChange={(e) => onChange(e.target.value)}
+          options={orderStatuses}
           disabled={isReadOnly}
-          style={{
-            opacity: isReadOnly ? 0.6 : 1,
-            cursor: isReadOnly ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {orderStatuses.map(status => (
-            <option key={status.value} value={status.value}>
-              {status.label}
-            </option>
-          ))}
-        </select>
+        />
       </div>
       {!allItemsCompletedOrCancelled && (
         <div className="detail-row" style={{ marginTop: '8px' }}>
           <span style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
             fontSize: '12px',
             color: '#f59e0b',
             fontStyle: 'italic'
           }}>
-            ⚠️ Para mover a "En Entrega", todos los servicios deben estar completados o cancelados
+            <Icon name="warning" size={16} /> Para mover a "En Entrega", todos los servicios deben estar completados o cancelados
           </span>
         </div>
       )}
