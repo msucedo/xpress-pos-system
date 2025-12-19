@@ -161,7 +161,7 @@ const PaymentScreen = ({
   return (
     <div className="payment-screen">
       <div className="payment-header">
-        <h2 className="payment-title">💰 Confirmar Cobro</h2>
+        <h2 className="payment-title"><Icon name="money" size={20} /> Confirmar Cobro</h2>
         <p className="payment-subtitle">Revisa el desglose y confirma el pago</p>
         {requireFullPayment && (
           <div className="payment-warning" style={{
@@ -174,7 +174,7 @@ const PaymentScreen = ({
             color: '#92400E',
             fontWeight: '500'
           }}>
-            ⚠️ Esta orden solo contiene productos y debe pagarse completamente
+            <Icon name="warning" size={18} /> Esta orden solo contiene productos y debe pagarse completamente
           </div>
         )}
       </div>
@@ -183,7 +183,7 @@ const PaymentScreen = ({
         {/* Desglose de Servicios */}
         {groupedServices.length > 0 && (
           <div className="payment-section">
-            <h3 className="section-header">🧼 Servicios</h3>
+            <h3 className="section-header"><Icon name="settings" size={20} /> Servicios</h3>
             <div className="items-list">
               {groupedServices.map((service, index) => (
                 <div key={index} className="item-row">
@@ -204,7 +204,7 @@ const PaymentScreen = ({
         {/* Desglose de Productos */}
         {products.length > 0 && (
           <div className="payment-section">
-            <h3 className="section-header">📦 Productos</h3>
+            <h3 className="section-header"><Icon name="package" size={20} /> Productos</h3>
             <div className="items-list">
               {products.map((product, index) => (
                 <div key={product.id || index} className="item-row">
@@ -268,7 +268,7 @@ const PaymentScreen = ({
         {selectedMethod === 'cash' && (
           <div className="cash-payment-section">
             <div className="cash-input-group">
-              <label className="cash-label">💵 Monto Recibido:</label>
+              <label className="cash-label"><Icon name="money" size={18} /> Monto Recibido:</label>
               <input
                 type="number"
                 className="cash-input"
@@ -300,21 +300,21 @@ const PaymentScreen = ({
                 className={`payment-method-btn ${selectedMethod === 'cash' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('cash')}
               >
-                💵 Efectivo
+                <Icon name="money" size={18} /> Efectivo
               </button>
               <button
                 type="button"
                 className={`payment-method-btn ${selectedMethod === 'card' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('card')}
               >
-                💳 Tarjeta
+                <Icon name="credit-card" size={18} /> Tarjeta
               </button>
               <button
                 type="button"
                 className={`payment-method-btn ${selectedMethod === 'transfer' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('transfer')}
               >
-                📱 Transfer
+                <Icon name="smartphone" size={18} /> Transfer
               </button>
               {/* Bug 3: No mostrar "Pendiente" cuando status es enEntrega */}
               {orderStatus !== 'enEntrega' && (
@@ -323,7 +323,7 @@ const PaymentScreen = ({
                   className={`payment-method-btn ${selectedMethod === 'pending' ? 'selected' : ''}`}
                   onClick={() => setSelectedMethod('pending')}
                 >
-                  ⏳ Pendiente
+                  <Icon name="pending" size={18} /> Pendiente
                 </button>
               )}
             </div>
@@ -332,10 +332,10 @@ const PaymentScreen = ({
           <div className="payment-method-info">
             <span className="method-label">Método de Pago:</span>
             <span className="method-value">
-              {selectedMethod === 'cash' && '💵 Efectivo'}
-              {selectedMethod === 'card' && '💳 Tarjeta'}
-              {selectedMethod === 'transfer' && '📱 Transferencia'}
-              {selectedMethod === 'pending' && '⏳ Pendiente'}
+              {selectedMethod === 'cash' && <><Icon name="money" size={18} /> Efectivo</>}
+              {selectedMethod === 'card' && <><Icon name="credit-card" size={18} /> Tarjeta</>}
+              {selectedMethod === 'transfer' && <><Icon name="smartphone" size={18} /> Transferencia</>}
+              {selectedMethod === 'pending' && <><Icon name="pending" size={18} /> Pendiente</>}
             </span>
           </div>
         )}
@@ -344,10 +344,10 @@ const PaymentScreen = ({
       {/* Botones de Acción */}
       <div className="payment-actions">
         <button type="button" className="btn-cancel-payment" onClick={onCancel}>
-          ✕ Cancelar
+          <Icon name="close" size={18} /> Cancelar
         </button>
         <button type="button" className="btn-confirm-payment" onClick={handleConfirm}>
-          ✓ Confirmar Cobro
+          <Icon name="check" size={18} /> Confirmar Cobro
         </button>
       </div>
     </div>

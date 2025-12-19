@@ -14,7 +14,7 @@ export function ProductSelector({ products, onAddToCart }) {
       <div className="order-services-grid">
         {products.length === 0 ? (
           <div className="empty-products">
-            <span className="empty-icon">📦</span>
+            <span className="empty-icon"><Icon name="package" size={48} /></span>
             <p>No hay productos disponibles en inventario</p>
           </div>
         ) : (
@@ -28,7 +28,7 @@ export function ProductSelector({ products, onAddToCart }) {
             >
               <span className="service-icon-large"><Icon name={product.emoji || 'package'} size={48} /></span>
               {product.stock <= product.minStock && (
-                <span className="stock-warning">⚠️</span>
+                <span className="stock-warning"><Icon name="warning" size={20} /></span>
               )}
             </button>
           ))

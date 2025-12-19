@@ -27,6 +27,28 @@ const Icon = ({
   // Buscar el icono en el mapa semántico
   const iconName = iconMap[name] || name;
 
+  // NUEVO: Si no es un icono válido, renderizar como emoji/texto
+  const isValidIcon = iconMap[name] || iconName.startsWith('character:') || iconName.includes(':');
+
+  if (!isValidIcon) {
+    // Es un emoji antiguo o texto, renderizarlo directamente
+    return (
+      <span
+        className={`app-icon emoji-fallback ${className}`}
+        style={{
+          fontSize: `${size}px`,
+          lineHeight: 1,
+          display: 'inline-block',
+          verticalAlign: 'middle',
+          ...style
+        }}
+        {...rest}
+      >
+        {name}
+      </span>
+    );
+  }
+
   // NUEVO: Soporte para iconos de personajes locales (SVG)
   if (iconName.startsWith('character:')) {
     const characterName = iconName.replace('character:', '');

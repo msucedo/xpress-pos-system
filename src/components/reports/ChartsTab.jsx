@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Icon } from '../../icons';
 import RevenueChart from '../RevenueChart';
 import ServicesChart from '../ServicesChart';
 import PaymentMethodsChart from '../PaymentMethodsChart';
@@ -505,10 +506,10 @@ const ChartsTab = ({
       {/* Financial Summary Section */}
       <div className="cr-section">
         <div className="cr-section-header">
-          <h3>💰 Resumen Financiero</h3>
+          <h3><Icon name="money" size={20} /> Resumen Financiero</h3>
           <div className="cr-period-badge">
             {activeFilter === 'Hoy'
-              ? '⚡ Tiempo Real'
+              ? <><Icon name="lightning" size={16} /> Tiempo Real</>
               : (() => {
                   // Determine if draft is included
                   const now = new Date();
@@ -536,8 +537,8 @@ const ChartsTab = ({
 
                   const includingToday = startDate && endDate && isTodayInRange(startDate, endDate) && hasDraftData();
                   return includingToday
-                    ? `📚 ${activeFilter} (incluyendo hoy)`
-                    : `📚 ${activeFilter} - Histórico`;
+                    ? <><Icon name="book" size={16} /> {activeFilter} (incluyendo hoy)</>
+                    : <><Icon name="book" size={16} /> {activeFilter} - Histórico</>;
                 })()
             }
           </div>
@@ -545,7 +546,7 @@ const ChartsTab = ({
 
         <div className="cr-stats-grid">
           <div className="cr-stat-card total">
-            <div className="cr-stat-icon">💵</div>
+            <div className="cr-stat-icon"><Icon name="money" size={32} /></div>
             <div className="cr-stat-info">
               <div className="cr-stat-label">Total Ingresos</div>
               <div className="cr-stat-value">
@@ -559,7 +560,7 @@ const ChartsTab = ({
           </div>
 
           <div className="cr-stat-card cash">
-            <div className="cr-stat-icon">💸</div>
+            <div className="cr-stat-icon"><Icon name="expenses" size={32} /></div>
             <div className="cr-stat-info">
               <div className="cr-stat-label">Total Gastos</div>
               <div className="cr-stat-value">
@@ -573,7 +574,7 @@ const ChartsTab = ({
           </div>
 
           <div className="cr-stat-card card">
-            <div className="cr-stat-icon">💵</div>
+            <div className="cr-stat-icon"><Icon name="money" size={32} /></div>
             <div className="cr-stat-info">
               <div className="cr-stat-label">Ganancia Neta</div>
               <div className="cr-stat-value">
@@ -587,7 +588,7 @@ const ChartsTab = ({
           </div>
 
           <div className="cr-stat-card transfer">
-            <div className="cr-stat-icon">💳</div>
+            <div className="cr-stat-icon"><Icon name="credit-card" size={32} /></div>
             <div className="cr-stat-info">
               <div className="cr-stat-label">Ticket Promedio</div>
               <div className="cr-stat-value">
@@ -604,7 +605,7 @@ const ChartsTab = ({
 
       {/* Analysis Section Title */}
       <div className="reports-section-title">
-        <span className="reports-section-icon">📊</span>
+        <span className="reports-section-icon"><Icon name="chart" size={24} /></span>
         Análisis de Ingresos
       </div>
 
@@ -637,7 +638,7 @@ const ChartsTab = ({
 
       {/* Expenses Section Title */}
       <div className="reports-section-title">
-        <span className="reports-section-icon">💸</span>
+        <span className="reports-section-icon"><Icon name="expenses" size={24} /></span>
         Análisis de Gastos
       </div>
 
@@ -665,7 +666,7 @@ const ChartsTab = ({
 
       {/* Trends Section Title */}
       <div className="reports-section-title">
-        <span className="reports-section-icon">📈</span>
+        <span className="reports-section-icon"><Icon name="trending-up" size={24} /></span>
         Tendencias y Comparación
       </div>
 
@@ -714,7 +715,7 @@ const ChartsTab = ({
 
       {/* Services Section Title */}
       <div className="reports-section-title">
-        <span className="reports-section-icon">🔥</span>
+        <span className="reports-section-icon"><Icon name="fire" size={24} /></span>
         Servicios Populares
       </div>
 
@@ -736,7 +737,7 @@ const ChartsTab = ({
       {/* Top Lists */}
       <div className="lists-grid">
         <div className="list-card">
-          <div className="list-header">🏆 Top 5 Clientes</div>
+          <div className="list-header"><Icon name="trophy" size={20} /> Top 5 Clientes</div>
           {topClients.length > 0 ? (
             topClients.map((client) => (
               <div key={client.rank} className="list-item">
@@ -756,7 +757,7 @@ const ChartsTab = ({
         </div>
 
         <div className="list-card">
-          <div className="list-header">🔥 Servicios Más Vendidos</div>
+          <div className="list-header"><Icon name="fire" size={20} /> Servicios Más Vendidos</div>
           {topServices.length > 0 ? (
             topServices.map((service) => (
               <div key={service.rank} className="list-item">

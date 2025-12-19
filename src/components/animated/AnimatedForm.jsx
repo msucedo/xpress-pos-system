@@ -5,6 +5,7 @@ import {
   formTransition,
   spinnerVariants,
 } from '../../animations';
+import { Icon } from '../../icons';
 import './AnimatedForm.css';
 
 /**
@@ -107,7 +108,7 @@ const AnimatedForm = ({
             transition={formTransition.feedback}
           >
             <span className="feedback-icon">
-              {feedbackType === 'success' ? '✓' : '✕'}
+              <Icon name={feedbackType === 'success' ? 'check' : 'close'} size={16} />
             </span>
             <span className="feedback-text">{feedback}</span>
           </motion.div>

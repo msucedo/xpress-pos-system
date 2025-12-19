@@ -1,6 +1,7 @@
 import { formatCurrency, getPaymentStatusLabel, getPaymentMethodLabel } from '../../utils/payments/paymentHelpers';
 import { formatDate, getAuthorInfo, getServiceIcons } from '../../utils/orders/orderHelpers';
 import { getOrderStatusLabel } from '../../utils/orders/statusHelpers';
+import { Icon } from '../../icons';
 
 /**
  * Componente de fila individual para la tabla de órdenes
@@ -25,7 +26,9 @@ export function OrderRow({ order, employees, onImageClick }) {
             onClick={() => onImageClick(firstImage)}
           />
         ) : (
-          <div className="oh-photo-placeholder">📷</div>
+          <div className="oh-photo-placeholder">
+            <Icon name="camera" size={24} />
+          </div>
         )}
       </td>
 
@@ -46,7 +49,7 @@ export function OrderRow({ order, employees, onImageClick }) {
           {serviceIcons.length > 0 ? (
             serviceIcons.map((service, idx) => (
               <div key={idx} className="oh-service-icon">
-                {service.emoji}
+                <Icon name={service.emoji || 'settings'} size={20} />
                 {service.count > 1 && (
                   <span className="oh-service-count">×{service.count}</span>
                 )}
@@ -74,7 +77,9 @@ export function OrderRow({ order, employees, onImageClick }) {
 
       <td className="oh-author">
         {authorInfo.emoji && (
-          <span className="oh-author-emoji">{authorInfo.emoji}</span>
+          <span className="oh-author-emoji">
+            <Icon name={authorInfo.emoji || 'user'} size={20} />
+          </span>
         )}
         <span className="oh-author-name">{authorInfo.name}</span>
       </td>

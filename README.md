@@ -3,6 +3,13 @@ xpress
 // OBJETIVO: MEJORAR EXPERIENCIA DE USUARIO
 
 // WIP
+-[]actualizar modal de servicios
+-[]aumentar tamñao de emojis, del sidebar
+-[]tab reportes, primer subtab corregirs navbars
+-[]historial de cortes guarda con emojis
+-[]actualizar react 19.1.1
+-[]meter mas iconos para servicios
+-[]remover "nuevo" tags
 -[]aplicar iconos de characters a tab empleados
 -[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
 -[]actualizar readme de proyecto

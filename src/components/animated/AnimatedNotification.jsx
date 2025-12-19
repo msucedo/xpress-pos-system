@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { notificationVariants, transitions } from '../../animations';
+import { Icon } from '../../icons';
 import './AnimatedNotification.css';
 
 /**
@@ -40,14 +41,14 @@ const AnimatedNotification = ({
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return '✓';
+        return 'check';
       case 'error':
-        return '✕';
+        return 'close';
       case 'warning':
-        return '⚠';
+        return 'warning';
       case 'info':
       default:
-        return 'ℹ';
+        return 'info';
     }
   };
 
@@ -62,7 +63,7 @@ const AnimatedNotification = ({
           exit="exit"
           transition={transitions.normal}
         >
-          <span className="notification-icon">{getIcon()}</span>
+          <span className="notification-icon"><Icon name={getIcon()} size={16} /></span>
           <span className="notification-message">{message}</span>
           {onClose && (
             <button
@@ -70,7 +71,7 @@ const AnimatedNotification = ({
               onClick={onClose}
               aria-label="Cerrar notificación"
             >
-              ✕
+              <Icon name="close" size={14} />
             </button>
           )}
         </motion.div>

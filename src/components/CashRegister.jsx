@@ -4,6 +4,7 @@ import Modal from './Modal';
 import ExpenseForm from './ExpenseForm';
 import WithdrawalForm from './WithdrawalForm';
 import { ConfirmDialog } from './animated';
+import { Icon } from '../icons';
 import { subscribeToCashRegisterDraft } from '../services/firebaseService';
 import { useCashRegisterDraft } from '../hooks/useCashRegisterDraft';
 import { useCashRegisterData } from '../hooks/useCashRegisterData';
@@ -266,7 +267,7 @@ const CashRegister = ({ orders, dateFilter }) => {
           )}
           {hasSaveError && (
             <>
-              <span className="cr-autosave-icon">⚠️</span>
+              <span className="cr-autosave-icon"><Icon name="warning" size={14} /></span>
               <span>Error al guardar</span>
             </>
           )}

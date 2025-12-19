@@ -1,4 +1,5 @@
 import { useNotification } from '../hooks/useNotification';
+import { Icon } from '../icons';
 import './ValidationBanner.css';
 
 const ValidationBanner = () => {
@@ -11,7 +12,7 @@ const ValidationBanner = () => {
   return (
     <div className="validation-banner-wrapper">
       <div className="validation-banner">
-        <div className="validation-banner-icon">⚠️</div>
+        <div className="validation-banner-icon"><Icon name="warning" size={20} /></div>
         <div className="validation-banner-content">
           <div className="validation-banner-title">
             Campos requeridos faltantes:
@@ -27,7 +28,7 @@ const ValidationBanner = () => {
           onClick={clearValidationErrors}
           aria-label="Cerrar banner de validación"
         >
-          ✕
+          <Icon name="close" size={16} />
         </button>
       </div>
     </div>

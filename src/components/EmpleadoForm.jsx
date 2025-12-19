@@ -3,6 +3,7 @@ import { useAdminCheck } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedTextInput, ValidatedPhoneInput, ValidatedEmailInput } from './inputs';
 import { IconPickerButton } from './iconPicker';
+import { Icon } from '../icons';
 import './EmpleadoForm.css';
 
 const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
@@ -260,10 +261,13 @@ const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
               cursor: isSubmitting ? 'not-allowed' : 'pointer'
             }}
           >
-            {isSubmitting
-              ? '⏳ Guardando...'
-              : (initialData ? 'Guardar Cambios' : 'Agregar Empleado')
-            }
+            {isSubmitting ? (
+              <>
+                <Icon name="loading" size={16} /> Guardando...
+              </>
+            ) : (
+              initialData ? 'Guardar Cambios' : 'Agregar Empleado'
+            )}
           </button>
         </div>
       </div>

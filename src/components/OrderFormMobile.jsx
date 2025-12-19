@@ -269,7 +269,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
           <div className="form-mobile-content">
             {/* Información del Cliente */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">👤 Cliente</h3>
+              <h3 className="section-title-mobile"><Icon name="user" size={20} /> Cliente</h3>
 
               <div className="form-group-mobile">
                 <label className="form-label-mobile">
@@ -315,7 +315,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Servicios */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">🧼 Servicios</h3>
+              <h3 className="section-title-mobile"><Icon name="settings" size={20} /> Servicios</h3>
               <div className="services-grid-mobile">
                 {services.map((service) => (
                   <button
@@ -334,7 +334,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             {/* Productos */}
             {products.length > 0 && (
               <div className="form-section-mobile">
-                <h3 className="section-title-mobile">🛍️ Productos</h3>
+                <h3 className="section-title-mobile"><Icon name="shopping" size={20} /> Productos</h3>
                 <div className="services-grid-mobile">
                   {products.map((product) => (
                     <button
@@ -354,7 +354,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             {/* Carrito */}
             <div className="form-section-mobile cart-section-mobile">
               <div className="cart-header-mobile">
-                <h3 className="section-title-mobile">🛒 Carrito</h3>
+                <h3 className="section-title-mobile"><Icon name="cart" size={20} /> Carrito</h3>
                 <span className="cart-count-mobile">{totalItems}</span>
               </div>
 
@@ -362,7 +362,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
               {cart.length === 0 ? (
                 <div className="cart-empty-mobile">
-                  <span className="empty-icon-mobile">🛒</span>
+                  <span className="empty-icon-mobile"><Icon name="cart" size={48} /></span>
                   <p>Agrega servicios o productos</p>
                 </div>
               ) : (
@@ -405,7 +405,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
               {/* Banner de promociones disponibles */}
               {activePromotions.length > 0 && (
                 <div className="available-promotions-banner">
-                  <div className="banner-title">🎉 Promociones Disponibles Hoy:</div>
+                  <div className="banner-title"><Icon name="celebration" size={18} /> Promociones Disponibles Hoy:</div>
                   {activePromotions
                     .filter(promo => {
                       if (!promo.daysOfWeek || promo.daysOfWeek.length === 0) return true;
@@ -420,9 +420,9 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
                       return (
                         <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
-                          <span className="promo-emoji">{promo.emoji || '🎉'}</span>
+                          <span className="promo-emoji"><Icon name={promo.emoji || 'celebration'} size={18} /></span>
                           <span className="promo-name">{promo.name}</span>
-                          {isApplied && <span className="applied-badge">✓ APLICADA</span>}
+                          {isApplied && <span className="applied-badge"><Icon name="check" size={14} /> APLICADA</span>}
                           {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
                         </div>
                       );
@@ -445,7 +445,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                           <div className="applied-promotions-list">
                             {appliedPromotions.map((promo, idx) => (
                               <span key={idx} className="applied-promo-tag">
-                                {promo.emoji || '🎉'} {promo.name}
+                                <Icon name={promo.emoji || 'celebration'} size={16} /> {promo.name}
                               </span>
                             ))}
                           </div>
@@ -466,7 +466,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             {employees && employees.length > 0 && (
               <div className="form-section-mobile">
                 <div className="employee-assignment-header-mobile">
-                  <h3 className="section-title-mobile">👤 Asignar a:</h3>
+                  <h3 className="section-title-mobile"><Icon name="user" size={20} /> Asignar a:</h3>
                   <span className="assignment-hint-mobile">(Opcional)</span>
                 </div>
                 <div className="employee-selection-grid-mobile">
@@ -496,7 +496,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Fecha de Entrega */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">📅 Fecha de Entrega</h3>
+              <h3 className="section-title-mobile"><Icon name="calendar" size={20} /> Fecha de Entrega</h3>
               <div className="form-group-mobile">
                 <input
                   type="date"
@@ -512,14 +512,14 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Método de Pago */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">💳 Método de Pago</h3>
+              <h3 className="section-title-mobile"><Icon name="credit-card" size={20} /> Método de Pago</h3>
               <select
                 name="paymentMethod"
                 value={formData.paymentMethod}
                 onChange={handleChange}
                 className="select-mobile"
               >
-                <option value="pending">🕐 Pendiente</option>
+                <option value="pending">⏳ Pendiente</option>
                 <option value="cash">💵 Efectivo</option>
                 <option value="card">💳 Tarjeta</option>
                 <option value="transfer">🏦 Transferencia</option>
@@ -528,7 +528,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Notas Generales */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">📝 Notas Generales</h3>
+              <h3 className="section-title-mobile"><Icon name="notes" size={20} /> Notas Generales</h3>
               <textarea
                 name="generalNotes"
                 value={formData.generalNotes}
@@ -541,7 +541,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Fotos */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile">📸 Fotos</h3>
+              <h3 className="section-title-mobile"><Icon name="image" size={20} /> Fotos</h3>
               <ImageUpload
                 images={orderImages}
                 onImagesChange={setOrderImages}

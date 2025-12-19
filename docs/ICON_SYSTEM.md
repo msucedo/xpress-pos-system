@@ -41,6 +41,14 @@ import { Icon } from '@/icons';
 - `color` (string): Color (solo para iconos no-coloreados, default: 'inherit')
 - `style` (object): Estilos inline adicionales
 
+**Compatibilidad Retroactiva:**
+El componente Icon incluye fallback automático para emojis antiguos. Si el `name` no es un icono válido en iconMap, se renderiza como emoji/texto:
+```jsx
+<Icon name="🧼" size={20} />  // Renderiza el emoji directamente
+<Icon name="cleaning" size={20} />  // Renderiza con Iconify
+```
+Esto permite que órdenes antiguas con emojis guardados sigan funcionando sin migración de datos.
+
 ---
 
 ## 🗺️ Diccionario de Iconos (iconMap)
@@ -952,6 +960,18 @@ emoji: initialData.emoji || 'celebration',
 16. `src/components/inventory/BasicProductInfo.jsx` - IconPickerButton (categoría "products") - Ya implementado ✅
 17. `src/components/InventoryForm.jsx` - Icon (loading en botón submit)
 18. `src/components/WithdrawalForm.jsx` - Icon (money en banner de efectivo)
+19. `src/components/ValidationBanner.jsx` - Icon (warning, close)
+20. `src/components/CashRegister.jsx` - Icon (warning en autosave)
+21. `src/components/EmpleadoForm.jsx` - Icon (loading en submit)
+22. `src/components/animated/AnimatedForm.jsx` - Icon (check, close en feedback)
+23. `src/components/animated/AnimatedNotification.jsx` - Icon (success, error, warning, info, close)
+24. `src/components/OrderDetailView.jsx` - Icon (warning, delete, close en modal)
+25. `src/components/orders/PromotionsBanner.jsx` - Icon (celebration, check)
+26. `src/components/orders/ProductSelector.jsx` - Icon (package, warning)
+27. `src/components/PaymentScreen.jsx` - Icon (money, warning, settings, package, credit-card, smartphone, pending, check, close)
+28. `src/components/OrderFormMobile.jsx` - Icon (user, settings, shopping, cart, celebration, check, calendar, credit-card, notes, image)
+29. `src/components/reports/ChartsTab.jsx` - Icon (money, lightning, book, expenses, credit-card, chart, trending-up, fire, trophy)
+30. `src/components/history/OrderRow.jsx` - Icon (camera placeholder, servicios dinámicos, autor dinámico)
 
 **Prioridad Alta:**
 1. ~~`src/utils/inventoryConstants.js`~~ (archivo no existe)

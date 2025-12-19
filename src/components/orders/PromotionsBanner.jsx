@@ -26,7 +26,7 @@ export function PromotionsBanner({
 
   return (
     <div className="available-promotions-banner">
-      <div className="banner-title">🎉 Promociones Disponibles Hoy:</div>
+      <div className="banner-title"><Icon name="celebration" size={18} /> Promociones Disponibles Hoy:</div>
       {availablePromotions.map((promo, idx) => {
         const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
         const validation = promotionValidations[promo.id];
@@ -39,7 +39,7 @@ export function PromotionsBanner({
           <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
             <span className="promo-emoji"><Icon name={promo.emoji || 'celebration'} size={18} /></span>
             <span className="promo-name">{promo.name}</span>
-            {isApplied && <span className="applied-badge">✓ APLICADA</span>}
+            {isApplied && <span className="applied-badge"><Icon name="check" size={14} /> APLICADA</span>}
             {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
           </div>
         );

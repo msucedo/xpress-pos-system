@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { ConfirmDialog } from './animated';
+import { Icon } from '../icons';
 import PaymentScreen from './PaymentScreen';
 import VariablePriceModal from './VariablePriceModal';
 import { getRelativeTimeWithHour } from '../utils/orders/orderHelpers';
@@ -307,7 +308,7 @@ const OrderDetailView = ({
               alignItems: 'center',
               gap: '10px'
             }}>
-              <span style={{ fontSize: '20px' }}>⚠️</span>
+              <span style={{ fontSize: '20px' }}><Icon name="warning" size={20} /></span>
               <span style={{ color: '#fbbf24', fontWeight: 600, fontSize: '14px' }}>
                 {order.orderStatus === 'completados'
                   ? 'Esta orden está completada y no puede editarse'
@@ -399,7 +400,7 @@ const OrderDetailView = ({
                   className="action-btn btn-cancel"
                   onClick={() => onCancel && onCancel(order)}
                 >
-                  <span className="action-icon">🗑️</span>
+                  <span className="action-icon"><Icon name="delete" size={20} /></span>
                   <span className="action-text">Cancelar Orden</span>
                 </button>
               </div>
@@ -411,7 +412,7 @@ const OrderDetailView = ({
             <div className="image-modal" onClick={closeImageModal}>
               <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
                 <button className="image-modal-close" onClick={closeImageModal}>
-                  ✕
+                  <Icon name="close" size={20} />
                 </button>
                 <img src={selectedImage} alt="Vista ampliada" className="image-modal-img" />
               </div>
