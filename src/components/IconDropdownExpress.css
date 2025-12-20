@@ -1,0 +1,95 @@
+/* IconDropdownExpress - Dropdown genérico con iconos para Xpress POS */
+
+.icon-dropdown-express {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-dropdown-express-button {
+  background: var(--color-gray-800);
+  border: 1px solid var(--color-gray-700);
+  color: var(--color-gray-400);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.icon-dropdown-express-button:hover:not(:disabled) {
+  background: var(--color-gray-700);
+  color: var(--color-gray-200);
+}
+
+.icon-dropdown-express-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.2);
+}
+
+.icon-dropdown-express-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Dropdown Menu */
+.icon-dropdown-express-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--color-gray-800);
+  border: 2px solid rgba(107, 114, 128, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  min-width: 180px;
+  overflow: hidden;
+  animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.icon-dropdown-express-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 16px;
+  cursor: pointer;
+  background-color: var(--color-gray-900);
+  transition: all 0.2s;
+  color: var(--color-gray-300);
+  font-size: 14px;
+  border-left: 3px solid transparent;
+}
+
+.icon-dropdown-express-option:hover {
+  background-color: rgba(107, 114, 128, 0.15);
+  border-left-color: var(--color-primary);
+  color: var(--color-gray-100);
+}
+
+.icon-dropdown-express-option-selected {
+  background-color: rgba(107, 114, 128, 0.25);
+  border-left-color: var(--color-primary);
+}
+
+.icon-dropdown-express-option-text {
+  flex: 1;
+}
+
+/* Disabled state */
+.icon-dropdown-express-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

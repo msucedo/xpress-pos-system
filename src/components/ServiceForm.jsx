@@ -3,13 +3,13 @@ import { useAdminCheck } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedAlphanumericInput, ValidatedNumberInput } from './inputs';
 import { IconPickerButton } from './iconPicker';
+import IconDropdownExpress from './IconDropdownExpress';
 import { Icon } from '../icons';
 import './ServiceForm.css';
 
 const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = null }) => {
   const isAdmin = useAdminCheck();
   const { showValidationErrors } = useNotification();
-  const [showMenu, setShowMenu] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     duration: '',
@@ -100,8 +100,8 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = 
     }
   };
 
-  const handleMenuAction = async (action) => {
-    setShowMenu(false);
+  const handleDropdownChange = (e) => {
+    const action = e.target.value;
 
     // Prevenir acciones si ya está procesando
     if (isSubmitting) {
@@ -132,44 +132,24 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = 
     }
   };
 
+  // Opciones del menú
+  const menuOptions = [
+    { value: 'duplicate', label: 'Duplicar Servicio', icon: 'clipboard' },
+    { value: 'delete', label: 'Eliminar Servicio', icon: 'delete' }
+  ];
+
   return (
     <div className="service-form">
       {/* Menu Button (only show when editing and user is admin) */}
       {initialData && isAdmin && (
         <div className="service-menu-container">
-          <button
-            className="service-menu-button"
-            onClick={() => setShowMenu(!showMenu)}
-            type="button"
-          >
-            <Icon name="settings" size={20} />
-          </button>
-          {showMenu && (
-            <div className="service-menu-dropdown">
-              <button
-                className="menu-item menu-duplicate"
-                onClick={() => handleMenuAction('duplicate')}
-                type="button"
-                disabled={isSubmitting}
-              >
-                <span className="menu-icon">
-                  <Icon name={isSubmitting ? 'loading' : 'clipboard'} size={16} />
-                </span>
-                <span className="menu-text">
-                  {isSubmitting ? 'Duplicando...' : 'Duplicar Servicio'}
-                </span>
-              </button>
-              <button
-                className="menu-item menu-delete"
-                onClick={() => handleMenuAction('delete')}
-                type="button"
-                disabled={isSubmitting}
-              >
-                <span className="menu-icon"><Icon name="delete" size={16} /></span>
-                <span className="menu-text">Eliminar Servicio</span>
-              </button>
-            </div>
-          )}
+          <IconDropdownExpress
+            value={null}
+            onChange={handleDropdownChange}
+            options={menuOptions}
+            disabled={isSubmitting}
+            buttonIcon="settings"
+          />
         </div>
       )}
 

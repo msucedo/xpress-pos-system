@@ -82,16 +82,10 @@ const AnimatedModal = ({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              {headerContent ? (
-                headerContent
-              ) : (
-                <>
-                  <h2 className="modal-title">{title}</h2>
-                  <button type="button" className="modal-close" onClick={(e) => { e.stopPropagation(); onClose(); }}>
-                    ✕
-                  </button>
-                </>
-              )}
+              {headerContent || <h2 className="modal-title">{title}</h2>}
+              <button type="button" className="modal-close" onClick={(e) => { e.stopPropagation(); onClose(); }}>
+                ✕
+              </button>
             </div>
             <div className="modal-body">
               {children}

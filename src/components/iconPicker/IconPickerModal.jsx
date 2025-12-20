@@ -68,14 +68,8 @@ const IconPickerModal = ({
   // Header personalizado con preview del icono seleccionado
   const headerContent = (
     <div className="icon-picker-header">
-      {/* Fila 1: Título + Botón X */}
-      <div className="icon-picker-header-row">
-        <h2 className="modal-title">Seleccionar Icono</h2>
-        <button type="button" className="modal-close" onClick={(e) => { e.stopPropagation(); handleCancel(); }}>
-          ✕
-        </button>
-      </div>
-      {/* Fila 2: Preview del icono seleccionado */}
+      <h2 className="modal-title">Seleccionar Icono</h2>
+      {/* Preview del icono seleccionado */}
       {tempSelectedIcon && (
         <div className="icon-preview-section">
           <div className="icon-preview-box">
