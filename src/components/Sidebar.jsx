@@ -10,13 +10,13 @@ const Sidebar = () => {
   const [showLogoutMenu, setShowLogoutMenu] = useState(false);
 
   const menuItems = [
-    { path: '/', icon: 'home', label: 'Dashboard', badge: 'Nuevo' },
+    { path: '/', icon: 'home', label: 'Dashboard' },
     { path: '/orders', icon: 'order', label: 'Órdenes' },
     { path: '/clients', icon: 'team', label: 'Clientes' },
     { path: '/services', icon: 'services', label: 'Servicios' },
     { path: '/employees', icon: 'employee', label: 'Empleados' },
     { path: '/inventory', icon: 'package', label: 'Inventario' },
-    { path: '/promotions', icon: 'promotion', label: 'Promociones', badge: 'BETA' },
+    { path: '/promotions', icon: 'promotion', label: 'Promociones' },
     { path: '/reports', icon: 'reports', label: 'Reportes' },
     { path: '/settings', icon: 'settings', label: 'Config' },
   ];

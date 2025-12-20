@@ -50,7 +50,6 @@ const FinancialSummary = ({
         </div>
 
         <div className="cr-stat-card expenses">
-          <span className="new-badge">Nuevo</span>
           <div className="cr-stat-icon">💸</div>
           <div className="cr-stat-info">
             <div className="cr-stat-label">Total de Gastos del Día</div>
