@@ -6,7 +6,7 @@ import { IconPickerButton } from './iconPicker';
 import { Icon } from '../icons';
 import './ServiceForm.css';
 
-const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
+const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = null }) => {
   const isAdmin = useAdminCheck();
   const { showValidationErrors } = useNotification();
   const [showMenu, setShowMenu] = useState(false);
@@ -115,13 +115,8 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
           name: formData.name + ' (Copia)',
           price: formData.price === '' ? 0 : parseFloat(formData.price)
         };
-        setIsSubmitting(true);
-        try {
-          await onSubmit(duplicateData);
-        } catch (error) {
-          console.error('Error duplicating service:', error);
-        } finally {
-          setIsSubmitting(false);
+        if (onDuplicate) {
+          onDuplicate(duplicateData);
         }
         break;
       case 'delete':
@@ -147,7 +142,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
             onClick={() => setShowMenu(!showMenu)}
             type="button"
           >
-            <Icon name="more" size={20} />
+            <Icon name="settings" size={20} />
           </button>
           {showMenu && (
             <div className="service-menu-dropdown">
@@ -177,14 +172,6 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
           )}
         </div>
       )}
-
-      <div className="service-form-header">
-        <div className="form-icon"><Icon name={formData.emoji} size={32} /></div>
-        <h2 className="form-title">{initialData ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
-        <p className="form-description">
-          {initialData ? 'Actualiza la información del servicio' : 'Registra un nuevo servicio en el catálogo'}
-        </p>
-      </div>
 
       <form onSubmit={handleSubmit} className="service-form-content">
         <IconPickerButton

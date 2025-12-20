@@ -237,8 +237,8 @@
 }
 
 .icon-grid-item.selected {
-  background: #0066cc;
-  border-color: #0066cc;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .icon-grid-item .icon-name {

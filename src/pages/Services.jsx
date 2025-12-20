@@ -168,6 +168,31 @@ const Services = () => {
     }
   };
 
+  const handleDuplicateService = async (formData) => {
+    // Verificar permisos de admin
+    if (!isAdmin) {
+      showError('Solo los administradores pueden duplicar servicios');
+      return;
+    }
+
+    try {
+      const newService = {
+        ...formData,
+        stats: {
+          thisMonth: 0,
+          total: 0
+        }
+      };
+      await addService(newService);
+      showSuccess('Servicio duplicado exitosamente');
+      handleCloseModal();
+      // Real-time listener will update the UI automatically
+    } catch (error) {
+      console.error('Error duplicating service:', error);
+      showError('Error al duplicar el servicio. Por favor intenta de nuevo.');
+    }
+  };
+
   const handleDeleteService = (serviceId) => {
     // Verificar permisos de admin
     if (!isAdmin) {
@@ -255,6 +280,7 @@ const Services = () => {
           onSubmit={handleSubmitService}
           onCancel={handleCloseModal}
           onDelete={handleDeleteService}
+          onDuplicate={handleDuplicateService}
           initialData={selectedService}
         />
       </AnimatedModal>

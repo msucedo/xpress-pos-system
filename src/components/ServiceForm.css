@@ -4,10 +4,11 @@
 }
 
 .service-menu-container {
-  position: absolute;
-  top: 16px;
-  right: 16px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
   z-index: 10;
+  margin-bottom: 16px;
 }
 
 .service-menu-button {
@@ -32,7 +33,7 @@
 
 .service-menu-dropdown {
   position: absolute;
-  top: 40px;
+  top: calc(100% + 0.5rem);
   right: 0;
   background: var(--color-gray-800);
   border: 1px solid var(--color-gray-700);
@@ -40,6 +41,7 @@
   min-width: 180px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  z-index: 1000;
 }
 
 .menu-item {
@@ -72,28 +74,6 @@
 .menu-text {
   flex: 1;
   text-align: left;
-}
-
-.service-form-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.form-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-}
-
-.form-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--color-gray-100);
-  margin-bottom: 8px;
-}
-
-.form-description {
-  font-size: 14px;
-  color: var(--color-gray-400);
 }
 
 .service-form-content {
