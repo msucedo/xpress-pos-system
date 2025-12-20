@@ -16,6 +16,7 @@ import '../Modal.css';
  * @param {ReactNode} headerContent - Contenido personalizado para el header (opcional)
  * @param {ReactNode} children - Contenido del modal
  * @param {string} size - Tamaño del modal: 'small', 'medium', 'large', 'full'
+ * @param {boolean} disableScrollLock - Si es true, no controla el scroll del body (útil para modales anidados)
  */
 const AnimatedModal = ({
   isOpen,
@@ -23,7 +24,8 @@ const AnimatedModal = ({
   title,
   headerContent,
   children,
-  size = 'medium'
+  size = 'medium',
+  disableScrollLock = false
 }) => {
   useEffect(() => {
     const handleEscape = (e) => {
@@ -34,21 +36,26 @@ const AnimatedModal = ({
 
     document.addEventListener('keydown', handleEscape);
 
-    // Prevent body scroll when modal is open
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    // Prevent body scroll when modal is open (only if scroll lock is enabled)
+    if (!disableScrollLock) {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      if (!disableScrollLock) {
+        document.body.style.overflow = 'unset';
+      }
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, disableScrollLock]);
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
+      e.stopPropagation();
       onClose();
     }
   };
@@ -75,10 +82,16 @@ const AnimatedModal = ({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header">
-              {headerContent || <h2 className="modal-title">{title}</h2>}
-              <button className="modal-close" onClick={onClose}>
-                ✕
-              </button>
+              {headerContent ? (
+                headerContent
+              ) : (
+                <>
+                  <h2 className="modal-title">{title}</h2>
+                  <button type="button" className="modal-close" onClick={(e) => { e.stopPropagation(); onClose(); }}>
+                    ✕
+                  </button>
+                </>
+              )}
             </div>
             <div className="modal-body">
               {children}

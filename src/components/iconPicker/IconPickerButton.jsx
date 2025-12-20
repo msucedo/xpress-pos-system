@@ -39,11 +39,6 @@ const IconPickerButton = ({
     onChange(iconName);
   };
 
-  const handleClearIcon = (e) => {
-    e.stopPropagation();
-    onChange('');
-  };
-
   return (
     <div className="icon-picker-field">
       {/* Label */}
@@ -78,18 +73,6 @@ const IconPickerButton = ({
             <Icon name="search" size={18} />
           </div>
         </button>
-
-        {/* Botón de limpiar (solo si hay valor) */}
-        {value && (
-          <button
-            type="button"
-            className="icon-picker-clear-btn"
-            onClick={handleClearIcon}
-            aria-label="Limpiar icono"
-          >
-            <Icon name="close" size={16} />
-          </button>
-        )}
       </div>
 
       {/* Mensaje de error */}

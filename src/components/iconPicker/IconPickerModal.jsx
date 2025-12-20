@@ -22,13 +22,11 @@ const IconPickerModal = ({
   selectedIcon = '',
   category = 'all'
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [tempSelectedIcon, setTempSelectedIcon] = useState(selectedIcon);
 
   // Resetear estado cuando se abre el modal
   const handleModalOpen = useCallback(() => {
-    setSearchQuery('');
     setSelectedCategory(category);
     setTempSelectedIcon(selectedIcon);
   }, [category, selectedIcon]);
@@ -36,7 +34,6 @@ const IconPickerModal = ({
   // Cambiar categoría
   const handleCategoryChange = useCallback((newCategory) => {
     setSelectedCategory(newCategory);
-    setSearchQuery(''); // Limpiar búsqueda al cambiar categoría
   }, []);
 
   // Selección temporal de icono (sin cerrar modal)
@@ -68,35 +65,28 @@ const IconPickerModal = ({
     return ICON_CATEGORIES[selectedCategory]?.icons || [];
   }, [selectedCategory]);
 
-  // Manejar búsqueda
-  const handleSearchChange = useCallback((e) => {
-    setSearchQuery(e.target.value);
-  }, []);
-
-  // Header personalizado con búsqueda
+  // Header personalizado con preview del icono seleccionado
   const headerContent = (
     <div className="icon-picker-header">
-      <h2 className="modal-title">Seleccionar Icono</h2>
-      <div className="icon-picker-search">
-        <Icon name="search" size={18} />
-        <input
-          type="text"
-          placeholder="Buscar iconos..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
-        {searchQuery && (
-          <button
-            type="button"
-            className="search-clear"
-            onClick={() => setSearchQuery('')}
-            aria-label="Limpiar búsqueda"
-          >
-            <Icon name="close" size={16} />
-          </button>
-        )}
+      {/* Fila 1: Título + Botón X */}
+      <div className="icon-picker-header-row">
+        <h2 className="modal-title">Seleccionar Icono</h2>
+        <button type="button" className="modal-close" onClick={(e) => { e.stopPropagation(); handleCancel(); }}>
+          ✕
+        </button>
       </div>
+      {/* Fila 2: Preview del icono seleccionado */}
+      {tempSelectedIcon && (
+        <div className="icon-preview-section">
+          <div className="icon-preview-box">
+            <Icon name={tempSelectedIcon} size={48} />
+          </div>
+          <div className="icon-preview-info">
+            <span className="icon-preview-label">Seleccionado:</span>
+            <strong className="icon-preview-name">{tempSelectedIcon}</strong>
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -106,6 +96,7 @@ const IconPickerModal = ({
       onClose={handleCancel}
       headerContent={headerContent}
       size="large"
+      disableScrollLock={true}
     >
       <div className="icon-picker-content">
         {/* Categorías */}
@@ -114,34 +105,12 @@ const IconPickerModal = ({
           onCategoryChange={handleCategoryChange}
         />
 
-        {/* Preview del icono seleccionado */}
-        {tempSelectedIcon && (
-          <div className="icon-preview-section">
-            <div className="icon-preview-box">
-              <Icon name={tempSelectedIcon} size={48} />
-            </div>
-            <div className="icon-preview-info">
-              <span className="icon-preview-label">Seleccionado:</span>
-              <strong className="icon-preview-name">{tempSelectedIcon}</strong>
-            </div>
-            <button
-              type="button"
-              className="icon-preview-clear"
-              onClick={handleClear}
-              aria-label="Limpiar selección"
-            >
-              <Icon name="close" size={16} />
-            </button>
-          </div>
-        )}
-
         {/* Grid de iconos */}
         <div className="icon-grid-container">
           <IconGrid
             icons={categoryIcons}
             selectedIcon={tempSelectedIcon}
             onIconSelect={handleIconClick}
-            searchQuery={searchQuery}
           />
         </div>
 
