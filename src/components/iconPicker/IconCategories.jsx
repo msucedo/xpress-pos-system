@@ -66,6 +66,46 @@ export const ICON_CATEGORIES = {
     label: 'Otros',
     icons: ['info', 'help', 'question', 'star', 'favorite', 'bookmark', 'flag', 'database', 'server', 'code', 'bug', 'launch', 'rocket', 'locked', 'unlocked']
   },
+  media: {
+    label: 'Medios e Imágenes',
+    icons: ['compact-camera', 'camera', 'photo-camera', 'old-camera', 'camera-addon', 'camera-identification', 'rotate-camera', 'switch-camera', 'multiple-cameras', 'gallery', 'image-file', 'add-image', 'edit-image', 'remove-image', 'stack-of-photos', 'photo-reel', 'picture']
+  },
+  video: {
+    label: 'Video y Audio',
+    icons: ['video-file', 'audio-file', 'camcorder', 'camcorder-pro', 'no-video', 'video-call', 'clapperboard', 'film', 'film-reel']
+  },
+  business: {
+    label: 'Negocios',
+    icons: ['briefcase', 'address-book', 'contacts-book', 'signature', 'business', 'business-contact']
+  },
+  devices: {
+    label: 'Dispositivos',
+    icons: ['cell-phone', 'mobile', 'smartphone-tablet', 'tablet-android', 'tablet', 'multiple-smartphones', 'iphone', 'ipad', 'touchscreen-smartphone', 'two-smartphones', 'multiple-devices']
+  },
+  tools: {
+    label: 'Herramientas',
+    icons: ['calculator', 'calc', 'area-chart', 'doughnut-chart', 'heat-map', 'mind-map', 'radar-plot', 'scatter-plot', 'clear-filters', 'ruler']
+  },
+  data: {
+    label: 'Datos',
+    icons: ['export', 'export-data', 'import', 'import-data', 'statistics', 'stats', 'organization', 'org', 'genealogy', 'tree-structure', 'org-unit', 'flow-chart']
+  },
+  connectivity: {
+    label: 'Conectividad',
+    icons: ['wifi', 'wi-fi', 'wifi-logo', 'online-support', 'webcam', 'integrated-webcam', 'nfc-sign', 'nfc']
+  },
+  education: {
+    label: 'Educación',
+    icons: ['graduation-cap', 'graduation', 'diploma-1', 'diploma-2', 'diploma', 'certificate']
+  },
+  security: {
+    label: 'Seguridad',
+    icons: ['privacy', 'data-protection', 'data-encryption', 'encryption', 'data-recovery', 'recovery', 'key', 'safe', 'biohazard']
+  },
+  files: {
+    label: 'Archivos',
+    icons: ['filing-cabinet', 'cabinet', 'fine-print', 'disclaimer', 'opened-folder']
+  },
   characters: {
     label: 'Personajes',
     icons: [

@@ -1,24 +1,15 @@
 xpress
 
-// OBJETIVO: MEJORAR EXPERIENCIA DE USUARIO
-
 // WIP
+-[]meter mas iconos para servicios y otras cosas
 -[]actualizar modal de servicios
--[]aumentar tamñao de emojis, del sidebar
--[]tab reportes, primer subtab corregirs navbars
+-[]aumentar tamñao de emoji de usuario del sidebar
 -[]historial de cortes guarda con emojis
 -[]actualizar react 19.1.1
--[]meter mas iconos para servicios
 -[]remover "nuevo" tags
 -[]aplicar iconos de characters a tab empleados
 -[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
 -[]actualizar readme de proyecto
-
-
--[FIX]verdad absoluta del conteo de efectivo
--[]reemplazar ordenes por calzados?
--[]habilitar campañas, tab campañas
--[]agregarle a la plantilla de whatsapp que no le escriban por ese chat?, implementar una respuesta automatica redirigiendolos al numero correcto
 
 // PRIORIDAD ALTA
 
@@ -32,6 +23,8 @@ xpress
 -[FEATURE]agregar notificacion push de cuando se recibe una respuesta de wapp, aparte de notificar con el badge rojo
 
 // BACKLOG
+-[]unificar diseño navbar tab inventario y subtab 1 de tab reportes
+-[BUG]hay tres tipos de tarjetas del header, en dashboard, empleados e inventario, unificar diseño
 -[]en configuracion, agregar una seccion para solo admins donde puedan habilitar/deshabilitar funcionalidades de la app para los empleados., quien puede crear o editar inventario o eliminar clientes?
 -[]agregar campo cumpleaños para el cliente
 -[]remover opcion de agregar cliente directamente desde tabs clientes, solo se agregan al crear una nueva orden en caso de no existir.
@@ -40,6 +33,9 @@ xpress
 -[]modals con ui propia
 -[]agregar ux para modal al conectar impresora bluetooth
 -[FEATURE]Validar funcionalidades offline
+-[FIX]verdad absoluta del conteo de efectivo
+-[]habilitar campañas, tab campañas
+-[]agregarle a la plantilla de whatsapp que no le escriban por ese chat?, implementar una respuesta automatica redirigiendolos al numero correcto
 
      📝 Plan de Mejoras Propuesto                                                                                      
      │                                                                                                                   │

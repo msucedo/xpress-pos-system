@@ -200,6 +200,139 @@ export const iconMap = {
   'flag': 'flat-color-icons:high-priority',
 
   // ========================================
+  // MEDIOS E IMÁGENES
+  // ========================================
+  'compact-camera': 'flat-color-icons:compact-camera',
+  'camera': 'flat-color-icons:compact-camera',
+  'photo-camera': 'flat-color-icons:camera',
+  'old-camera': 'flat-color-icons:old-time-camera',
+  'camera-addon': 'flat-color-icons:camera-addon',
+  'camera-identification': 'flat-color-icons:camera-identification',
+  'rotate-camera': 'flat-color-icons:rotate-camera',
+  'switch-camera': 'flat-color-icons:switch-camera',
+  'multiple-cameras': 'flat-color-icons:multiple-cameras',
+  'gallery': 'flat-color-icons:gallery',
+  'image-file': 'flat-color-icons:image-file',
+  'add-image': 'flat-color-icons:add-image',
+  'edit-image': 'flat-color-icons:edit-image',
+  'remove-image': 'flat-color-icons:remove-image',
+  'stack-of-photos': 'flat-color-icons:stack-of-photos',
+  'photo-reel': 'flat-color-icons:photo-reel',
+  'picture': 'flat-color-icons:picture',
+
+  // ========================================
+  // VIDEO Y AUDIO
+  // ========================================
+  'video-file': 'flat-color-icons:video-file',
+  'audio-file': 'flat-color-icons:audio-file',
+  'camcorder': 'flat-color-icons:camcorder',
+  'camcorder-pro': 'flat-color-icons:camcorder-pro',
+  'no-video': 'flat-color-icons:no-video',
+  'video-call': 'flat-color-icons:video-call',
+  'clapperboard': 'flat-color-icons:clapperboard',
+  'film': 'flat-color-icons:film',
+  'film-reel': 'flat-color-icons:film-reel',
+
+  // ========================================
+  // NEGOCIOS Y CONTACTOS
+  // ========================================
+  'briefcase': 'flat-color-icons:briefcase',
+  'address-book': 'flat-color-icons:address-book',
+  'contacts-book': 'flat-color-icons:address-book',
+  'signature': 'flat-color-icons:signature',
+  'business': 'flat-color-icons:business',
+  'business-contact': 'flat-color-icons:business-contact',
+
+  // ========================================
+  // DISPOSITIVOS
+  // ========================================
+  'cell-phone': 'flat-color-icons:cell-phone',
+  'mobile': 'flat-color-icons:cell-phone',
+  'smartphone-tablet': 'flat-color-icons:smartphone-tablet',
+  'tablet-android': 'flat-color-icons:tablet-android',
+  'tablet': 'flat-color-icons:tablet-android',
+  'multiple-smartphones': 'flat-color-icons:multiple-smartphones',
+  'iphone': 'flat-color-icons:iphone',
+  'ipad': 'flat-color-icons:ipad',
+  'touchscreen-smartphone': 'flat-color-icons:touchscreen-smartphone',
+  'two-smartphones': 'flat-color-icons:two-smartphones',
+  'multiple-devices': 'flat-color-icons:multiple-devices',
+
+  // ========================================
+  // HERRAMIENTAS Y CALCULADORAS
+  // ========================================
+  'calculator': 'flat-color-icons:calculator',
+  'calc': 'flat-color-icons:calculator',
+  'area-chart': 'flat-color-icons:area-chart',
+  'doughnut-chart': 'flat-color-icons:doughnut-chart',
+  'heat-map': 'flat-color-icons:heat-map',
+  'mind-map': 'flat-color-icons:mind-map',
+  'radar-plot': 'flat-color-icons:radar-plot',
+  'scatter-plot': 'flat-color-icons:scatter-plot',
+  'clear-filters': 'flat-color-icons:clear-filters',
+  'ruler': 'flat-color-icons:ruler',
+
+  // ========================================
+  // DATOS Y REPORTES AVANZADOS
+  // ========================================
+  'export': 'flat-color-icons:export',
+  'export-data': 'flat-color-icons:export',
+  'import': 'flat-color-icons:import',
+  'import-data': 'flat-color-icons:import',
+  'statistics': 'flat-color-icons:statistics',
+  'stats': 'flat-color-icons:statistics',
+  'organization': 'flat-color-icons:organization',
+  'org': 'flat-color-icons:organization',
+  'genealogy': 'flat-color-icons:genealogy',
+  'tree-structure': 'flat-color-icons:tree-structure',
+  'org-unit': 'flat-color-icons:org-unit',
+  'flow-chart': 'flat-color-icons:flow-chart',
+
+  // ========================================
+  // CONECTIVIDAD Y RED
+  // ========================================
+  'wifi': 'flat-color-icons:wi-fi-logo',
+  'wi-fi': 'flat-color-icons:wi-fi-logo',
+  'wifi-logo': 'flat-color-icons:wi-fi-logo',
+  'online-support': 'flat-color-icons:online-support',
+  'webcam': 'flat-color-icons:webcam',
+  'integrated-webcam': 'flat-color-icons:integrated-webcam',
+  'nfc-sign': 'flat-color-icons:nfc-sign',
+  'nfc': 'flat-color-icons:nfc-sign',
+
+  // ========================================
+  // EDUCACIÓN Y CERTIFICACIÓN
+  // ========================================
+  'graduation-cap': 'flat-color-icons:graduation-cap',
+  'graduation': 'flat-color-icons:graduation-cap',
+  'diploma-1': 'flat-color-icons:diploma-1',
+  'diploma-2': 'flat-color-icons:diploma-2',
+  'diploma': 'flat-color-icons:diploma-1',
+  'certificate': 'flat-color-icons:diploma-1',
+
+  // ========================================
+  // SISTEMA Y SEGURIDAD
+  // ========================================
+  'privacy': 'flat-color-icons:privacy',
+  'data-protection': 'flat-color-icons:data-protection',
+  'data-encryption': 'flat-color-icons:data-encryption',
+  'encryption': 'flat-color-icons:data-encryption',
+  'data-recovery': 'flat-color-icons:data-recovery',
+  'recovery': 'flat-color-icons:data-recovery',
+  'key': 'flat-color-icons:key',
+  'safe': 'flat-color-icons:safe',
+  'biohazard': 'flat-color-icons:biohazard',
+
+  // ========================================
+  // DOCUMENTACIÓN Y ARCHIVOS
+  // ========================================
+  'filing-cabinet': 'flat-color-icons:filing-cabinet',
+  'cabinet': 'flat-color-icons:filing-cabinet',
+  'fine-print': 'flat-color-icons:fine-print',
+  'disclaimer': 'flat-color-icons:disclaimer',
+  'opened-folder': 'flat-color-icons:opened-folder',
+
+  // ========================================
   // PERSONAJES (Character SVG Icons)
   // Para empleados - Iconos de src/icons/characters/
   // ========================================

@@ -206,6 +206,119 @@ Los iconos se organizan por categorías semánticas. Usa el nombre semántico en
 - `bookmark` → 🔖
 - `flag` → 🚩
 
+### Medios e Imágenes 📸
+- `compact-camera` → 📷 (cámara compacta)
+- `camera` → 📷 (cámara)
+- `photo-camera` → 📷
+- `old-camera` → 📷 (cámara antigua)
+- `camera-addon` → 📷 (addon de cámara)
+- `camera-identification` → 📷 (identificación con cámara)
+- `rotate-camera` → 🔄 (rotar cámara)
+- `switch-camera` → 🔄 (cambiar cámara)
+- `multiple-cameras` → 📷 (múltiples cámaras)
+- `gallery` → 🖼️ (galería)
+- `image-file` → 🖼️ (archivo de imagen)
+- `add-image` → ➕ (agregar imagen)
+- `edit-image` → ✏️ (editar imagen)
+- `remove-image` → ❌ (remover imagen)
+- `stack-of-photos` → 📸 (pila de fotos)
+- `photo-reel` → 📸 (rollo de fotos)
+- `picture` → 🖼️ (imagen)
+
+### Video y Audio 🎬
+- `video-file` → 🎥 (archivo de video)
+- `audio-file` → 🎵 (archivo de audio)
+- `camcorder` → 📹 (cámara de video)
+- `camcorder-pro` → 📹 (cámara de video profesional)
+- `no-video` → 🚫 (sin video)
+- `video-call` → 📹 (videollamada)
+- `clapperboard` → 🎬 (claqueta)
+- `film` → 🎞️ (película)
+- `film-reel` → 🎞️ (rollo de película)
+
+### Negocios y Contactos 💼
+- `briefcase` → 💼 (portafolio)
+- `address-book` → 📒 (libro de direcciones)
+- `contacts-book` → 📒
+- `signature` → ✍️ (firma)
+- `business` → 💼 (negocio)
+- `business-contact` → 👔 (contacto de negocio)
+
+### Dispositivos 📱
+- `cell-phone` → 📱 (teléfono celular)
+- `mobile` → 📱
+- `smartphone-tablet` → 📱 (smartphone y tablet)
+- `tablet-android` → 📱 (tablet Android)
+- `tablet` → 📱
+- `multiple-smartphones` → 📱 (múltiples smartphones)
+- `iphone` → 📱
+- `ipad` → 📱
+- `touchscreen-smartphone` → 📱 (smartphone táctil)
+- `two-smartphones` → 📱 (dos smartphones)
+- `multiple-devices` → 📱 (múltiples dispositivos)
+
+### Herramientas y Calculadoras 🧮
+- `calculator` → 🧮 (calculadora)
+- `calc` → 🧮
+- `area-chart` → 📈 (gráfico de área)
+- `doughnut-chart` → 📊 (gráfico de dona)
+- `heat-map` → 🗺️ (mapa de calor)
+- `mind-map` → 🧠 (mapa mental)
+- `radar-plot` → 📊 (gráfico radar)
+- `scatter-plot` → 📊 (gráfico de dispersión)
+- `clear-filters` → 🔄 (limpiar filtros)
+- `ruler` → 📏 (regla)
+
+### Datos y Reportes Avanzados 📊
+- `export` → 📤 (exportar)
+- `export-data` → 📤
+- `import` → 📥 (importar)
+- `import-data` → 📥
+- `statistics` → 📊 (estadísticas)
+- `stats` → 📊
+- `organization` → 🏢 (organización)
+- `org` → 🏢
+- `genealogy` → 🌳 (genealogía)
+- `tree-structure` → 🌳 (estructura de árbol)
+- `org-unit` → 🏢 (unidad organizacional)
+- `flow-chart` → 📊 (diagrama de flujo)
+
+### Conectividad y Red 📡
+- `wifi` → 📶 (WiFi)
+- `wi-fi` → 📶
+- `wifi-logo` → 📶
+- `online-support` → 💬 (soporte en línea)
+- `webcam` → 📹 (cámara web)
+- `integrated-webcam` → 📹 (cámara web integrada)
+- `nfc-sign` → 📡 (NFC)
+- `nfc` → 📡
+
+### Educación y Certificación 🎓
+- `graduation-cap` → 🎓 (birrete)
+- `graduation` → 🎓
+- `diploma-1` → 📜 (diploma)
+- `diploma-2` → 📜
+- `diploma` → 📜
+- `certificate` → 📜 (certificado)
+
+### Sistema y Seguridad 🔒
+- `privacy` → 🔒 (privacidad)
+- `data-protection` → 🛡️ (protección de datos)
+- `data-encryption` → 🔐 (cifrado de datos)
+- `encryption` → 🔐
+- `data-recovery` → 💾 (recuperación de datos)
+- `recovery` → 💾
+- `key` → 🔑 (llave)
+- `safe` → 🔒 (caja fuerte)
+- `biohazard` → ☣️ (peligro biológico)
+
+### Documentación y Archivos 📁
+- `filing-cabinet` → 🗄️ (archivador)
+- `cabinet` → 🗄️
+- `fine-print` → 📄 (letra pequeña)
+- `disclaimer` → ⚠️ (descargo de responsabilidad)
+- `opened-folder` → 📂 (carpeta abierta)
+
 ### Personajes (Character Icons) 👤
 **99 iconos SVG locales** para perfiles de empleados. Usa el prefijo `character:` en el iconMap.
 
@@ -355,11 +468,45 @@ const allowedIcons = [
 
 ## 🔍 Encontrar Iconos
 
+### Iconos Mapeados en el Sistema
+
+Actualmente tenemos **140+ iconos** mapeados y disponibles para usar con nombres semánticos en `iconMap.js`, organizados en las siguientes categorías:
+
+- Productos e Inventario
+- Promociones y Celebraciones
+- Success & Confirmaciones
+- Errores y Warnings
+- Reportes y Analytics
+- Dinero y Finanzas
+- Documentos y Archivos
+- Calendario y Tiempo
+- Acciones
+- Servicios y Trabajo
+- Usuarios y Personas
+- Comunicación
+- Navegación
+- Estados
+- Commerce & Shopping
+- Tech & System
+- Misc
+- **Medios e Imágenes** (17 iconos)
+- **Video y Audio** (9 iconos)
+- **Negocios y Contactos** (5 iconos)
+- **Dispositivos** (10 iconos)
+- **Herramientas y Calculadoras** (10 iconos)
+- **Datos y Reportes Avanzados** (8 iconos)
+- **Conectividad y Red** (7 iconos)
+- **Educación y Certificación** (6 iconos)
+- **Sistema y Seguridad** (8 iconos)
+- **Documentación y Archivos** (4 iconos)
+- **Personajes** (99 iconos SVG locales)
+
 ### Buscar en el catálogo completo
 
-Ver todos los iconos disponibles (329 iconos):
+Hay **329 iconos disponibles** en total en flat-color-icons. Puedes explorar todos los iconos disponibles en:
 - [Iconify Icon Sets - Flat Color Icons](https://icon-sets.iconify.design/flat-color-icons/)
 - [React Icons - FC](https://react-icons.github.io/react-icons/icons/fc/)
+- [GitHub - flat-color-icons](https://github.com/icons8/flat-color-icons)
 
 ### Usar un icono no mapeado
 
@@ -374,6 +521,40 @@ export const iconMap = {
   // ...
   'mi-nuevo-icono': 'flat-color-icons:nombre-del-icono',
 };
+```
+
+### Ejemplos de Uso de Nuevos Iconos
+
+**Medios e Imágenes:**
+```jsx
+// Para agregar fotos de productos
+<Icon name="compact-camera" size={24} /> Tomar foto
+<Icon name="gallery" size={24} /> Ver galería
+<Icon name="add-image" size={24} /> Agregar imagen
+```
+
+**Dispositivos y Conectividad:**
+```jsx
+// Para mostrar estado de conectividad
+<Icon name="wifi" size={20} /> WiFi conectado
+<Icon name="mobile" size={20} /> Dispositivo móvil
+<Icon name="tablet" size={20} /> Modo tableta
+```
+
+**Datos y Reportes:**
+```jsx
+// Para exportar/importar datos
+<button><Icon name="export" size={16} /> Exportar reporte</button>
+<button><Icon name="import" size={16} /> Importar datos</button>
+<Icon name="statistics" size={32} /> Estadísticas
+```
+
+**Herramientas:**
+```jsx
+// Para funcionalidades adicionales
+<Icon name="calculator" size={24} /> Calculadora
+<Icon name="signature" size={20} /> Firma digital
+<Icon name="briefcase" size={24} /> Cartera de clientes
 ```
 
 ---
