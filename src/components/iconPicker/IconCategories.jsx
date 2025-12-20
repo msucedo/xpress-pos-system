@@ -64,7 +64,7 @@ export const ICON_CATEGORIES = {
   },
   misc: {
     label: 'Otros',
-    icons: ['info', 'help', 'question', 'star', 'favorite', 'bookmark', 'flag', 'database', 'server', 'code', 'bug', 'launch', 'rocket', 'locked', 'unlocked']
+    icons: ['adjacent', 'info', 'help', 'question', 'star', 'favorite', 'bookmark', 'flag', 'database', 'server', 'code', 'bug', 'close', 'close-2', 'close-3', 'launch', 'rocket', 'locked', 'unlocked', 'save-close']
   },
   media: {
     label: 'Medios e Imágenes',
@@ -105,6 +105,21 @@ export const ICON_CATEGORIES = {
   files: {
     label: 'Archivos',
     icons: ['filing-cabinet', 'cabinet', 'fine-print', 'disclaimer', 'opened-folder']
+  },
+  clothes: {
+    label: 'Ropa',
+    icons: [
+      'alteration', 'apple-watch', 'apron', 'backpack', 'bag', 'baseball-cap',
+      'beeswax', 'boots', 'bowler-hat', 'cap', 'choose-a-dress', 'closed-umbrella',
+      'diamond-ring', 'earrings', 'fabric-sample', 'farmer-hat', 'flip-flops',
+      'footwear', 'geta', 'glasses', 'hand-fan', 'hand-with-bracelet', 'hanger',
+      'heel', 'mens-belt', 'mitten', 'map', 'map-2', 'noticeboard', 'pin', 'pin-2',
+      'pin-3', 'pair-of-sneakers', 'pair-of-socks', 'rubber-boots', 'sandals',
+      'safety-pin', 'santa-hat', 'scarf', 'school-backpack', 'shoe-brush', 'shoes',
+      'slippers', 'smart-watch', 'socks', 'sun-glasses', 'trainers', 'umbrella',
+      'uncomfortable-shoes', 'valenki', 'wash-by-hand', 'watches-front-view',
+      'winter-boots', 'womens-shoe', 'womens-belt', 'work-boot', 'zipper'
+    ]
   },
   characters: {
     label: 'Personajes',

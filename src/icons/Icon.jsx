@@ -1,6 +1,8 @@
 import { Icon as IconifyIcon } from '@iconify/react';
 import { iconMap } from './iconMap';
 import { characterIcons } from './characters';
+import { clothesIcons } from './clothes';
+import { othersIcons } from './others';
 
 /**
  * Componente universal de iconos usando Iconify (flat-color-icons) y personajes locales
@@ -28,7 +30,7 @@ const Icon = ({
   const iconName = iconMap[name] || name;
 
   // NUEVO: Si no es un icono válido, renderizar como emoji/texto
-  const isValidIcon = iconMap[name] || iconName.startsWith('character:') || iconName.includes(':');
+  const isValidIcon = iconMap[name] || iconName.startsWith('character:') || iconName.startsWith('clothes:') || iconName.startsWith('others:') || iconName.includes(':');
 
   if (!isValidIcon) {
     // Es un emoji antiguo o texto, renderizarlo directamente
@@ -72,6 +74,56 @@ const Icon = ({
       );
     }
     // Si no se encuentra el personaje, continuar con Iconify como fallback
+  }
+
+  // NUEVO: Soporte para iconos de ropa locales (PNG)
+  if (iconName.startsWith('clothes:')) {
+    const clothesName = iconName.replace('clothes:', '');
+    const clothesSrc = clothesIcons[clothesName];
+
+    if (clothesSrc) {
+      return (
+        <img
+          src={clothesSrc}
+          alt={clothesName}
+          width={size}
+          height={size}
+          className={`app-icon clothes-icon ${className}`}
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            ...style,
+          }}
+          {...rest}
+        />
+      );
+    }
+    // Si no se encuentra el icono de ropa, continuar con Iconify como fallback
+  }
+
+  // NUEVO: Soporte para iconos de others locales (PNG)
+  if (iconName.startsWith('others:')) {
+    const othersName = iconName.replace('others:', '');
+    const othersSrc = othersIcons[othersName];
+
+    if (othersSrc) {
+      return (
+        <img
+          src={othersSrc}
+          alt={othersName}
+          width={size}
+          height={size}
+          className={`app-icon others-icon ${className}`}
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            ...style,
+          }}
+          {...rest}
+        />
+      );
+    }
+    // Si no se encuentra el icono, continuar con Iconify como fallback
   }
 
   // Sistema Iconify existente (SIN CAMBIOS)

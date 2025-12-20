@@ -319,6 +319,35 @@ Los iconos se organizan por categorías semánticas. Usa el nombre semántico en
 - `disclaimer` → ⚠️ (descargo de responsabilidad)
 - `opened-folder` → 📂 (carpeta abierta)
 
+### Ropa (Clothes Icons) 👔
+**Iconos PNG locales** para productos de ropa. Usa el prefijo `clothes:` en el iconMap.
+
+**Cómo agregar iconos de ropa:**
+1. Descarga el icono PNG de [Flat Color Icons](https://icon-sets.iconify.design/flat-color-icons/)
+2. Coloca el archivo PNG en `src/icons/clothes/`
+3. Importa el icono en `src/icons/clothes/index.js`
+4. Agrégalo al `iconMap.js` con prefijo `clothes:`
+5. Agrégalo a la categoría `clothes` en `IconCategories.jsx`
+
+**Ejemplos de iconos de ropa disponibles en flat-color-icons:**
+- zipper
+- heel
+- mens-belt
+- slippers
+- wash-by-hand
+- hanger
+- apron
+- hand-fan
+- choose-a-dress
+
+**Uso:**
+```jsx
+// Primero agregar el PNG y configurarlo
+<Icon name="zipper" size={24} />
+<Icon name="heel" size={32} />
+<Icon name="apron" size={48} />
+```
+
 ### Personajes (Character Icons) 👤
 **99 iconos SVG locales** para perfiles de empleados. Usa el prefijo `character:` en el iconMap.
 
