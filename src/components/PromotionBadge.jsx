@@ -13,7 +13,7 @@ const PromotionBadge = ({ promotion, discountAmount }) => {
 
   return (
     <div className="promotion-badge">
-      <span className="promotion-badge-emoji"><Icon name={emoji || 'celebration'} size={16} /></span>
+      <span className="promotion-badge-emoji"><Icon name={emoji || 'offer'} size={16} /></span>
       <span className="promotion-badge-name">{name}</span>
       {discountAmount > 0 && (
         <span className="promotion-badge-discount">{formatDiscount()}</span>

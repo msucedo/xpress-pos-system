@@ -616,6 +616,165 @@ const sizes = { sm: 16, md: 24, lg: 32, xl: 48 };
 
 ---
 
+## 📏 Jerarquía de Tamaños de Iconos
+
+Sistema de tamaños estandarizados para mantener consistencia visual en toda la aplicación.
+
+### Niveles de Tamaño
+
+#### Nivel 1 - Extra Grande (48px)
+**Uso:** Iconos decorativos, estados vacíos, splash screens
+
+**Ejemplos:**
+- Estados vacíos de listas
+- Iconos de bienvenida
+- Placeholders de carga
+
+```jsx
+<Icon name="add-shopping-cart" size={48} />  // Carrito vacío
+<Icon name="package" size={48} />            // Inventario vacío
+<Icon name="question" size={48} />           // Estado sin datos
+```
+
+#### Nivel 2 - Grande (32px)
+**Uso:** Headers de formulario, stats principales, iconos destacados
+
+**Ejemplos:**
+- Headers de modal
+- Tarjetas de estadísticas
+- Botones principales grandes
+
+```jsx
+<Icon name="money" size={32} />      // Stats de dashboard
+<Icon name="package" size={32} />    // Header de producto
+<Icon name="add" size={32} />        // Botón agregar principal
+```
+
+#### Nivel 3 - Medio (24px)
+**Uso:** Iconos de tarjetas, iconos principales en componentes
+
+**Ejemplos:**
+- Iconos principales de cards
+- Iconos en grids
+- Iconos destacados en listas
+
+```jsx
+<Icon name="celebration" size={24} />  // Icono de promoción
+<Icon name="settings" size={24} />     // Icono de servicio
+<Icon name="user" size={24} />         // Icono de empleado
+```
+
+#### Nivel 4 - Estándar (20px)
+**Uso:** Botones de acción primaria, títulos de secciones, navegación
+
+**Ejemplos:**
+- Botones de cerrar modales
+- Iconos de tabs/navegación
+- Títulos con iconos
+- Métodos de pago
+
+```jsx
+<Icon name="close" size={20} />           // Botón cerrar
+<Icon name="discount" size={20} />        // Título de promociones
+<Icon name="money" size={20} />           // Método de pago efectivo
+<Icon name="add-shopping-cart" size={20} /> // Indicador de carrito
+```
+
+#### Nivel 5 - Pequeño (18px)
+**Uso:** Iconos de contenido, items en listas, productos
+
+**Ejemplos:**
+- Iconos de productos en lista
+- Items de promociones
+- Elementos de contenido
+
+```jsx
+<Icon name={product.emoji} size={18} />    // Icono de producto
+<Icon name={promo.emoji} size={18} />      // Icono de promoción
+<Icon name="clock" size={18} />            // Duración de servicio
+```
+
+#### Nivel 6 - Mínimo (16px)
+**Uso:** Acciones secundarias, indicadores, iconos inline
+
+**Ejemplos:**
+- Botones de eliminar pequeños
+- Iconos de alerta/warning
+- Iconos inline con texto
+- Flechas de collapse/expand
+
+```jsx
+<Icon name="close" size={16} />      // Botón eliminar
+<Icon name="alert" size={16} />      // Indicador de warning
+<Icon name="down" size={16} />       // Flecha collapse
+<Icon name="calendar" size={16} />   // Icono inline
+```
+
+### Guía de Uso por Contexto
+
+#### Carrito de Compras
+```jsx
+// Header
+<Icon name="close" size={20} />                // Botón cerrar
+
+// Banner de promociones
+<Icon name="discount" size={20} />             // Título del banner
+<Icon name={promo.emoji} size={18} />          // Items de promoción
+<Icon name="down" size={16} />                 // Flecha collapse
+
+// Lista de productos
+<Icon name={item.emoji} size={18} />           // Icono de producto
+<Icon name="close" size={16} />                // Botón eliminar
+
+// Estado vacío
+<Icon name="add-shopping-cart" size={48} />    // Carrito vacío
+
+// Pantalla de pago
+<Icon name="close" size={20} />                // Botón cerrar
+<Icon name="money" size={20} />                // Método efectivo
+<Icon name="card" size={20} />                 // Método tarjeta
+<Icon name={item.emoji} size={18} />           // Productos
+<Icon name="alert" size={16} />                // Warning
+```
+
+#### Navegación y Sidebar
+```jsx
+<Icon name="home" size={20} />        // Items de menú
+<Icon name="order" size={20} />
+<Icon name="package" size={20} />
+```
+
+#### Formularios
+```jsx
+<Icon name="save" size={16} />        // Botón guardar
+<Icon name="loading" size={16} />     // Estado de carga
+```
+
+#### Notificaciones
+```jsx
+<Icon name="success" size={20} />     // Icono principal
+<Icon name="close" size={16} />       // Botón cerrar
+```
+
+### Reglas de Consistencia
+
+1. **Mantener jerarquía visual:** Iconos más grandes = mayor importancia
+2. **Contexto sobre tamaño fijo:** Usa el nivel apropiado según el contexto
+3. **Alineación:** Iconos del mismo nivel deben tener el mismo tamaño
+4. **Acciones similares:** Mismo tamaño para acciones del mismo tipo (ej. todos los botones cerrar: 20px o 16px según importancia)
+
+### Implementación Reciente
+
+**Carrito refactorizado con jerarquía consistente:**
+- ✅ CartHeader.jsx - Botón cerrar: 20px
+- ✅ CartPromotionsBanner.jsx - Título: 20px, Items: 18px, Flecha: 16px
+- ✅ CartItemsList.jsx - Productos: 18px, Botón eliminar: 16px
+- ✅ CartPayment.jsx - Botones: 20px, Productos: 18px, Alert: 16px
+- ✅ Cart.jsx - Estado vacío: 48px
+- ✅ PageHeader.jsx - Indicador carrito: 20px
+
+---
+
 ## ✅ Beneficios vs Emojis
 
 | Aspecto | Emojis | Flat Color Icons |

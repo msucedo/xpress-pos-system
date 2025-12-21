@@ -188,7 +188,7 @@ const Inventory = () => {
       <PageHeader
         title="Inventario"
         buttonLabel="Agregar Producto"
-        buttonIcon="➕"
+        buttonIcon={<Icon name="add" size={32} />}
         onButtonClick={handleOpenNewProduct}
         showSearch={true}
         searchValue={searchTerm}

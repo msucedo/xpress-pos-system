@@ -4,16 +4,15 @@ import { useAuth } from '../hooks/useAuth';
 import { useCartPaymentFlow } from '../hooks/useCartPaymentFlow';
 import { useSaleProcessing } from '../hooks/useSaleProcessing';
 import { useCartBarcodeSearch } from '../hooks/useCartBarcodeSearch';
-import { useCartDiscount } from '../hooks/useCartDiscount';
 import { useCartKeyboard } from '../hooks/useCartKeyboard';
 import CartPayment from './CartPayment';
 import { CartHeader } from './cart/CartHeader';
 import { CartSearchBar } from './cart/CartSearchBar';
 import { CartPromotionsBanner } from './cart/CartPromotionsBanner';
 import { CartItemsList } from './cart/CartItemsList';
-import { CartDiscountSection } from './cart/CartDiscountSection';
 import { CartNotesSection } from './cart/CartNotesSection';
 import { CartFooter } from './cart/CartFooter';
+import { Icon } from '../icons';
 import './Cart.css';
 
 /**
@@ -111,17 +110,6 @@ const Cart = () => {
     showBarcodeFeedback
   } = useCartBarcodeSearch(products, addProductWithValidation);
 
-  const {
-    discountInput,
-    setDiscountInput,
-    discountTypeInput,
-    setDiscountTypeInput,
-    handleDiscountChange,
-    handleDiscountKeyPress,
-    handleApplyDiscount,
-    showDiscountFeedback
-  } = useCartDiscount(subtotal, applyDiscount, appliedPromotions);
-
   const { cartSearchInputRef } = useCartKeyboard(
     isCartOpen,
     showPayment,
@@ -168,7 +156,7 @@ const Cart = () => {
         <div className="cart-content">
           {cartItems.length === 0 ? (
             <div className="cart-empty">
-              <div className="cart-empty-icon">🛒</div>
+              <div className="cart-empty-icon"><Icon name="add-shopping-cart" size={48} /></div>
               <p>El carrito está vacío</p>
               <p className="cart-empty-hint">Escanea un código de barras para agregar productos</p>
             </div>
@@ -181,23 +169,6 @@ const Cart = () => {
                 onIncrement={incrementQuantity}
                 onDecrement={decrementQuantity}
                 onRemove={removeProduct}
-              />
-
-              {/* Sección de descuento */}
-              <CartDiscountSection
-                discountInput={discountInput}
-                discountTypeInput={discountTypeInput}
-                discount={discount}
-                discountType={discountType}
-                appliedPromotions={appliedPromotions}
-                showDiscountFeedback={showDiscountFeedback}
-                onDiscountChange={handleDiscountChange}
-                onDiscountKeyPress={handleDiscountKeyPress}
-                onDiscountTypeChange={(e) => {
-                  setDiscountTypeInput(e.target.value);
-                  setDiscountInput('');
-                }}
-                onApplyDiscount={handleApplyDiscount}
               />
 
               {/* Sección de notas */}

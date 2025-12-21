@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Icon } from '../../icons';
 
 /**
  * Encabezado del carrito
@@ -12,7 +13,7 @@ export function CartHeader({ itemCount, onClose }) {
           Carrito {itemCount > 0 && `(${itemCount})`}
         </h2>
         <button className="cart-close-btn" onClick={onClose}>
-          ✕
+          <Icon name="close" size={20} />
         </button>
       </div>
     </div>

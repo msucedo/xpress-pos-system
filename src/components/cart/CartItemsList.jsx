@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import PromotionBadge from '../PromotionBadge';
+import { Icon } from '../../icons';
 
 /**
  * Lista de items del carrito en formato tabla compacta
@@ -21,7 +22,7 @@ export function CartItemsList({
         return (
           <div key={item.id} className="cart-item-row-wrapper">
             <div className="cart-item-row">
-              <span className="item-emoji">{item.emoji}</span>
+              <span className="item-emoji"><Icon name={item.emoji} size={18} /></span>
               <span className="item-name">{item.name}</span>
               <span className="item-price">${item.salePrice.toFixed(2)}</span>
               <div className="item-qty-controls">
@@ -47,7 +48,7 @@ export function CartItemsList({
                 onClick={() => onRemove(item.id)}
                 title="Eliminar"
               >
-                ✕
+                <Icon name="close" size={16} />
               </button>
             </div>
             {/* Mostrar badge de promoción si aplica */}

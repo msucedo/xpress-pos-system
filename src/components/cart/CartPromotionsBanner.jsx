@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '../../icons';
 
 /**
  * Banner de promociones disponibles en el carrito
@@ -11,6 +13,7 @@ export function CartPromotionsBanner({
   isPromotionRelevantForCart,
   cartItems
 }) {
+  const [isCollapsed, setIsCollapsed] = useState(true);
   if (!activePromotions || activePromotions.length === 0) {
     return null;
   }
@@ -30,8 +33,18 @@ export function CartPromotionsBanner({
 
   return (
     <div className="available-promotions-banner">
-      <div className="banner-title">🎉 Promociones Disponibles Hoy:</div>
-      {availablePromotions.map((promo, idx) => {
+      <div
+        className="banner-title"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon name="discount" size={20} />
+          Promociones Disponibles Hoy
+        </div>
+        <Icon name={isCollapsed ? 'down' : 'up'} size={16} />
+      </div>
+      {!isCollapsed && availablePromotions.map((promo, idx) => {
         const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
         const validation = promotionValidations[promo.id];
         const isRelevant = isPromotionRelevantForCart(promo, cartItems);
@@ -41,9 +54,9 @@ export function CartPromotionsBanner({
 
         return (
           <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
-            <span className="promo-emoji">{promo.emoji || '🎉'}</span>
+            <span className="promo-emoji"><Icon name={promo.emoji || 'discount'} size={18} /></span>
             <span className="promo-name">{promo.name}</span>
-            {isApplied && <span className="applied-badge">✓ APLICADA</span>}
+            {isApplied && <span className="applied-badge">APLICADA</span>}
             {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
           </div>
         );

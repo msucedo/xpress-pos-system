@@ -404,7 +404,7 @@ export const iconMap = {
   'zipper': 'clothes:zipper',
 
   // ========================================
-  // OTHERS (Others PNG Icons) - 5 iconos
+  // OTHERS (Others PNG Icons) - 42 iconos
   // Iconos varios - Iconos de src/icons/others/
   // ========================================
   'adjacent': 'others:adjacent',
@@ -417,6 +417,38 @@ export const iconMap = {
   'monarch': 'others:monarch',
   'old-king': 'others:old-king',
   'zuko': 'others:zuko',
+  'badge': 'others:badge',
+  'card': 'others:card',
+  'card-exchange': 'others:card-exchange',
+  'cards': 'others:cards',
+  'checked-id-documents': 'others:checked-id-documents',
+  'id-documents': 'others:id-documents',
+  'insert-card': 'others:insert-card',
+  'joker': 'others:joker',
+  'name-tag': 'others:name-tag',
+  'split-transaction': 'others:split-transaction',
+  'worker-id-card': 'others:worker-id-card',
+  '1-free': 'others:1-free',
+  'add-shopping-cart': 'others:add-shopping-cart',
+  'banknotes': 'others:banknotes',
+  'brand-new': 'others:brand-new',
+  'buying': 'others:buying',
+  'discount': 'others:discount',
+  'expensive-price': 'others:expensive-price',
+  'gift': 'others:gift',
+  'gift-2': 'others:gift-2',
+  'gratis': 'others:gratis',
+  'jewelry': 'others:jewelry',
+  'low-price': 'others:low-price',
+  'loyalty-card': 'others:loyalty-card',
+  'new': 'others:new',
+  'price-tag-usd': 'others:price-tag-usd',
+  'sale': 'others:sale',
+  'season-sale': 'others:season-sale',
+  'shopping-cart': 'others:shopping-cart',
+  'stationery': 'others:stationery',
+  'tag': 'others:tag',
+  'wallet': 'others:wallet',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)

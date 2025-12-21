@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '../icons';
 import './CartPayment.css';
 
 const CartPayment = ({
@@ -118,7 +119,7 @@ const CartPayment = ({
             onClick={handleCancel}
             disabled={isProcessing}
           >
-            ✕
+            <Icon name="close" size={20} />
           </button>
         </div>
       </div>
@@ -131,7 +132,7 @@ const CartPayment = ({
           <div className="cart-payment-items">
             {cartItems.map((item) => (
               <div key={item.id} className="payment-item-row">
-                <span className="payment-item-emoji">{item.emoji}</span>
+                <span className="payment-item-emoji"><Icon name={item.emoji} size={18} /></span>
                 <span className="payment-item-name">{item.name}</span>
                 <span className="payment-item-qty">x{item.quantity}</span>
                 <span className="payment-item-subtotal">
@@ -171,21 +172,21 @@ const CartPayment = ({
               onClick={() => setPaymentMethod('cash')}
               disabled={isProcessing}
             >
-              💵 Efectivo
+              <Icon name="money" size={20} /> Efectivo
             </button>
             <button
               className={`payment-method-btn ${paymentMethod === 'card' ? 'active' : ''}`}
               onClick={() => setPaymentMethod('card')}
               disabled={isProcessing}
             >
-              💳 Tarjeta
+              <Icon name="card" size={20} /> Tarjeta
             </button>
             <button
               className={`payment-method-btn ${paymentMethod === 'transfer' ? 'active' : ''}`}
               onClick={() => setPaymentMethod('transfer')}
               disabled={isProcessing}
             >
-              📱 Transferencia
+              <Icon name="card-exchange" size={20} /> Transferencia
             </button>
           </div>
         </div>
@@ -205,7 +206,7 @@ const CartPayment = ({
               disabled={isProcessing}
             />
             {paymentMethod === 'cash' && !amountReceived && (
-              <span className="field-hint warning">⚠️ No has ingresado el monto recibido</span>
+              <span className="field-hint warning"><Icon name="alert" size={16} /> No has ingresado el monto recibido</span>
             )}
             {amountReceived && (
               <div className="change-display">
