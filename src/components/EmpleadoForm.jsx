@@ -200,7 +200,7 @@ const EmpleadoForm = ({ onSubmit, onCancel, onDelete, initialData }) => {
                 onChange={(e) => setFormData(prev => ({ ...prev, isAdmin: e.target.checked }))}
               />
               <span className="checkbox-text">
-                👑 Administrador
+                <Icon name="admin" size={20} /> Administrador
               </span>
             </label>
             <span className="field-hint">

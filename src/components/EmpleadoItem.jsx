@@ -215,14 +215,14 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
             onClick={handleToggleOrders}
             title="Ver órdenes activas"
           >
-            {isExpanded ? '▼' : '▶'} Ver Órdenes ({activeOrders.length})
+            <Icon name={isExpanded ? 'down' : 'right'} size={16} /> Ver Órdenes ({activeOrders.length})
           </button>
           <button
             className="btn-assign-order"
             onClick={handleToggleAssignOrders}
             title="Asignar órdenes sin empleado"
           >
-            {showAssignOrders ? '▼' : '▶'} Asignar Orden ({unassignedOrders.length})
+            <Icon name={showAssignOrders ? 'down' : 'right'} size={16} /> Asignar Orden ({unassignedOrders.length})
           </button>
         </div>
       </div>
@@ -272,10 +272,10 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
                       {getRelativeTimeWithHour(order.createdAt)}
                     </span>
                     <span className={`order-status status-${order.orderStatus}`}>
-                      {order.orderStatus === 'recibidos' && '📥 Recibidos'}
-                      {order.orderStatus === 'proceso' && '🔧 En Proceso'}
-                      {order.orderStatus === 'listos' && '✅ Listos'}
-                      {order.orderStatus === 'enEntrega' && '🚚 En Entrega'}
+                      {order.orderStatus === 'recibidos' && 'Recibidos'}
+                      {order.orderStatus === 'proceso' && 'En Proceso'}
+                      {order.orderStatus === 'listos' && 'Listos'}
+                      {order.orderStatus === 'enEntrega' && 'En Entrega'}
                     </span>
                     <div className="empleado-order-services">
                       {getServiceIcons(order.services)}
@@ -342,7 +342,7 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
                         handleAssignOrder(order);
                       }}
                     >
-                      ✓ Asignar
+                      <Icon name="check" size={16} /> Asignar
                     </button>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ const EmpleadoItem = ({ empleado, onClick, onOrderClick, showSuccess, showError 
         <div className="image-modal" onClick={closeImageModal}>
           <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="image-modal-close" onClick={closeImageModal}>
-              ✕
+              <Icon name="close" size={20} />
             </button>
             <img src={selectedImage} alt="Vista ampliada" className="image-modal-img" />
           </div>

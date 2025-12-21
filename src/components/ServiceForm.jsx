@@ -200,7 +200,7 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = 
           error={errors.price}
           min={0}
           prefix="$"
-          hint="💡 Usa $0 para servicios con precio variable (se definirá al cobrar)"
+          hint="Usa $0 para servicios con precio variable (se definirá al cobrar)"
         />
 
         <div className="form-group">
@@ -242,11 +242,11 @@ const ServiceForm = ({ onSubmit, onCancel, onDelete, onDuplicate, initialData = 
               </>
             ) : initialData ? (
               <>
-                <Icon name="save" size={16} /> Guardar Cambios
+                 Guardar Cambios
               </>
             ) : (
               <>
-                <Icon name="sparkles" size={16} /> Crear Servicio
+                 Crear Servicio
               </>
             )}
           </button>

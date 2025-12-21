@@ -6,6 +6,7 @@ import EmpleadoForm from '../components/EmpleadoForm';
 import OrderDetailView from '../components/OrderDetailView';
 import PageHeader from '../components/PageHeader';
 import { ConfirmDialog } from '../components/animated';
+import AuthorSelect from '../components/AuthorSelect';
 import { Icon } from '../icons';
 import {
   subscribeToEmployees,
@@ -398,24 +399,12 @@ const Empleados = () => {
                 <span className="order-header-date">Recibida {headerData.createdAt}</span>
               </div>
               <div className="order-header-author">
-                <select
-                  className="order-header-author-select"
+                <AuthorSelect
                   value={headerData.authorId || ''}
                   onChange={headerData.onAuthorChange}
-                  onClick={(e) => e.stopPropagation()}
+                  employees={headerData.activeEmployees || []}
                   disabled={headerData.isReadOnly}
-                  style={{
-                    opacity: headerData.isReadOnly ? 0.6 : 1,
-                    cursor: headerData.isReadOnly ? 'not-allowed' : 'pointer'
-                  }}
-                >
-                  <option value="">Sin autor</option>
-                  {headerData.activeEmployees?.map(employee => (
-                    <option key={employee.id} value={employee.id}>
-                      {employee.emoji ? `${employee.emoji} ` : ''}{employee.name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
           ) : undefined}

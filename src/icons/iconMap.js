@@ -129,7 +129,7 @@ export const iconMap = {
   'employee': 'flat-color-icons:manager',
   'team': 'flat-color-icons:conference-call',
   'profile': 'flat-color-icons:contacts',
-  'admin': 'flat-color-icons:manager',
+  'admin': 'others:crown',
 
   // ========================================
   // COMUNICACIÓN
@@ -412,6 +412,11 @@ export const iconMap = {
   'close-2': 'others:close-2',
   'close-3': 'others:close-3',
   'save-close': 'others:save-close',
+  'crown': 'others:crown',
+  'ice-king': 'others:ice-king',
+  'monarch': 'others:monarch',
+  'old-king': 'others:old-king',
+  'zuko': 'others:zuko',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)
