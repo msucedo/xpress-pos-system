@@ -1347,6 +1347,8 @@ select.form-input {
   border-radius: 12px;
   padding: 12px;
   margin-bottom: 16px;
+  margin-right: 2%;
+  margin-left: 2%;
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 

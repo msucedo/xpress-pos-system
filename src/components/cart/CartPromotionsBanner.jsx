@@ -31,6 +31,9 @@ export function CartPromotionsBanner({
     return null;
   }
 
+  // Contar cuántas promociones están aplicadas
+  const appliedPromotionsCount = appliedPromotions.length;
+
   return (
     <div className="available-promotions-banner">
       <div
@@ -44,6 +47,19 @@ export function CartPromotionsBanner({
         </div>
         <Icon name={isCollapsed ? 'down' : 'up'} size={16} />
       </div>
+      {appliedPromotionsCount > 0 && (
+        <div style={{
+          padding: '8px 12px',
+          fontSize: '13px',
+          fontWeight: '600',
+          color: '#00ff88',
+          background: 'rgba(0, 255, 136, 0.1)',
+          borderRadius: '4px',
+          marginTop: '8px'
+        }}>
+          Promociones aplicadas: {appliedPromotionsCount}
+        </div>
+      )}
       {!isCollapsed && availablePromotions.map((promo, idx) => {
         const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
         const validation = promotionValidations[promo.id];

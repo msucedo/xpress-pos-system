@@ -21,7 +21,7 @@ export const DEFAULT_PRODUCT_STATE = {
   category: 'Accesorios',
   description: '',
   barcode: '',
-  emoji: '📦',
+  emoji: 'picture',
   purchasePrice: '',
   salePrice: '',
   stock: '',
@@ -32,4 +32,4 @@ export const DEFAULT_PRODUCT_STATE = {
 /**
  * Emoji por defecto para productos
  */
-export const DEFAULT_EMOJI = '📦';
+export const DEFAULT_EMOJI = 'picture';

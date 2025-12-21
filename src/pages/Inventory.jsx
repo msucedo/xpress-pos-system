@@ -218,7 +218,7 @@ const Inventory = () => {
       ) : (
         <div className="inventory-stats">
           <div className="stat-item">
-            <div className="stat-icon"><Icon name="package" size={32} /></div>
+            <div className="stat-icon"><Icon name="open-box" size={32} /></div>
             <div className="stat-content">
               <div className="stat-value">{totalProducts}</div>
               <div className="stat-label">Total Productos</div>

@@ -40,7 +40,7 @@ const PageHeader = ({
               onClick={onCartClick}
               title={`${cartItemCount} producto${cartItemCount > 1 ? 's' : ''} en el carrito`}
             >
-              <Icon name="add-shopping-cart" size={20} />
+              <Icon name="basket" size={20} />
               <span className="cart-badge">{cartItemCount}</span>
             </button>
           )}

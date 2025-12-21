@@ -1,6 +1,6 @@
 /**
  * Iconos de Others (PNG locales)
- * 42 iconos importados de Icons8
+ * 44 iconos importados de Icons8
  */
 
 // IMPORTACIONES DE ICONOS PNG
@@ -46,8 +46,10 @@ import shoppingCart from './icons8-shopping-cart-50.png';
 import stationery from './icons8-stationery-50.png';
 import tag from './icons8-tag-50.png';
 import wallet from './icons8-wallet-50.png';
+import openBox from './icons8-open-box-50.png';
+import basket from './icons8-basket-50.png';
 
-// EXPORTAR OBJETO DE ICONOS (42 total)
+// EXPORTAR OBJETO DE ICONOS (44 total)
 export const othersIcons = {
   'adjacent': adjacent,
   'close': close,
@@ -91,4 +93,6 @@ export const othersIcons = {
   'stationery': stationery,
   'tag': tag,
   'wallet': wallet,
+  'open-box': openBox,
+  'basket': basket,
 };

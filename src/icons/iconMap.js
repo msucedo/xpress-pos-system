@@ -404,7 +404,7 @@ export const iconMap = {
   'zipper': 'clothes:zipper',
 
   // ========================================
-  // OTHERS (Others PNG Icons) - 42 iconos
+  // OTHERS (Others PNG Icons) - 44 iconos
   // Iconos varios - Iconos de src/icons/others/
   // ========================================
   'adjacent': 'others:adjacent',
@@ -449,6 +449,8 @@ export const iconMap = {
   'stationery': 'others:stationery',
   'tag': 'others:tag',
   'wallet': 'others:wallet',
+  'open-box': 'others:open-box',
+  'basket': 'others:basket',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)
