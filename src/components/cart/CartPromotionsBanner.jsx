@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '../../icons';
+import { transitions } from '../../animations/transitions';
 
 /**
  * Banner de promociones disponibles en el carrito
@@ -36,17 +38,30 @@ export function CartPromotionsBanner({
 
   return (
     <div className="available-promotions-banner">
-      <div
+      <motion.div
         className="banner-title"
         onClick={() => setIsCollapsed(!isCollapsed)}
-        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}
+        whileTap={{
+          scale: 0.98,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        }}
+        transition={{ duration: 0.1, ease: [0.32, 0.72, 0, 1] }}
+        style={{
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          justifyContent: 'space-between',
+          borderRadius: '4px',
+          padding: '4px'
+        }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Icon name="discount" size={20} />
           Promociones Disponibles Hoy
         </div>
         <Icon name={isCollapsed ? 'down' : 'up'} size={16} />
-      </div>
+      </motion.div>
       {appliedPromotionsCount > 0 && (
         <div style={{
           padding: '8px 12px',
@@ -60,23 +75,35 @@ export function CartPromotionsBanner({
           Promociones aplicadas: {appliedPromotionsCount}
         </div>
       )}
-      {!isCollapsed && availablePromotions.map((promo, idx) => {
-        const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
-        const validation = promotionValidations[promo.id];
-        const isRelevant = isPromotionRelevantForCart(promo, cartItems);
-        const notAppliedReason = !isApplied && validation && !validation.isValid && isRelevant
-          ? validation.reason
-          : null;
+      <AnimatePresence>
+        {!isCollapsed && (
+          <motion.div
+            initial={{ maxHeight: 0, opacity: 0, y: -10 }}
+            animate={{ maxHeight: 500, opacity: 1, y: 0 }}
+            exit={{ maxHeight: 0, opacity: 0, y: -10 }}
+            transition={transitions.slow}
+            style={{ overflow: 'hidden' }}
+          >
+            {availablePromotions.map((promo, idx) => {
+              const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
+              const validation = promotionValidations[promo.id];
+              const isRelevant = isPromotionRelevantForCart(promo, cartItems);
+              const notAppliedReason = !isApplied && validation && !validation.isValid && isRelevant
+                ? validation.reason
+                : null;
 
-        return (
-          <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
-            <span className="promo-emoji"><Icon name={promo.emoji || 'discount'} size={18} /></span>
-            <span className="promo-name">{promo.name}</span>
-            {isApplied && <span className="applied-badge">APLICADA</span>}
-            {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
-          </div>
-        );
-      })}
+              return (
+                <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
+                  <span className="promo-emoji"><Icon name={promo.emoji || 'discount'} size={18} /></span>
+                  <span className="promo-name">{promo.name}</span>
+                  {isApplied && <span className="applied-badge">APLICADA</span>}
+                  {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
+                </div>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
