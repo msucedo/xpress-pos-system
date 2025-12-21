@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { subscribeToOrders } from '../services/firebaseService';
+import { Icon } from '../icons';
 import './ClientItem.css';
 
 const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumber }) => {
@@ -150,13 +151,13 @@ const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumbe
 
     const grouped = {};
     services.forEach(service => {
-      const icon = service.icon || '🧼';
+      const icon = service.icon || 'cleaning';
       grouped[icon] = (grouped[icon] || 0) + 1;
     });
 
     return Object.entries(grouped).map(([icon, count]) => (
       <span key={icon} className="service-icon-badge">
-        {icon} {count}
+        <Icon name={icon} size={18} /> {count}
       </span>
     ));
   };
@@ -230,14 +231,14 @@ const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumbe
             title={client.isActive ? "Tiene zapatos en el negocio" : ""}
             disabled={!client.isActive}
           >
-            👟
+            <Icon name="sneakers" size={20} />
           </button>
           <button
             className="btn-view-history"
             onClick={handleToggleHistory}
             title="Ver historial de órdenes"
           >
-            {isExpanded ? '▼' : '▶'} Ver Historial ({totalOrders})
+            <Icon name={isExpanded ? 'down' : 'right'} size={16} /> Ver Historial ({totalOrders})
           </button>
         </div>
       </div>
@@ -286,7 +287,7 @@ const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumbe
                       <span className="client-order-number">#{parseInt(order.orderNumber, 10)}</span>
                       {authorEmoji && (
                         <span className="client-order-author-emoji" title={`Autor: ${order.author}`}>
-                          {authorEmoji}
+                          <Icon name={authorEmoji} size={16} />
                         </span>
                       )}
                       <span className="client-order-date">
@@ -308,22 +309,22 @@ const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumbe
                       />
                     )}
                     <span className={`order-status status-${order.orderStatus}`}>
-                      {order.orderStatus === 'recibidos' && '📥 Recibidos'}
-                      {order.orderStatus === 'proceso' && '🔧 En Proceso'}
-                      {order.orderStatus === 'listos' && '✅ Listos'}
-                      {order.orderStatus === 'enEntrega' && '🚚 En Entrega'}
-                      {order.orderStatus === 'completados' && '✅ Completado'}
-                      {order.orderStatus === 'cancelado' && '❌ Cancelado'}
+                      {order.orderStatus === 'recibidos' && 'Recibidos'}
+                      {order.orderStatus === 'proceso' && 'En Proceso'}
+                      {order.orderStatus === 'listos' && 'Listos'}
+                      {order.orderStatus === 'enEntrega' && 'En Entrega'}
+                      {order.orderStatus === 'completados' && 'Completado'}
+                      {order.orderStatus === 'cancelado' && 'Cancelado'}
                     </span>
                     <div className="client-order-services">
                       {getServiceIcons(order.services)}
                     </div>
                     <span className="client-order-total">${order.totalPrice}</span>
                     <span className={`payment-status status-${order.paymentStatus}`}>
-                      {order.paymentStatus === 'paid' && '✓ Pagado'}
-                      {order.paymentStatus === 'partial' && '⚠ Parcial'}
-                      {order.paymentStatus === 'pending' && '⏳ Pendiente'}
-                      {order.paymentStatus === 'cancelled' && '❌ Cancelado'}
+                      {order.paymentStatus === 'paid' && 'Pagado'}
+                      {order.paymentStatus === 'partial' && 'Parcial'}
+                      {order.paymentStatus === 'pending' && 'Pendiente'}
+                      {order.paymentStatus === 'cancelled' && 'Cancelado'}
                     </span>
                   </div>
                 </div>
@@ -339,7 +340,7 @@ const ClientItem = ({ client, onClick, onOrderClick, employees = [], clientNumbe
         <div className="image-modal" onClick={closeImageModal}>
           <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="image-modal-close" onClick={closeImageModal}>
-              ✕
+              <Icon name="close" size={20} />
             </button>
             <img src={selectedImage} alt="Vista ampliada" className="image-modal-img" />
           </div>

@@ -7,6 +7,8 @@ import OrderDetailView from '../components/OrderDetailView';
 import PageHeader from '../components/PageHeader';
 import { ConfirmDialog } from '../components/animated';
 import StatCard from '../components/StatCard';
+import AuthorSelect from '../components/AuthorSelect';
+import { Icon } from '../icons';
 import {
   addClient,
   updateClient,
@@ -475,7 +477,7 @@ const Clients = () => {
       <PageHeader
         title="Clientes"
         buttonLabel="Agregar Cliente"
-        buttonIcon="➕"
+        buttonIcon={<Icon name="add" size={32} />}
         onButtonClick={handleOpenNewClient}
         showSearch={true}
         searchValue={searchTerm}
@@ -487,49 +489,49 @@ const Clients = () => {
       {!loading && (
         <div className="clients-stats">
           <StatCard
-            icon="👥"
+            icon={<Icon name="team" size={32} />}
             label="Total Clientes"
             value={clientStats.totalClients}
             type="total"
           />
           <StatCard
-            icon="✅"
+            icon={<Icon name="success" size={32} />}
             label="Activos"
             value={clientStats.activeClients}
             type="activos"
           />
           <StatCard
-            icon="⭐"
+            icon={<Icon name="star" size={32} />}
             label="VIP"
             value={clientStats.vipClients}
             type="vip"
           />
           <StatCard
-            icon="💳"
+            icon={<Icon name="credit-card" size={32} />}
             label="Con Deuda"
             value={clientStats.clientsWithDebt}
             type="deuda"
           />
           <StatCard
-            icon="💰"
+            icon={<Icon name="money" size={32} />}
             label="Total Adeudado"
             value={`$${clientStats.totalDebt}`}
             type="ingresos"
           />
           <StatCard
-            icon="😴"
+            icon={<Icon name="inactive" size={32} />}
             label="Inactivos"
             value={clientStats.inactiveClients}
             type="inactivos"
           />
           <StatCard
-            icon="🆕"
+            icon={<Icon name="sparkles" size={32} />}
             label="Nuevos (30 días)"
             value={clientStats.newThisMonth}
             type="nuevos"
           />
           <StatCard
-            icon="📊"
+            icon={<Icon name="chart" size={32} />}
             label="Promedio Órdenes"
             value={clientStats.avgOrdersPerClient}
             type="promedio"
@@ -547,7 +549,7 @@ const Clients = () => {
             #
             {sortBy === 'id' && (
               <span className="sort-indicator">
-                {sortDirection === 'asc' ? '↑' : '↓'}
+                <Icon name={sortDirection === 'asc' ? 'up' : 'down'} size={12} />
               </span>
             )}
           </div>
@@ -558,7 +560,7 @@ const Clients = () => {
             Nombre
             {sortBy === 'name' && (
               <span className="sort-indicator">
-                {sortDirection === 'asc' ? '↑' : '↓'}
+                <Icon name={sortDirection === 'asc' ? 'up' : 'down'} size={12} />
               </span>
             )}
           </div>
@@ -570,7 +572,7 @@ const Clients = () => {
             Órdenes
             {sortBy === 'orders' && (
               <span className="sort-indicator">
-                {sortDirection === 'asc' ? '↑' : '↓'}
+                <Icon name={sortDirection === 'asc' ? 'up' : 'down'} size={12} />
               </span>
             )}
           </div>
@@ -581,7 +583,7 @@ const Clients = () => {
             Deuda
             {sortBy === 'debt' && (
               <span className="sort-indicator">
-                {sortDirection === 'asc' ? '↑' : '↓'}
+                <Icon name={sortDirection === 'asc' ? 'up' : 'down'} size={12} />
               </span>
             )}
           </div>
@@ -639,7 +641,7 @@ const Clients = () => {
           })
         ) : (
           <div className="empty-state">
-            <div className="empty-icon">😕</div>
+            <div className="empty-icon"><Icon name="question" size={48} /></div>
             <div className="empty-text">No se encontraron clientes</div>
             <div className="empty-subtext">
               {clients.length === 0 && searchTerm === ''
@@ -678,24 +680,12 @@ const Clients = () => {
                 <span className="order-header-date">Recibida {headerData.createdAt}</span>
               </div>
               <div className="order-header-author">
-                <select
-                  className="order-header-author-select"
+                <AuthorSelect
                   value={headerData.authorId || ''}
                   onChange={headerData.onAuthorChange}
-                  onClick={(e) => e.stopPropagation()}
+                  employees={headerData.activeEmployees || []}
                   disabled={headerData.isReadOnly}
-                  style={{
-                    opacity: headerData.isReadOnly ? 0.6 : 1,
-                    cursor: headerData.isReadOnly ? 'not-allowed' : 'pointer'
-                  }}
-                >
-                  <option value="">Sin autor</option>
-                  {headerData.activeEmployees?.map(employee => (
-                    <option key={employee.id} value={employee.id}>
-                      {employee.emoji ? `${employee.emoji} ` : ''}{employee.name}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
           ) : undefined}

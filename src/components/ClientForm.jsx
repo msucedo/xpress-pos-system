@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNotification } from '../hooks/useNotification';
 import { ValidatedTextInput, ValidatedPhoneInput, ValidatedEmailInput } from './inputs';
+import { Icon } from '../icons';
 import './ClientForm.css';
 
 const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
@@ -117,7 +118,7 @@ const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
             onClick={() => setShowMenu(!showMenu)}
             type="button"
           >
-            ⋮
+            <Icon name="more" size={20} />
           </button>
           {showMenu && (
             <div className="client-menu-dropdown">
@@ -126,7 +127,7 @@ const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
                 onClick={() => handleMenuAction('duplicate')}
                 type="button"
               >
-                <span className="menu-icon">📋</span>
+                <span className="menu-icon"><Icon name="clipboard" size={16} /></span>
                 <span className="menu-text">Duplicar Cliente</span>
               </button>
               <button
@@ -134,7 +135,7 @@ const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
                 onClick={() => handleMenuAction('delete')}
                 type="button"
               >
-                <span className="menu-icon">🗑️</span>
+                <span className="menu-icon"><Icon name="delete" size={16} /></span>
                 <span className="menu-text">Eliminar Cliente</span>
               </button>
             </div>
@@ -142,7 +143,7 @@ const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
         </div>
       )}
       <div className="client-form-header">
-        <div className="form-icon">👤</div>
+        <div className="form-icon"><Icon name="user" size={32} /></div>
         <h2 className="form-title">{initialData ? 'Editar Cliente' : 'Nuevo Cliente'}</h2>
         <p className="form-description">
           {initialData ? 'Actualiza la información del cliente' : 'Registra un nuevo cliente en el sistema'}
@@ -212,10 +213,19 @@ const ClientForm = ({ onSubmit, onCancel, onDelete, initialData = null }) => {
               cursor: isSubmitting ? 'not-allowed' : 'pointer'
             }}
           >
-            {isSubmitting
-              ? '⏳ Guardando...'
-              : (initialData ? '💾 Guardar Cambios' : '✨ Crear Cliente')
-            }
+            {isSubmitting ? (
+              <>
+                <Icon name="loading" size={16} /> Guardando...
+              </>
+            ) : initialData ? (
+              <>
+                <Icon name="save" size={16} /> Guardar Cambios
+              </>
+            ) : (
+              <>
+                <Icon name="sparkles" size={16} /> Crear Cliente
+              </>
+            )}
           </button>
         </div>
       </form>

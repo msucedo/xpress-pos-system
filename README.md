@@ -1,6 +1,7 @@
 xpress
 
 // WIP
+-[]termina lo de los iconos en las tabs que aun usan emojis para hacer push de la branch
 -[]meter mas iconos para servicios y otras cosas
 -[]actualizar modal de servicios
 -[]aumentar tamñao de emoji de usuario del sidebar
