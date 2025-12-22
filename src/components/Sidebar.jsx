@@ -13,10 +13,10 @@ const Sidebar = () => {
     { path: '/', icon: 'home', label: 'Dashboard' },
     { path: '/orders', icon: 'order', label: 'Órdenes' },
     { path: '/clients', icon: 'team', label: 'Clientes' },
-    { path: '/services', icon: 'services', label: 'Servicios' },
+    { path: '/services', icon: 'stationery', label: 'Servicios' },
     { path: '/employees', icon: 'employee', label: 'Empleados' },
-    { path: '/inventory', icon: 'package', label: 'Inventario' },
-    { path: '/promotions', icon: 'promotion', label: 'Promociones' },
+    { path: '/inventory', icon: 'open-box', label: 'Inventario' },
+    { path: '/promotions', icon: 'discount', label: 'Promociones' },
     { path: '/reports', icon: 'reports', label: 'Reportes' },
     { path: '/settings', icon: 'settings', label: 'Config' },
   ];
@@ -47,7 +47,7 @@ const Sidebar = () => {
             onClick={toggleLogoutMenu}
           >
             <div className={`sidebar-employee-avatar ${employee.emoji ? 'sidebar-employee-with-emoji' : ''}`}>
-              {employee.emoji ? <Icon name={employee.emoji} size={20} /> : getInitials(employee.name)}
+              {employee.emoji ? <Icon name={employee.emoji} size={28} /> : getInitials(employee.name)}
             </div>
             <div className="sidebar-employee-details">
               <div className="sidebar-employee-name">
@@ -81,7 +81,7 @@ const Sidebar = () => {
             to={item.path}
             className={({ isActive }) => `menu-item ${isActive ? 'active' : ''}`}
           >
-            <span className="menu-icon"><Icon name={item.icon} size={20} /></span>
+            <span className="menu-icon"><Icon name={item.icon} size={22} /></span>
             <span className="menu-item-label">
               {item.label}
               {item.badge && <span className="menu-item-badge">{item.badge}</span>}

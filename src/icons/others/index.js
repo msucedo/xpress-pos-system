@@ -54,8 +54,9 @@ import addIcon3 from './icons8-add-50-3.png';
 import addCamera from './icons8-add-camera-50.png';
 import newMessage from './icons8-new-message-50.png';
 import vortexManager from './icons8-vortex-mod-manager-50.png';
+import workers from './icons8-workers-skin-type-4-48.png';
 
-// EXPORTAR OBJETO DE ICONOS (50 total)
+// EXPORTAR OBJETO DE ICONOS (51 total)
 export const othersIcons = {
   'adjacent': adjacent,
   'close': close,
@@ -107,4 +108,5 @@ export const othersIcons = {
   'add-camera': addCamera,
   'new-message': newMessage,
   'vortex-manager': vortexManager,
+  'workers': workers,
 };

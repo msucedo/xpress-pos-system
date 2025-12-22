@@ -110,7 +110,7 @@ export const iconMap = {
   // ========================================
   'user': 'flat-color-icons:businessman',
   'client': 'flat-color-icons:businesswoman',
-  'employee': 'flat-color-icons:manager',
+  'employee': 'others:workers',
   'team': 'flat-color-icons:conference-call',
   'profile': 'flat-color-icons:contacts',
   'admin': 'others:crown',
@@ -411,6 +411,7 @@ export const iconMap = {
   'add-camera': 'others:add-camera',
   'new-message': 'others:new-message',
   'vortex-manager': 'others:vortex-manager',
+  'workers': 'others:workers',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)
