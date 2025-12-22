@@ -17,6 +17,8 @@ export const iconMap = {
   // ========================================
   // PROMOCIONES Y CELEBRACIONES
   // ========================================
+  'offer': 'flat-color-icons:advertising',
+  'celebration': 'flat-color-icons:advertising',
   'gift': 'flat-color-icons:gift',
   'sparkles': 'flat-color-icons:flash-on',
 
@@ -24,6 +26,7 @@ export const iconMap = {
   // SUCCESS & CONFIRMACIONES
   // ========================================
   'success': 'flat-color-icons:ok',
+  'check': 'flat-color-icons:ok',
   'checkmark': 'flat-color-icons:checkmark',
   'approve': 'flat-color-icons:approval',
   'like': 'flat-color-icons:like',
@@ -36,6 +39,7 @@ export const iconMap = {
   'delete': 'flat-color-icons:delete-database',
   'remove': 'flat-color-icons:remove-image',
   'warning': 'flat-color-icons:high-priority',
+  'alert': 'flat-color-icons:high-priority',
 
   // ========================================
   // REPORTES Y ANALYTICS
@@ -75,6 +79,7 @@ export const iconMap = {
   'calendar': 'flat-color-icons:calendar',
   'date': 'flat-color-icons:planner',
   'time': 'flat-color-icons:alarm-clock',
+  'clock': 'flat-color-icons:alarm-clock',
   'deadline': 'flat-color-icons:overtime',
 
   // ========================================
@@ -169,6 +174,7 @@ export const iconMap = {
   // ========================================
   'info': 'flat-color-icons:info',
   'help': 'flat-color-icons:faq',
+  'question': 'flat-color-icons:faq',
   'star': 'flat-color-icons:rating',
   'bookmark': 'flat-color-icons:approval',
 
@@ -176,6 +182,7 @@ export const iconMap = {
   // MEDIOS E IMÁGENES
   // ========================================
   'compact-camera': 'flat-color-icons:compact-camera',
+  'camera': 'flat-color-icons:compact-camera',
   'photo-camera': 'flat-color-icons:camera',
   'old-camera': 'flat-color-icons:old-time-camera',
   'camera-addon': 'flat-color-icons:camera-addon',
@@ -324,6 +331,7 @@ export const iconMap = {
   'pin-2': 'clothes:pin-2',
   'pin-3': 'clothes:pin-3',
   'pair-of-sneakers': 'clothes:pair-of-sneakers',
+  'sneakers': 'clothes:pair-of-sneakers',
   'pair-of-socks': 'clothes:pair-of-socks',
   'rubber-boots': 'clothes:rubber-boots',
   'sandals': 'clothes:sandals',

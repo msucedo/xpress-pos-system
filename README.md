@@ -1,10 +1,11 @@
 xpress
 
 // WIP
--[]actualizar emoji de agregar X en todas las tabs que aplique
--[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[]termina lo de los iconos en las tabs que aun usan emojis para hacer push de la branch
     -[]modal crear orden
+    -[]actualizar emoji de agregar X en todas las tabs que aplique
+    -[]ir tab por tab validando iconos y corrigiendo UX
+-[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[]aumentar tamñao de emoji de usuario del sidebar
 -[]actualizar react 19.1.1
 
