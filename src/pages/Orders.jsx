@@ -603,7 +603,7 @@ const Orders = () => {
       {/* Header */}
       <PageHeader
         title="Órdenes"
-        buttonIcon={<Icon name="add" size={32} />}
+        buttonIcon={<Icon name="add-icon" size={32} />}
         onButtonClick={handleOpenNewOrder}
         showSearch={true}
         searchValue={searchTerm}

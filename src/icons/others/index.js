@@ -1,6 +1,6 @@
 /**
  * Iconos de Others (PNG locales)
- * 44 iconos importados de Icons8
+ * 50 iconos importados de Icons8
  */
 
 // IMPORTACIONES DE ICONOS PNG
@@ -48,8 +48,14 @@ import tag from './icons8-tag-50.png';
 import wallet from './icons8-wallet-50.png';
 import openBox from './icons8-open-box-50.png';
 import basket from './icons8-basket-50.png';
+import addIconMain from './icons8-add-50.png';
+import addIcon2 from './icons8-add-50-2.png';
+import addIcon3 from './icons8-add-50-3.png';
+import addCamera from './icons8-add-camera-50.png';
+import newMessage from './icons8-new-message-50.png';
+import vortexManager from './icons8-vortex-mod-manager-50.png';
 
-// EXPORTAR OBJETO DE ICONOS (44 total)
+// EXPORTAR OBJETO DE ICONOS (50 total)
 export const othersIcons = {
   'adjacent': adjacent,
   'close': close,
@@ -95,4 +101,10 @@ export const othersIcons = {
   'wallet': wallet,
   'open-box': openBox,
   'basket': basket,
+  'add-icon': addIconMain,
+  'add-icon-2': addIcon2,
+  'add-icon-3': addIcon3,
+  'add-camera': addCamera,
+  'new-message': newMessage,
+  'vortex-manager': vortexManager,
 };

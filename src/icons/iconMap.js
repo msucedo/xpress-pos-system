@@ -11,18 +11,12 @@ export const iconMap = {
   // PRODUCTOS E INVENTARIO
   // ========================================
   'package': 'flat-color-icons:package',
-  'box': 'flat-color-icons:package',
-  'product': 'flat-color-icons:package',
   'inventory': 'flat-color-icons:shop',
   'shop': 'flat-color-icons:shop',
-  'store': 'flat-color-icons:shop',
 
   // ========================================
   // PROMOCIONES Y CELEBRACIONES
   // ========================================
-  'celebration': 'flat-color-icons:advertising',
-  'promotion': 'flat-color-icons:advertising',
-  'offer': 'flat-color-icons:advertising',
   'gift': 'flat-color-icons:gift',
   'sparkles': 'flat-color-icons:flash-on',
 
@@ -31,9 +25,7 @@ export const iconMap = {
   // ========================================
   'success': 'flat-color-icons:ok',
   'checkmark': 'flat-color-icons:checkmark',
-  'check': 'flat-color-icons:ok',
   'approve': 'flat-color-icons:approval',
-  'thumbs-up': 'flat-color-icons:like',
   'like': 'flat-color-icons:like',
 
   // ========================================
@@ -43,19 +35,14 @@ export const iconMap = {
   'cancel': 'flat-color-icons:cancel',
   'delete': 'flat-color-icons:delete-database',
   'remove': 'flat-color-icons:remove-image',
-  'close': 'flat-color-icons:cancel',
   'warning': 'flat-color-icons:high-priority',
-  'alert': 'flat-color-icons:high-priority',
-  'danger': 'flat-color-icons:high-priority',
 
   // ========================================
   // REPORTES Y ANALYTICS
   // ========================================
   'chart': 'flat-color-icons:bar-chart',
-  'bar-chart': 'flat-color-icons:bar-chart',
   'line-chart': 'flat-color-icons:line-chart',
   'pie-chart': 'flat-color-icons:pie-chart',
-  'statistics': 'flat-color-icons:sales-performance',
   'performance': 'flat-color-icons:sales-performance',
   'dashboard': 'flat-color-icons:combo-chart',
   'reports': 'flat-color-icons:data-sheet',
@@ -70,7 +57,6 @@ export const iconMap = {
   'wallet': 'flat-color-icons:donate',
   'invoice': 'flat-color-icons:sales-performance',
   'expense': 'flat-color-icons:todo-list',
-  'withdraw': 'flat-color-icons:donate',
 
   // ========================================
   // DOCUMENTOS Y ARCHIVOS
@@ -89,18 +75,14 @@ export const iconMap = {
   'calendar': 'flat-color-icons:calendar',
   'date': 'flat-color-icons:planner',
   'time': 'flat-color-icons:alarm-clock',
-  'clock': 'flat-color-icons:alarm-clock',
-  'schedule': 'flat-color-icons:planner',
   'deadline': 'flat-color-icons:overtime',
 
   // ========================================
   // ACCIONES
   // ========================================
   'save': 'flat-color-icons:data-backup',
-  'backup': 'flat-color-icons:data-backup',
   'edit': 'flat-color-icons:edit-image',
   'add': 'flat-color-icons:plus',
-  'plus': 'flat-color-icons:plus',
   'minus': 'flat-color-icons:minus',
   'search': 'flat-color-icons:search',
   'filter': 'flat-color-icons:rules',
@@ -116,16 +98,13 @@ export const iconMap = {
   // SERVICIOS Y TRABAJO
   // ========================================
   'services': 'flat-color-icons:services',
-  'service': 'flat-color-icons:services',
   'briefcase': 'flat-color-icons:services',
-  'work': 'flat-color-icons:services',
 
   // ========================================
   // USUARIOS Y PERSONAS
   // ========================================
   'user': 'flat-color-icons:businessman',
   'client': 'flat-color-icons:businesswoman',
-  'customer': 'flat-color-icons:businesswoman',
   'employee': 'flat-color-icons:manager',
   'team': 'flat-color-icons:conference-call',
   'profile': 'flat-color-icons:contacts',
@@ -139,7 +118,6 @@ export const iconMap = {
   'email': 'flat-color-icons:email',
   'phone': 'flat-color-icons:phone',
   'call': 'flat-color-icons:callback',
-  'chat': 'flat-color-icons:feedback',
 
   // ========================================
   // NAVEGACIÓN
@@ -175,7 +153,6 @@ export const iconMap = {
   'shipping': 'flat-color-icons:shipped',
   'tag': 'flat-color-icons:price-tag',
   'discount': 'flat-color-icons:sales-performance',
-  'sale': 'flat-color-icons:sales-performance',
 
   // ========================================
   // TECH & SYSTEM
@@ -186,24 +163,19 @@ export const iconMap = {
   'code': 'flat-color-icons:template',
   'bug': 'flat-color-icons:sports-mode',
   'launch': 'flat-color-icons:flash-on',
-  'rocket': 'flat-color-icons:flash-on',
 
   // ========================================
   // MISC
   // ========================================
   'info': 'flat-color-icons:info',
   'help': 'flat-color-icons:faq',
-  'question': 'flat-color-icons:faq',
   'star': 'flat-color-icons:rating',
-  'favorite': 'flat-color-icons:like',
   'bookmark': 'flat-color-icons:approval',
-  'flag': 'flat-color-icons:high-priority',
 
   // ========================================
   // MEDIOS E IMÁGENES
   // ========================================
   'compact-camera': 'flat-color-icons:compact-camera',
-  'camera': 'flat-color-icons:compact-camera',
   'photo-camera': 'flat-color-icons:camera',
   'old-camera': 'flat-color-icons:old-time-camera',
   'camera-addon': 'flat-color-icons:camera-addon',
@@ -237,7 +209,6 @@ export const iconMap = {
   // NEGOCIOS Y CONTACTOS
   // ========================================
   'briefcase': 'flat-color-icons:briefcase',
-  'address-book': 'flat-color-icons:address-book',
   'contacts-book': 'flat-color-icons:address-book',
   'signature': 'flat-color-icons:signature',
   'business': 'flat-color-icons:business',
@@ -247,10 +218,8 @@ export const iconMap = {
   // DISPOSITIVOS
   // ========================================
   'cell-phone': 'flat-color-icons:cell-phone',
-  'mobile': 'flat-color-icons:cell-phone',
   'smartphone-tablet': 'flat-color-icons:smartphone-tablet',
   'tablet-android': 'flat-color-icons:tablet-android',
-  'tablet': 'flat-color-icons:tablet-android',
   'multiple-smartphones': 'flat-color-icons:multiple-smartphones',
   'iphone': 'flat-color-icons:iphone',
   'ipad': 'flat-color-icons:ipad',
@@ -262,7 +231,6 @@ export const iconMap = {
   // HERRAMIENTAS Y CALCULADORAS
   // ========================================
   'calculator': 'flat-color-icons:calculator',
-  'calc': 'flat-color-icons:calculator',
   'area-chart': 'flat-color-icons:area-chart',
   'doughnut-chart': 'flat-color-icons:doughnut-chart',
   'heat-map': 'flat-color-icons:heat-map',
@@ -276,13 +244,9 @@ export const iconMap = {
   // DATOS Y REPORTES AVANZADOS
   // ========================================
   'export': 'flat-color-icons:export',
-  'export-data': 'flat-color-icons:export',
   'import': 'flat-color-icons:import',
-  'import-data': 'flat-color-icons:import',
   'statistics': 'flat-color-icons:statistics',
-  'stats': 'flat-color-icons:statistics',
   'organization': 'flat-color-icons:organization',
-  'org': 'flat-color-icons:organization',
   'genealogy': 'flat-color-icons:genealogy',
   'tree-structure': 'flat-color-icons:tree-structure',
   'org-unit': 'flat-color-icons:org-unit',
@@ -292,23 +256,17 @@ export const iconMap = {
   // CONECTIVIDAD Y RED
   // ========================================
   'wifi': 'flat-color-icons:wi-fi-logo',
-  'wi-fi': 'flat-color-icons:wi-fi-logo',
-  'wifi-logo': 'flat-color-icons:wi-fi-logo',
   'online-support': 'flat-color-icons:online-support',
   'webcam': 'flat-color-icons:webcam',
   'integrated-webcam': 'flat-color-icons:integrated-webcam',
-  'nfc-sign': 'flat-color-icons:nfc-sign',
   'nfc': 'flat-color-icons:nfc-sign',
 
   // ========================================
   // EDUCACIÓN Y CERTIFICACIÓN
   // ========================================
   'graduation-cap': 'flat-color-icons:graduation-cap',
-  'graduation': 'flat-color-icons:graduation-cap',
   'diploma-1': 'flat-color-icons:diploma-1',
   'diploma-2': 'flat-color-icons:diploma-2',
-  'diploma': 'flat-color-icons:diploma-1',
-  'certificate': 'flat-color-icons:diploma-1',
 
   // ========================================
   // SISTEMA Y SEGURIDAD
@@ -316,9 +274,7 @@ export const iconMap = {
   'privacy': 'flat-color-icons:privacy',
   'data-protection': 'flat-color-icons:data-protection',
   'data-encryption': 'flat-color-icons:data-encryption',
-  'encryption': 'flat-color-icons:data-encryption',
   'data-recovery': 'flat-color-icons:data-recovery',
-  'recovery': 'flat-color-icons:data-recovery',
   'key': 'flat-color-icons:key',
   'safe': 'flat-color-icons:safe',
   'biohazard': 'flat-color-icons:biohazard',
@@ -327,7 +283,6 @@ export const iconMap = {
   // DOCUMENTACIÓN Y ARCHIVOS
   // ========================================
   'filing-cabinet': 'flat-color-icons:filing-cabinet',
-  'cabinet': 'flat-color-icons:filing-cabinet',
   'fine-print': 'flat-color-icons:fine-print',
   'disclaimer': 'flat-color-icons:disclaimer',
   'opened-folder': 'flat-color-icons:opened-folder',
@@ -347,26 +302,20 @@ export const iconMap = {
   'bowler-hat': 'clothes:bowler-hat',
   'cap': 'clothes:cap',
   'choose-a-dress': 'clothes:choose-a-dress',
-  'dress': 'clothes:choose-a-dress',
   'closed-umbrella': 'clothes:closed-umbrella',
   'diamond-ring': 'clothes:diamond-ring',
-  'ring': 'clothes:diamond-ring',
   'earrings': 'clothes:earrings',
   'fabric-sample': 'clothes:fabric-sample',
-  'fabric': 'clothes:fabric-sample',
   'farmer-hat': 'clothes:farmer-hat',
   'flip-flops': 'clothes:flip-flops',
   'footwear': 'clothes:footwear',
   'geta': 'clothes:geta',
   'glasses': 'clothes:glasses',
   'hand-fan': 'clothes:hand-fan',
-  'fan': 'clothes:hand-fan',
   'hand-with-bracelet': 'clothes:hand-with-bracelet',
-  'bracelet': 'clothes:hand-with-bracelet',
   'hanger': 'clothes:hanger',
   'heel': 'clothes:heel',
   'mens-belt': 'clothes:mens-belt',
-  'belt': 'clothes:mens-belt',
   'mitten': 'clothes:mitten',
   'map': 'clothes:map',
   'map-2': 'clothes:map-2',
@@ -375,7 +324,6 @@ export const iconMap = {
   'pin-2': 'clothes:pin-2',
   'pin-3': 'clothes:pin-3',
   'pair-of-sneakers': 'clothes:pair-of-sneakers',
-  'sneakers': 'clothes:pair-of-sneakers',
   'pair-of-socks': 'clothes:pair-of-socks',
   'rubber-boots': 'clothes:rubber-boots',
   'sandals': 'clothes:sandals',
@@ -387,10 +335,8 @@ export const iconMap = {
   'shoes': 'clothes:shoes',
   'slippers': 'clothes:slippers',
   'smart-watch': 'clothes:smart-watch',
-  'watch': 'clothes:smart-watch',
   'socks': 'clothes:socks',
   'sun-glasses': 'clothes:sun-glasses',
-  'sunglasses': 'clothes:sun-glasses',
   'trainers': 'clothes:trainers',
   'umbrella': 'clothes:umbrella',
   'uncomfortable-shoes': 'clothes:uncomfortable-shoes',
@@ -404,7 +350,7 @@ export const iconMap = {
   'zipper': 'clothes:zipper',
 
   // ========================================
-  // OTHERS (Others PNG Icons) - 44 iconos
+  // OTHERS (Others PNG Icons) - 50 iconos
   // Iconos varios - Iconos de src/icons/others/
   // ========================================
   'adjacent': 'others:adjacent',
@@ -451,6 +397,12 @@ export const iconMap = {
   'wallet': 'others:wallet',
   'open-box': 'others:open-box',
   'basket': 'others:basket',
+  'add-icon': 'others:add-icon',
+  'add-icon-2': 'others:add-icon-2',
+  'add-icon-3': 'others:add-icon-3',
+  'add-camera': 'others:add-camera',
+  'new-message': 'others:new-message',
+  'vortex-manager': 'others:vortex-manager',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)

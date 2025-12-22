@@ -1,29 +1,26 @@
 xpress
 
 // WIP
+-[]actualizar emoji de agregar X en todas las tabs que aplique
+-[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[]termina lo de los iconos en las tabs que aun usan emojis para hacer push de la branch
--[]meter mas iconos para servicios y otras cosas
--[]actualizar modal de servicios
+    -[]modal crear orden
 -[]aumentar tamñao de emoji de usuario del sidebar
--[]historial de cortes guarda con emojis
 -[]actualizar react 19.1.1
--[]remover "nuevo" tags
--[]aplicar iconos de characters a tab empleados
--[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
--[]actualizar readme de proyecto
 
 // PRIORIDAD ALTA
 
 // PRIORIDAD MEDIA
 
 // PRIORIDAD BAJA
+-[]actualizar readme de proyecto
 -[bug]en tab promociones, si una promo es specificprice, no sale en la card el precio, arriba a la derecha de la card
 -[]actualizar tooltip del nombre del empelado asignado en carditem cuando actualizas el nombre de un empleado
 -[FEATURE]en el header agregar icono de notificaciones y que aparezca un desplegable con las ultimas 10 notificaciones lanzadas
--[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[FEATURE]agregar notificacion push de cuando se recibe una respuesta de wapp, aparte de notificar con el badge rojo
 
 // BACKLOG
+-[]trabajar en mensajes de error en wapp: ❌ Error: (#132012) Parameter format does not match format in the created template
 -[]unificar diseño navbar tab inventario y subtab 1 de tab reportes
 -[BUG]hay tres tipos de tarjetas del header, en dashboard, empleados e inventario, unificar diseño
 -[]en configuracion, agregar una seccion para solo admins donde puedan habilitar/deshabilitar funcionalidades de la app para los empleados., quien puede crear o editar inventario o eliminar clientes?
@@ -69,6 +66,11 @@ xpress
      │ 16. Configurar CI/CD básico      
 
 // COMPLETADO
+-[]meter mas iconos para servicios y otras cosas
+-[]aplicar iconos de characters a tab empleados
+-[]actualizar modal de servicios
+-[]historial de cortes guarda con emojis
+-[]remover "nuevo" tags
 -[]remover script de migration al iniciar la app
 -[]actualizar en el dashboard, como se calcula la card de "ingresos hoy", que tome los ingresos totales del corte de caja
 -[]agregar una promo "precio final" a un producto o servicio

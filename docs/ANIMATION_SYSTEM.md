@@ -205,6 +205,89 @@ import { AnimatedNotification } from '@/components/animated';
 
 ---
 
+### Collapse/Expand Lists
+
+Patrón genérico para listas expandibles con animaciones suaves.
+
+**Uso:**
+```jsx
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { transitions } from '@/animations/transitions';
+
+const CollapsibleList = ({ title, items }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  return (
+    <div>
+      {/* Botón de toggle con tap feedback */}
+      <motion.div
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        whileTap={{
+          scale: 0.98,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        }}
+        transition={{ duration: 0.1, ease: [0.32, 0.72, 0, 1] }}
+        style={{
+          cursor: 'pointer',
+          borderRadius: '4px',
+          padding: '4px'
+        }}
+      >
+        {title}
+        <Icon name={isCollapsed ? 'down' : 'up'} />
+      </motion.div>
+
+      {/* Contenido expandible */}
+      <AnimatePresence>
+        {!isCollapsed && (
+          <motion.div
+            initial={{ maxHeight: 0, opacity: 0, y: -10 }}
+            animate={{ maxHeight: 500, opacity: 1, y: 0 }}
+            exit={{ maxHeight: 0, opacity: 0, y: -10 }}
+            transition={transitions.slow}
+            style={{ overflow: 'hidden' }}
+          >
+            {items.map(item => (
+              <div key={item.id}>{item.content}</div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+```
+
+**Características:**
+- Expansión/colapso suave del contenido
+- Feedback visual al hacer tap (scale + background)
+- Icono de flecha que cambia según el estado
+
+**Animaciones:**
+- **Contenido**: maxHeight 0 → 500 + opacity + translateY (500ms)
+- **Toggle button**: Scale 0.98 + background semi-transparente (100ms)
+
+**Mejores prácticas:**
+1. **Usar `maxHeight` en lugar de `height: 'auto'`**:
+   - `height: 'auto'` causa problemas de cálculo con contenido dinámico
+   - `maxHeight` con valor numérico fijo permite animaciones fluidas
+   - Establece `maxHeight` suficientemente grande para tu contenido (ej: 500px)
+
+2. **Siempre incluir `overflow: 'hidden'`**:
+   - Evita que el contenido se desborde durante la animación
+
+3. **Usar `AnimatePresence`**:
+   - Necesario para que las animaciones de salida funcionen
+
+4. **Ajustar la duración según el contenido**:
+   - Listas pequeñas: `transitions.normal` (300ms)
+   - Listas grandes: `transitions.slow` (500ms)
+
+**Ejemplo real:** Ver `src/components/cart/CartPromotionsBanner.jsx`
+
+---
+
 ## 🎨 Sistema de Variantes y Transiciones
 
 ### Usar variantes directamente
