@@ -62,15 +62,14 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .animated-tab-button:hover {
   color: var(--color-primary);
-  border-color: var(--color-primary);
-  background: var(--bg-primary-10);
+  transform: translateY(-3px);
 }
 
 .animated-tab-button.active {
@@ -93,7 +92,7 @@
 .tab-indicator {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+  background: var(--bg-primary-10);
   border-radius: 12px;
   z-index: -1;
   backdrop-filter: blur(10px);

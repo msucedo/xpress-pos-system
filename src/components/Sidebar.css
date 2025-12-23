@@ -197,7 +197,6 @@
 }
 
 .menu-item:hover {
-    background: rgba(255, 255, 255, 0.05);
     color: #fff;
     transform: translateX(5px);
 }
