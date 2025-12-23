@@ -55,8 +55,13 @@ import addCamera from './icons8-add-camera-50.png';
 import newMessage from './icons8-new-message-50.png';
 import vortexManager from './icons8-vortex-mod-manager-50.png';
 import workers from './icons8-workers-skin-type-4-48.png';
+import addressBook from './icons8-address-book-50.png';
+import book from './icons8-book-50.png';
+import book2 from './icons8-book-50-2.png';
+import contacts from './icons8-contacts-50.png';
+import spiralBoundBooklet from './icons8-spiral-bound-booklet-50.png';
 
-// EXPORTAR OBJETO DE ICONOS (51 total)
+// EXPORTAR OBJETO DE ICONOS (56 total)
 export const othersIcons = {
   'adjacent': adjacent,
   'close': close,
@@ -109,4 +114,9 @@ export const othersIcons = {
   'new-message': newMessage,
   'vortex-manager': vortexManager,
   'workers': workers,
+  'address-book': addressBook,
+  'book': book,
+  'book-2': book2,
+  'contacts': contacts,
+  'spiral-bound-booklet': spiralBoundBooklet,
 };

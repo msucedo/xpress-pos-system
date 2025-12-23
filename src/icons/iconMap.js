@@ -49,7 +49,7 @@ export const iconMap = {
   'pie-chart': 'flat-color-icons:pie-chart',
   'performance': 'flat-color-icons:sales-performance',
   'dashboard': 'flat-color-icons:combo-chart',
-  'reports': 'flat-color-icons:data-sheet',
+  'reports': 'flat-color-icons:combo-chart',
 
   // ========================================
   // DINERO Y FINANZAS
@@ -110,8 +110,8 @@ export const iconMap = {
   // ========================================
   'user': 'flat-color-icons:businessman',
   'client': 'flat-color-icons:businesswoman',
-  'employee': 'others:workers',
-  'team': 'flat-color-icons:conference-call',
+  'employee': 'others:name-tag',
+  'team': 'others:contacts',
   'profile': 'flat-color-icons:contacts',
   'admin': 'others:crown',
 
@@ -412,6 +412,11 @@ export const iconMap = {
   'new-message': 'others:new-message',
   'vortex-manager': 'others:vortex-manager',
   'workers': 'others:workers',
+  'address-book': 'others:address-book',
+  'book': 'others:book',
+  'book-2': 'others:book-2',
+  'contacts': 'others:contacts',
+  'spiral-bound-booklet': 'others:spiral-bound-booklet',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)
