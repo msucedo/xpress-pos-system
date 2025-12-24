@@ -39,6 +39,7 @@ const MainLayout = () => {
             exit="exit"
             variants={pageVariants}
             transition={pageTransition}
+            className="animated-page-wrapper"
             style={{
               position: 'absolute',
               width: '100%',
