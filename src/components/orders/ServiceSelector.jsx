@@ -7,10 +7,6 @@ import { Icon } from '../../icons';
 export function ServiceSelector({ services, onAddToCart }) {
   return (
     <>
-      <div className="form-section-header">
-        <h3 className="step-title-large">Servicios Disponibles</h3>
-      </div>
-
       <div className="order-services-grid">
         {services.map((service) => (
           <button

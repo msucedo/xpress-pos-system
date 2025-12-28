@@ -7,10 +7,6 @@ import { Icon } from '../../icons';
 export function ProductSelector({ products, onAddToCart }) {
   return (
     <>
-      <div className="form-section-header" style={{ marginTop: '24px' }}>
-        <h3 className="step-title-large">Productos Disponibles</h3>
-      </div>
-
       <div className="order-services-grid">
         {products.length === 0 ? (
           <div className="empty-products">

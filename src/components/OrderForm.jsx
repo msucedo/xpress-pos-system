@@ -14,7 +14,7 @@ import { useCartManagement } from '../hooks/useCartManagement';
 import { usePromotionsCalculation } from '../hooks/usePromotionsCalculation';
 import { useEmployeeAssignment } from '../hooks/useEmployeeAssignment';
 import { useOrderImages } from '../hooks/useOrderImages';
-import { getPromotionPriority, getItemsWithPromoBadge } from '../utils/promotions/promotionHelpers';
+import { getPromotionPriority, getItemsWithPromoBadge, isPromotionRelevantForCart } from '../utils/promotions/promotionHelpers';
 import { calculateSubtotal, calculateTotalDiscount, calculateTotalPrice } from '../utils/promotions/promotionCalculations';
 import { generateCartItemId, expandServicesForOrder, transformProductsForOrder, hasExpressService } from '../utils/cart/cartHelpers';
 import './OrderForm.css';
@@ -474,6 +474,7 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
                 allOrders={allOrders}
                 onCancel={onCancel}
                 onShowPayment={handleShowPayment}
+                isPromotionRelevantForCart={isPromotionRelevantForCart}
               />
 
               {/* Reverso - Pago */}

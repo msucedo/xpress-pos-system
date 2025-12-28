@@ -4,6 +4,7 @@ import PaymentScreen from './PaymentScreen';
 import DeliveryCalendarModal from './DeliveryCalendarModal';
 import PromotionBadge from './PromotionBadge';
 import ImageUpload from './ImageUpload';
+import { CartPromotionsBanner } from './cart/CartPromotionsBanner';
 import { ValidatedPhoneInput } from './inputs';
 import { Icon } from '../icons';
 import { useAuth } from '../hooks/useAuth';
@@ -14,7 +15,7 @@ import { usePromotionsCalculation } from '../hooks/usePromotionsCalculation';
 import { useOrderImages } from '../hooks/useOrderImages';
 import { useEmployeeAssignment } from '../hooks/useEmployeeAssignment';
 import { calculateSubtotal, calculateTotalDiscount, calculateTotalPrice } from '../utils/promotions/promotionCalculations';
-import { isPromotionRelevantForCart } from '../utils/promotions/promotionHelpers';
+import { getPromotionPriority, getItemsWithPromoBadge, isPromotionRelevantForCart } from '../utils/promotions/promotionHelpers';
 import { generateCartItemId, expandServicesForOrder, hasExpressService } from '../utils/cart/cartHelpers';
 import './OrderFormMobile.css';
 
@@ -46,7 +47,6 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   // Hooks reutilizados de OrderForm
   const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, validateForm } = useOrderFormData(initialData);
   const { cart, handleAddToCart, handleRemoveFromCart } = useCartManagement();
-  const { activePromotions, appliedPromotions, promotionValidations, itemPromotionMap, refetchPromotions } = usePromotionsCalculation(cart, formData);
   const { orderImages, setOrderImages } = useOrderImages(initialData);
   const { selectedEmployee, setSelectedEmployee } = useEmployeeAssignment(employees, allOrders, employee);
 
@@ -56,6 +56,71 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const [services, setServices] = useState([]);
   const [products, setProducts] = useState([]);
+  const [activePromotions, setActivePromotions] = useState([]);
+
+  // Hook de promociones con parámetros correctos
+  const { appliedPromotions, promotionValidations, refetchPromotions } = usePromotionsCalculation(cart, formData.phone, activePromotions);
+
+  // Memoizar el mapa de items -> promoción asignada
+  const itemPromotionMap = useMemo(() => {
+    const map = new Map();
+    const sortedPromotions = [...(appliedPromotions || [])].sort((a, b) =>
+      getPromotionPriority(a) - getPromotionPriority(b)
+    );
+
+    sortedPromotions.forEach(promo => {
+      cart.forEach(item => {
+        if (map.has(item.id)) return;
+
+        let applies = false;
+        switch (promo.type) {
+          case 'percentage':
+            if (promo.appliesTo === 'all') applies = true;
+            else if (promo.appliesTo === 'services') applies = item.type === 'service';
+            else if (promo.appliesTo === 'products') applies = item.type === 'product';
+            else if (promo.appliesTo === 'specific' && promo.specificItems) {
+              const itemId = item.type === 'service' ? item.serviceId : item.productId;
+              applies = promo.specificItems.includes(itemId);
+            }
+            break;
+          case 'fixed':
+            if (!promo.applicableItems || promo.applicableItems.length === 0) {
+              applies = true;
+            } else {
+              const itemId = item.type === 'service' ? item.serviceId : item.productId;
+              applies = promo.applicableItems.includes(itemId);
+            }
+            break;
+          case 'buyXgetY':
+          case 'buyXgetYdiscount':
+            const itemsWithBadge = getItemsWithPromoBadge(promo, cart, map);
+            applies = itemsWithBadge.includes(item.id);
+            break;
+          case 'combo':
+            if (promo.comboItems?.length > 0) {
+              const itemId = item.type === 'service' ? item.serviceId : item.productId;
+              applies = promo.comboItems.some(ci => ci.id === itemId);
+            }
+            break;
+          case 'specificPrice':
+            if (promo.applicableItems && promo.applicableItems.length > 0) {
+              const itemId = item.type === 'service' ? item.serviceId : item.productId;
+              applies = promo.applicableItems.includes(itemId);
+            }
+            break;
+          case 'dayOfWeek':
+            applies = true;
+            break;
+        }
+
+        if (applies) {
+          map.set(item.id, promo);
+        }
+      });
+    });
+
+    return map;
+  }, [appliedPromotions, cart]);
 
   // Cargar servicios desde Firebase
   useEffect(() => {
@@ -89,8 +154,19 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
       }
     };
 
+    const loadPromotions = async () => {
+      try {
+        const { getActivePromotions } = await import('../services/firebaseService');
+        const promotions = await getActivePromotions();
+        setActivePromotions(promotions);
+      } catch (error) {
+        console.error('Error loading promotions:', error);
+      }
+    };
+
     loadServices();
     loadProducts();
+    loadPromotions();
   }, []);
 
   // Auto-calcular fecha de entrega al seleccionar servicios
@@ -212,7 +288,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   // Calcular totales usando utilidades
   const subtotal = calculateSubtotal(cart);
   const totalDiscount = calculateTotalDiscount(appliedPromotions);
-  const totalPrice = calculateTotalPrice(subtotal, totalDiscount);
+  const totalPrice = calculateTotalPrice(cart, appliedPromotions);
   const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
   return (
@@ -296,18 +372,6 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                   placeholder="(###) ###-####"
                   required={true}
                   error={errors.phone}
-                  className="input-mobile"
-                />
-              </div>
-
-              <div className="form-group-mobile">
-                <label className="form-label-mobile">Email (opcional)</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="cliente@email.com"
                   className="input-mobile"
                 />
               </div>
@@ -402,33 +466,14 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                 </div>
               )}
 
-              {/* Banner de promociones disponibles */}
-              {activePromotions.length > 0 && (
-                <div className="available-promotions-banner">
-                  <div className="banner-title"><Icon name="celebration" size={18} /> Promociones Disponibles Hoy:</div>
-                  {activePromotions
-                    .filter(promo => {
-                      if (!promo.daysOfWeek || promo.daysOfWeek.length === 0) return true;
-                      const currentDay = new Date().getDay();
-                      return promo.daysOfWeek.includes(currentDay);
-                    })
-                    .map((promo, idx) => {
-                      const isApplied = appliedPromotions.some(ap => ap.id === promo.id);
-                      const validation = promotionValidations[promo.id];
-                      const isRelevant = isPromotionRelevantForCart(promo, cart);
-                      const notAppliedReason = !isApplied && validation && !validation.isValid && isRelevant ? validation.reason : null;
-
-                      return (
-                        <div key={idx} className={`promo-item ${isApplied ? 'applied' : ''}`}>
-                          <span className="promo-emoji"><Icon name={promo.emoji || 'celebration'} size={18} /></span>
-                          <span className="promo-name">{promo.name}</span>
-                          {isApplied && <span className="applied-badge"><Icon name="check" size={14} /> APLICADA</span>}
-                          {notAppliedReason && <span className="not-applied-reason">{notAppliedReason}</span>}
-                        </div>
-                      );
-                    })}
-                </div>
-              )}
+              {/* Banner de promociones disponibles con funcionalidad de colapsar */}
+              <CartPromotionsBanner
+                activePromotions={activePromotions}
+                appliedPromotions={appliedPromotions}
+                promotionValidations={promotionValidations}
+                isPromotionRelevantForCart={isPromotionRelevantForCart}
+                cartItems={cart}
+              />
 
               {/* Resumen del carrito con descuentos */}
               <div className="cart-total-mobile">

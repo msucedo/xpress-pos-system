@@ -1,3 +1,5 @@
+import { Icon } from '../../icons';
+
 /**
  * Sección de pago con fecha de entrega y métodos de pago
  * Extraído de OrderForm.jsx para reutilización
@@ -22,7 +24,7 @@ export function PaymentSection({
         >
           ← Volver
         </button>
-        <h3>💰 Pago</h3>
+        <h3><Icon name="money" size={20} /> Pago</h3>
       </div>
 
       <div className="payment-form">
@@ -51,7 +53,7 @@ export function PaymentSection({
               onClick={onShowCalendar}
               title="Ver calendario de entregas"
             >
-              📅 Ver fechas
+              <Icon name="calendar" size={16} /> Próximas entregas
             </button>
           </div>
           {errors.deliveryDate && <span className="error-message">{errors.deliveryDate}</span>}
@@ -65,28 +67,28 @@ export function PaymentSection({
               className={`payment-method-btn ${formData.paymentMethod === 'cash' ? 'selected' : ''}`}
               onClick={() => onChange({ target: { name: 'paymentMethod', value: 'cash' } })}
             >
-              💵 Efectivo
+              Efectivo
             </button>
             <button
               type="button"
               className={`payment-method-btn ${formData.paymentMethod === 'card' ? 'selected' : ''}`}
               onClick={() => onChange({ target: { name: 'paymentMethod', value: 'card' } })}
             >
-              💳 Tarjeta
+              Tarjeta
             </button>
             <button
               type="button"
               className={`payment-method-btn ${formData.paymentMethod === 'transfer' ? 'selected' : ''}`}
               onClick={() => onChange({ target: { name: 'paymentMethod', value: 'transfer' } })}
             >
-              📱 Transfer
+              Transfer
             </button>
             <button
               type="button"
               className={`payment-method-btn ${formData.paymentMethod === 'pending' ? 'selected' : ''}`}
               onClick={() => onChange({ target: { name: 'paymentMethod', value: 'pending' } })}
             >
-              ⏳ Pendiente
+              Pendiente
             </button>
           </div>
         </div>
@@ -109,7 +111,7 @@ export function PaymentSection({
           ← Volver al Carrito
         </button>
         <button type="button" className="btn-primary" onClick={onSubmit}>
-          {isEditing ? '💾 Guardar' : '✨ Crear Orden'}
+          {isEditing ? 'Guardar' : 'Crear Orden'}
         </button>
       </div>
     </div>

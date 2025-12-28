@@ -1,4 +1,5 @@
 import ImageUpload from '../ImageUpload';
+import { Icon } from '../../icons';
 
 /**
  * Sección de carga de fotos de la orden
@@ -8,7 +9,7 @@ export function PhotoUploadSection({ images, onChange }) {
   return (
     <div className="left-flip-back">
       <div className="form-section-header">
-        <h3 className="step-title-large">📸 Fotos de la Orden</h3>
+        <h3 className="step-title-large"><Icon name="camera" size={20} /> Fotos de la Orden</h3>
       </div>
 
       <div className="photo-upload-section">

@@ -5,7 +5,7 @@ xpress
     -[]modal crear orden
     -[]actualizar emoji de agregar X en todas las tabs que aplique
     -[]ir tab por tab validando iconos y corrigiendo UX
-        -[]fixing sidebar
+        -[]fixing tab ordenes, done sidebar and dashboard
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
 -[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[]aumentar tamñao de emoji de usuario del sidebar

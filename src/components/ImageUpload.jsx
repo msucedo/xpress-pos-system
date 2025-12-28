@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Icon } from '../icons';
 import './ImageUpload.css';
 
 const ImageUpload = ({ images = [], onChange, readOnly = false }) => {
@@ -137,7 +138,7 @@ const ImageUpload = ({ images = [], onChange, readOnly = false }) => {
               onChange={handleFileSelect}
               style={{ display: 'none' }}
             />
-            <div className="upload-icon">📸</div>
+            <div className="upload-icon"><Icon name="camera" size={32} /></div>
             <div className="upload-text">Subir Foto</div>
             <div className="upload-hint">Click para seleccionar</div>
           </div>

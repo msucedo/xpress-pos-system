@@ -100,9 +100,6 @@ const ValidatedPhoneInput = ({
       </div>
       {error && <span className="error-message">{error}</span>}
       {hint && !error && <span className="field-hint">{hint}</span>}
-      {!hint && !error && (
-        <span className="field-hint">Ingresa 10 dígitos</span>
-      )}
     </div>
   );
 };

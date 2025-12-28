@@ -1294,7 +1294,7 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
                       onClick={() => setShowCalendarModal(true)}
                       title="Ver calendario de entregas"
                     >
-                      📅 Ver fechas
+                       f
                     </button>
                   </div>
                   {errors.deliveryDate && <span className="error-message">{errors.deliveryDate}</span>}

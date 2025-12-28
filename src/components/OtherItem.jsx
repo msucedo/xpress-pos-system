@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ImageUpload from './ImageUpload';
+import { Icon } from '../icons';
 import './ShoePairItem.css'; // Usaremos los mismos estilos
 
 const OtherItem = ({
@@ -146,7 +147,7 @@ const OtherItem = ({
           </div>
 
           <div className="form-group">
-            <label className="form-label">📸 Fotos del Item</label>
+            <label className="form-label"><Icon name="camera" size={18} /> Fotos del Item</label>
             <ImageUpload images={item.images || []} onChange={handleImagesChange} />
           </div>
 

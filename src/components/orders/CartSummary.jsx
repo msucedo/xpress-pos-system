@@ -1,5 +1,5 @@
 import { CartItem } from './CartItem';
-import { PromotionsBanner } from './PromotionsBanner';
+import { CartPromotionsBanner } from '../cart/CartPromotionsBanner';
 import { EmployeeAssignment } from './EmployeeAssignment';
 import { calculateTotalItems } from '../../utils/promotions/promotionCalculations';
 
@@ -22,7 +22,8 @@ export function CartSummary({
   onSelectEmployee,
   allOrders,
   onCancel,
-  onShowPayment
+  onShowPayment,
+  isPromotionRelevantForCart
 }) {
   const totalItems = calculateTotalItems(cart);
 
@@ -33,12 +34,13 @@ export function CartSummary({
         <span className="cart-count">{totalItems} items</span>
       </div>
 
-      {/* Banner de promociones disponibles */}
-      <PromotionsBanner
+      {/* Banner de promociones disponibles con funcionalidad de colapsar */}
+      <CartPromotionsBanner
         activePromotions={activePromotions}
         appliedPromotions={appliedPromotions}
         promotionValidations={promotionValidations}
-        cart={cart}
+        isPromotionRelevantForCart={isPromotionRelevantForCart}
+        cartItems={cart}
       />
 
       {/* Lista de items del carrito */}

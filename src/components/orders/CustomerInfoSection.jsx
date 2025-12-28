@@ -14,9 +14,6 @@ export function CustomerInfoSection({
 }) {
   return (
     <>
-      <div className="form-section-header">
-        <h3 className="step-title-large">Información del Cliente</h3>
-      </div>
 
       <div className="form-grid">
         <div className="form-group">
