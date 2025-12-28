@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { AnimatedModal } from '../components/animated';
 import OrderForm from '../components/OrderForm';
 import OrderFormMobile from '../components/OrderFormMobile';
 import OrderDetailView from '../components/OrderDetailView';
@@ -38,7 +37,7 @@ const EMPTY_ORDERS = {
 const Orders = () => {
   const { showSuccess, showError, showInfo } = useNotification();
   const [searchTerm, setSearchTerm] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [activeTab, setActiveTab] = useState('recibidos');
   const saveOnCloseRef = useRef(null);
@@ -117,11 +116,11 @@ const Orders = () => {
 
   const handleOpenNewOrder = () => {
     setSelectedOrder(null);
-    setIsModalOpen(true);
+    setIsDrawerOpen(true);
   };
 
-  const handleCloseModal = () => {
-    console.log('🚪 [ORDERS] Cerrando modal', {
+  const handleCloseDrawer = () => {
+    console.log('🚪 [ORDERS] Cerrando drawer', {
       hasSaveOnClose: !!saveOnCloseRef.current
     });
 
@@ -132,8 +131,8 @@ const Orders = () => {
       saveOnCloseRef.current = null; // Limpiar después de usar
     }
 
-    // Cerrar modal
-    setIsModalOpen(false);
+    // Cerrar drawer
+    setIsDrawerOpen(false);
     setSelectedOrder(null);
   };
 
@@ -184,7 +183,7 @@ const Orders = () => {
 
   const handleOrderClick = (order) => {
     setSelectedOrder(order);
-    setIsModalOpen(true);
+    setIsDrawerOpen(true);
   };
 
   const handleSaveOrder = async (updatedOrder) => {
@@ -235,7 +234,7 @@ const Orders = () => {
             orderStatus: 'cancelado',
             cancelledAt: new Date().toISOString()
           });
-          handleCloseModal();
+          handleCloseDrawer();
           showSuccess('Orden cancelada exitosamente');
           setConfirmDialog({ ...confirmDialog, isOpen: false });
           // Real-time listener will update the UI automatically
@@ -285,7 +284,7 @@ const Orders = () => {
           // IMPORTANTE: Limpiar saveOnCloseRef para evitar que sobrescriba el estado completado
           saveOnCloseRef.current = null;
 
-          handleCloseModal();
+          handleCloseDrawer();
           showSuccess(`Orden #${order.orderNumber || order.id} entregada exitosamente`);
           setConfirmDialog({ ...confirmDialog, isOpen: false });
 
@@ -515,7 +514,7 @@ const Orders = () => {
       // Después de crear la orden exitosamente
       showSuccess('Orden creada exitosamente');
 
-      handleCloseModal();
+      handleCloseDrawer();
       // Real-time listener will update the UI automatically
     } catch (error) {
       console.error('Error creating order:', error);
@@ -619,35 +618,18 @@ const Orders = () => {
         responsive={true}
       />
 
-      {/* Modal for New Order or Order Detail */}
-      <AnimatedModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        title={selectedOrder ? undefined : 'Nueva Orden'}
-        headerContent={selectedOrder && headerData ? (
-          <div className="order-detail-modal-header">
-            <div className="order-header-main">
-              <span className="order-header-number">Orden #{headerData.orderNumber}</span>
-              <span className="order-header-client">{headerData.client}</span>
-              <span className="order-header-date">Recibida {headerData.createdAt}</span>
-            </div>
-            <div className="order-header-author">
-              <AuthorSelect
-                value={headerData.authorId || ''}
-                onChange={headerData.onAuthorChange}
-                employees={headerData.activeEmployees || []}
-                disabled={headerData.isReadOnly}
-              />
-            </div>
-          </div>
-        ) : undefined}
-        size="large"
-      >
+      {/* Overlay oscuro */}
+      {isDrawerOpen && (
+        <div className="order-overlay" onClick={handleCloseDrawer}></div>
+      )}
+
+      {/* Drawer lateral para órdenes */}
+      <div className={`order-drawer ${isDrawerOpen ? 'open' : ''}`}>
         {selectedOrder ? (
           <OrderDetailView
             order={selectedOrder}
             currentTab={activeTab}
-            onClose={handleCloseModal}
+            onClose={handleCloseDrawer}
             onSave={handleSaveOrder}
             onCancel={handleCancelOrder}
             onEmail={handleEmail}
@@ -661,7 +643,7 @@ const Orders = () => {
           isSmartphone ? (
             <OrderFormMobile
               onSubmit={handleSubmitOrder}
-              onCancel={handleCloseModal}
+              onCancel={handleCloseDrawer}
               initialData={null}
               employees={employees}
               allOrders={orders}
@@ -669,14 +651,14 @@ const Orders = () => {
           ) : (
             <OrderForm
               onSubmit={handleSubmitOrder}
-              onCancel={handleCloseModal}
+              onCancel={handleCloseDrawer}
               initialData={null}
               employees={employees}
               allOrders={orders}
             />
           )
         )}
-      </AnimatedModal>
+      </div>
 
       {/* Confirm Dialog */}
       <ConfirmDialog
