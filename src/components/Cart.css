@@ -321,6 +321,10 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
+.order-form-container .cart-summary {
+  margin-bottom: 0px;
+}  
+
 .cart-summary {
   margin-bottom: 10px;
 }
