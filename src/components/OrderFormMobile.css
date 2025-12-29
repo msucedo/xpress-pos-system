@@ -599,7 +599,6 @@
     border: 1px solid rgba(255, 0, 110, 0.3);
     border-radius: 12px;
     padding: 12px;
-    margin-bottom: 16px;
     animation: subtle-pulse 3s ease-in-out infinite;
 }
 

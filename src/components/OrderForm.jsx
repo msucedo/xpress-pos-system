@@ -23,10 +23,19 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
   const { employee } = useAuth();
 
   // Custom Hooks
-  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, validateBasicForm, validateForm, setFormData, setErrors } = useOrderFormData(initialData);
-  const { cart, setCart, handleAddToCart, handleRemoveFromCart } = useCartManagement(initialData);
+  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, handleSelectClientByPhone, validateBasicForm, validateForm, setFormData, setErrors } = useOrderFormData(initialData);
+  const { cart, setCart, handleAddToCart: addToCartFromHook, handleRemoveFromCart } = useCartManagement(initialData);
   const { orderImages, setOrderImages } = useOrderImages();
   const { selectedEmployee, setSelectedEmployee } = useEmployeeAssignment(employees, allOrders);
+
+  // Wrapper para limpiar error de carrito al agregar items
+  const handleAddToCart = (item, type = 'service') => {
+    addToCartFromHook(item, type);
+    // Limpiar error de carrito vacío si existe
+    if (errors.cart) {
+      setErrors(prev => ({ ...prev, cart: '' }));
+    }
+  };
 
   // Estado local de UI
   const [showMenu, setShowMenu] = useState(false);
@@ -38,10 +47,11 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
   const [showCalendarModal, setShowCalendarModal] = useState(false);
   const [requireFullPayment, setRequireFullPayment] = useState(false);
 
-  // Cargar servicios y productos desde Firebase
+  // Cargar servicios, productos y clientes desde Firebase
   const [services, setServices] = useState([]);
   const [products, setProducts] = useState([]);
   const [activePromotions, setActivePromotions] = useState([]);
+  const [clients, setClients] = useState([]);
 
   useEffect(() => {
     const loadServices = async () => {
@@ -84,9 +94,22 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
       }
     };
 
+    const loadClients = async () => {
+      try {
+        const { subscribeToClients } = await import('../services/firebaseService');
+        const unsubscribe = subscribeToClients((clientsData) => {
+          setClients(clientsData);
+        });
+        return () => unsubscribe();
+      } catch (error) {
+        console.error('Error loading clients:', error);
+      }
+    };
+
     loadServices();
     loadProducts();
     loadPromotions();
+    loadClients();
   }, []);
 
   // Hook de promociones
@@ -429,8 +452,10 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
                 <CustomerInfoSection
                   formData={formData}
                   errors={errors}
+                  clients={clients}
                   onClientChange={handleClientInputChange}
                   onSelectClient={handleSelectClient}
+                  onSelectClientByPhone={handleSelectClientByPhone}
                   onPhoneChange={handleChange}
                 />
 

@@ -50,14 +50,40 @@ export function useOrderFormData(initialData = null) {
 
   // Handler para input de cliente (autocomplete)
   const handleClientInputChange = (e) => {
-    setFormData(prev => ({ ...prev, client: e.target.value }));
+    const newClientName = e.target.value;
+
+    // Si el usuario borra el nombre, resetear toda la información del cliente
+    if (newClientName.trim() === '') {
+      setFormData(prev => ({
+        ...prev,
+        client: newClientName,
+        clientId: null,
+        phone: '',
+        email: ''
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, client: newClientName }));
+    }
+
     if (errors.client) {
       setErrors(prev => ({ ...prev, client: '' }));
     }
   };
 
-  // Handler para seleccionar un cliente del autocomplete
+  // Handler para seleccionar un cliente del autocomplete (desde campo nombre)
   const handleSelectClient = (client) => {
+    setFormData(prev => ({
+      ...prev,
+      client: client.name,
+      clientId: client.id,
+      phone: client.phone,
+      email: client.email || ''
+    }));
+    setErrors(prev => ({ ...prev, client: '', phone: '' }));
+  };
+
+  // Handler para seleccionar un cliente del autocomplete (desde campo teléfono)
+  const handleSelectClientByPhone = (client) => {
     setFormData(prev => ({
       ...prev,
       client: client.name,
@@ -118,6 +144,7 @@ export function useOrderFormData(initialData = null) {
     handleChange,
     handleClientInputChange,
     handleSelectClient,
+    handleSelectClientByPhone,
     validateBasicForm,
     validateForm,
     setFormData,

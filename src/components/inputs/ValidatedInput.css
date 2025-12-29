@@ -32,12 +32,21 @@
 
 /* Input con validación válida */
 .form-input.valid {
-  border-color: #51cf66;
+  border-color: #51cf66 !important;
 }
 
 .form-input.valid:focus {
-  border-color: #51cf66;
-  box-shadow: 0 0 0 3px rgba(81, 207, 102, 0.1);
+  border-color: #51cf66 !important;
+  box-shadow: 0 0 0 3px rgba(81, 207, 102, 0.1) !important;
+}
+
+/* Override autofill del navegador para inputs de teléfono */
+input[type="tel"]:-webkit-autofill,
+input[type="tel"]:-webkit-autofill:hover,
+input[type="tel"]:-webkit-autofill:focus,
+input[type="tel"]:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0a0a0a inset !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
 /* Feedback tooltip */

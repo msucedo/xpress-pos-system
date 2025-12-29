@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useInputValidation } from '../../hooks/useInputValidation';
 import { formatPhone } from '../../utils/inputValidation';
 import './ValidatedInput.css';
+import '../ClientAutocomplete.css';
 
 /**
  * Input de teléfono validado - Solo permite dígitos (0-9)
  * Previene la entrada de letras y caracteres especiales en tiempo real
  * Limita a 10 dígitos
+ * Opcionalmente puede mostrar autocomplete de clientes por teléfono
  */
 const ValidatedPhoneInput = ({
   name,
@@ -20,7 +22,14 @@ const ValidatedPhoneInput = ({
   autoFocus = false,
   disabled = false,
   className = '',
+  // Props para autocomplete
+  clients = [],
+  onSelectClient,
+  showAutocomplete = false,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [filteredClients, setFilteredClients] = useState([]);
+  const wrapperRef = useRef(null);
   const {
     value: internalValue,
     setValue,
@@ -53,12 +62,75 @@ const ValidatedPhoneInput = ({
     }
   }, [value]);
 
+  // Manejar click fuera del dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Filtrar clientes por teléfono (igual que ClientAutocomplete)
+  useEffect(() => {
+    if (!showAutocomplete || !clients.length) {
+      setFilteredClients([]);
+      return;
+    }
+
+    let filtered;
+
+    if (internalValue.trim() === '') {
+      // Mostrar todos los clientes cuando está vacío
+      filtered = [...clients];
+    } else {
+      // Filtrar clientes cuyo teléfono incluya los dígitos ingresados
+      filtered = clients.filter(client =>
+        client.phone.includes(internalValue)
+      );
+    }
+
+    // Ordenar alfabéticamente por nombre
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+
+    setFilteredClients(filtered);
+  }, [internalValue, clients, showAutocomplete]);
+
+  // Handlers para autocomplete
+  const handleInputChange = (e) => {
+    handleValidatedChange(e);
+    if (showAutocomplete) {
+      setIsOpen(true);
+    }
+  };
+
+  const handleFocus = () => {
+    if (showAutocomplete) {
+      setIsOpen(true);
+    }
+  };
+
+  const handleSelectClient = (client) => {
+    if (onSelectClient) {
+      onSelectClient(client);
+    }
+    setIsOpen(false);
+  };
+
+  const getInitials = (name) => {
+    const names = name.split(' ');
+    return names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  };
+
   // Mostrar indicador de validez (10 dígitos)
   const isValid = internalValue.length === 10;
   const showValidationIcon = internalValue.length > 0;
 
   return (
-    <div className={`form-group ${className}`}>
+    <div className={`form-group ${className}`} ref={wrapperRef}>
       {label && (
         <label className="form-label">
           {label}{' '}
@@ -78,9 +150,10 @@ const ValidatedPhoneInput = ({
           } ${isValid && !error ? 'valid' : ''}`}
           placeholder={placeholder}
           value={internalValue}
-          onChange={handleValidatedChange}
+          onChange={handleInputChange}
           onKeyPress={onKeyPress}
           onPaste={onPaste}
+          onFocus={handleFocus}
           autoFocus={autoFocus}
           disabled={disabled}
           maxLength={10}
@@ -100,6 +173,36 @@ const ValidatedPhoneInput = ({
       </div>
       {error && <span className="error-message">{error}</span>}
       {hint && !error && <span className="field-hint">{hint}</span>}
+
+      {/* Autocomplete dropdown */}
+      {showAutocomplete && isOpen && filteredClients.length > 0 && (
+        <div className="autocomplete-dropdown">
+          <div className="dropdown-header">
+            <span className="dropdown-title">Clientes con este teléfono</span>
+            <span className="dropdown-count">{filteredClients.length}</span>
+          </div>
+          <div className="dropdown-list">
+            {filteredClients.map((client) => (
+              <div
+                key={client.id}
+                className="dropdown-item"
+                onClick={() => handleSelectClient(client)}
+              >
+                <div className={`client-avatar-small ${client.isVip ? 'vip' : ''}`}>
+                  {getInitials(client.name)}
+                </div>
+                <div className="client-info-small">
+                  <div className="client-name-small">
+                    {client.name}
+                    {client.isVip && <span className="vip-badge">⭐</span>}
+                  </div>
+                  <div className="client-phone-small">{client.phone}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

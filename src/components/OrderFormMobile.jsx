@@ -45,8 +45,17 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   const { showValidationErrors } = useNotification();
 
   // Hooks reutilizados de OrderForm
-  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, validateForm } = useOrderFormData(initialData);
-  const { cart, handleAddToCart, handleRemoveFromCart } = useCartManagement();
+  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, handleSelectClientByPhone, validateForm, setErrors } = useOrderFormData(initialData);
+  const { cart, handleAddToCart: addToCartFromHook, handleRemoveFromCart } = useCartManagement();
+
+  // Wrapper para limpiar error de carrito al agregar items
+  const handleAddToCart = (item, type = 'service') => {
+    addToCartFromHook(item, type);
+    // Limpiar error de carrito vacío si existe
+    if (errors.cart) {
+      setErrors(prev => ({ ...prev, cart: '' }));
+    }
+  };
   const { orderImages, setOrderImages } = useOrderImages(initialData);
   const { selectedEmployee, setSelectedEmployee } = useEmployeeAssignment(employees, allOrders, employee);
 
@@ -57,6 +66,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   const [services, setServices] = useState([]);
   const [products, setProducts] = useState([]);
   const [activePromotions, setActivePromotions] = useState([]);
+  const [clients, setClients] = useState([]);
 
   // Hook de promociones con parámetros correctos
   const { appliedPromotions, promotionValidations, refetchPromotions } = usePromotionsCalculation(cart, formData.phone, activePromotions);
@@ -164,9 +174,22 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
       }
     };
 
+    const loadClients = async () => {
+      try {
+        const { subscribeToClients } = await import('../services/firebaseService');
+        const unsubscribe = subscribeToClients((clientsData) => {
+          setClients(clientsData);
+        });
+        return () => unsubscribe();
+      } catch (error) {
+        console.error('Error loading clients:', error);
+      }
+    };
+
     loadServices();
     loadProducts();
     loadPromotions();
+    loadClients();
   }, []);
 
   // Auto-calcular fecha de entrega al seleccionar servicios
@@ -355,8 +378,10 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                   value={formData.client}
                   onChange={handleClientInputChange}
                   onSelect={handleSelectClient}
+                  clients={clients}
                   className="input-mobile"
                   error={errors.client}
+                  isValid={formData.clientId && formData.phone.length === 10}
                 />
                 {errors.client && <span className="error-message-mobile">{errors.client}</span>}
               </div>
@@ -373,6 +398,9 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                   required={true}
                   error={errors.phone}
                   className="input-mobile"
+                  clients={clients}
+                  onSelectClient={handleSelectClientByPhone}
+                  showAutocomplete={!formData.client}
                 />
               </div>
             </div>

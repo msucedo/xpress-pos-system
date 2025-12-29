@@ -1,21 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { subscribeToClients } from '../services/firebaseService';
 import './ClientAutocomplete.css';
+import './inputs/ValidatedInput.css';
 
-const ClientAutocomplete = ({ value, onChange, onSelectClient, error }) => {
+const ClientAutocomplete = ({ value, onChange, onSelectClient, onSelect, clients = [], error, isValid = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [filteredClients, setFilteredClients] = useState([]);
-  const [clients, setClients] = useState([]);
   const wrapperRef = useRef(null);
-
-  // Subscribe to real-time clients updates
-  useEffect(() => {
-    const unsubscribe = subscribeToClients((clientsData) => {
-      setClients(clientsData);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,7 +44,9 @@ const ClientAutocomplete = ({ value, onChange, onSelectClient, error }) => {
   };
 
   const handleSelectClient = (client) => {
-    onSelectClient(client);
+    // Soporte para ambas props: onSelectClient (OrderForm) y onSelect (OrderFormMobile)
+    if (onSelectClient) onSelectClient(client);
+    if (onSelect) onSelect(client);
     setIsOpen(false);
   };
 
@@ -69,15 +61,20 @@ const ClientAutocomplete = ({ value, onChange, onSelectClient, error }) => {
 
   return (
     <div className="client-autocomplete" ref={wrapperRef}>
-      <input
-        type="text"
-        className={`form-input ${error ? 'error' : ''}`}
-        placeholder="Buscar o escribir nombre del cliente..."
-        value={value}
-        onChange={handleInputChange}
-        onFocus={handleFocus}
-        autoComplete="off"
-      />
+      <div className="validated-input-wrapper">
+        <input
+          type="text"
+          className={`form-input ${error ? 'error' : ''} ${isValid && !error ? 'valid' : ''}`}
+          placeholder="Buscar o escribir nombre del cliente..."
+          value={value}
+          onChange={handleInputChange}
+          onFocus={handleFocus}
+          autoComplete="off"
+        />
+        {isValid && !error && (
+          <span className="validation-icon valid">✓</span>
+        )}
+      </div>
 
       {isOpen && filteredClients.length > 0 && (
         <div className="autocomplete-dropdown">

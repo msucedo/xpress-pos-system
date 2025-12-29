@@ -4,14 +4,20 @@ import { ValidatedPhoneInput } from '../inputs';
 /**
  * Sección de información del cliente
  * Extraído de OrderForm.jsx para reutilización
+ * Soporta búsqueda bidireccional: por nombre y por teléfono
  */
 export function CustomerInfoSection({
   formData,
   errors,
+  clients = [],
   onClientChange,
   onSelectClient,
-  onPhoneChange
+  onPhoneChange,
+  onSelectClientByPhone
 }) {
+  // Validar si el cliente está completo: cliente seleccionado + teléfono de 10 dígitos
+  const isClientValid = formData.clientId && formData.phone.length === 10;
+
   return (
     <>
 
@@ -24,7 +30,9 @@ export function CustomerInfoSection({
             value={formData.client}
             onChange={onClientChange}
             onSelectClient={onSelectClient}
+            clients={clients}
             error={errors.client}
+            isValid={isClientValid}
           />
           {errors.client && <span className="error-message">{errors.client}</span>}
         </div>
@@ -37,6 +45,9 @@ export function CustomerInfoSection({
           placeholder="5551234567"
           required={true}
           error={errors.phone}
+          clients={clients}
+          onSelectClient={onSelectClientByPhone}
+          showAutocomplete={!formData.client}
         />
       </div>
     </>
