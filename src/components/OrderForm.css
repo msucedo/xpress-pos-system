@@ -295,10 +295,6 @@
     gap: 8px;
 }
 
-.order-form-container .form-group {
-    margin-bottom: 0px;
-}
-
 .form-group.full-width {
     grid-column: 1 / -1;
 }
@@ -1071,7 +1067,7 @@ select.form-input {
 .payment-form {
     flex: 1;
     overflow-y: auto;
-    padding: 10px 20px;
+    padding: 20px 20px;
 }
 
 .payment-form::-webkit-scrollbar {
@@ -1120,7 +1116,6 @@ select.form-input {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-    margin-top: 10px;
 }
 
 .payment-method-btn {
