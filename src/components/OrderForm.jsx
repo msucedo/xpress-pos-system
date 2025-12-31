@@ -134,6 +134,27 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
     }
   }, [cart, formData.deliveryDate]);
 
+  // Listener para cerrar con tecla ESC (lógica jerárquica)
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        // Cerrar en orden de prioridad: modal > payment screen > payment view > sidebar
+        if (showCalendarModal) {
+          setShowCalendarModal(false);
+        } else if (showPaymentScreen) {
+          setShowPaymentScreen(false);
+        } else if (showPayment) {
+          setShowPayment(false);
+        } else {
+          onCancel();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [showCalendarModal, showPaymentScreen, showPayment, onCancel]);
+
   // Memoizar el mapa de items -> promoción asignada
   const itemPromotionMap = useMemo(() => {
     const map = new Map();

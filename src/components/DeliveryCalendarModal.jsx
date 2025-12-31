@@ -1,7 +1,20 @@
+import { useEffect } from 'react';
 import './DeliveryCalendarModal.css';
 import { Icon } from '../icons';
 
 const DeliveryCalendarModal = ({ isOpen, onClose, allOrders }) => {
+  // Listener para cerrar con tecla ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        e.preventDefault();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   // Obtener los próximos 3 días

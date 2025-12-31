@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Icon } from '../icons';
 import { AlertDialog } from './animated';
 import './PaymentScreen.css';
@@ -27,6 +27,18 @@ const PaymentScreen = ({
     message: '',
     type: 'warning'
   });
+
+  // Listener para cerrar con tecla ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onCancel();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [onCancel]);
 
   // Helper para obtener el icono actualizado de un servicio
   const getServiceIcon = (service) => {
