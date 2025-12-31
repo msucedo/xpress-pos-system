@@ -529,7 +529,6 @@
   background: var(--gradient-primary);
   border-radius: var(--radius-lg);
   color: var(--color-white);
-  box-shadow: var(--shadow-primary);
 }
 
 .payment-section .section-title {

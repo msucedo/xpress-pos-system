@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Icon } from '../icons';
+import { AlertDialog } from './animated';
 import './PaymentScreen.css';
 
 const PaymentScreen = ({
@@ -20,6 +21,12 @@ const PaymentScreen = ({
 }) => {
   const [amountReceived, setAmountReceived] = useState('');
   const [selectedMethod, setSelectedMethod] = useState(paymentMethod);
+  const [alertDialog, setAlertDialog] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'warning'
+  });
 
   // Helper para obtener el icono actualizado de un servicio
   const getServiceIcon = (service) => {
@@ -76,12 +83,12 @@ const PaymentScreen = ({
 
       // Bug 2: Si es entrega (status enEntrega), validar pago completo
       if (orderStatus === 'enEntrega' && received < remainingBalance) {
-        alert(
-          `Monto insuficiente. Debe pagar el total.\n\n` +
-          `Total a pagar: $${remainingBalance.toFixed(2)}\n` +
-          `Recibido: $${received.toFixed(2)}\n` +
-          `Falta: $${(remainingBalance - received).toFixed(2)}`
-        );
+        setAlertDialog({
+          isOpen: true,
+          title: 'Monto Insuficiente',
+          message: `Debe pagar el total.\n\nTotal a pagar: $${remainingBalance.toFixed(2)}\nRecibido: $${received.toFixed(2)}\nFalta: $${(remainingBalance - received).toFixed(2)}`,
+          type: 'warning'
+        });
         return;
       }
 
@@ -90,12 +97,12 @@ const PaymentScreen = ({
         const isPaidInFull = received >= remainingBalance;  // Validación explícita
 
         if (!isPaidInFull) {
-          alert(
-            `Las órdenes sin servicios requieren pago completo.\n\n` +
-            `Total: $${remainingBalance.toFixed(2)}\n` +
-            `Recibido: $${received.toFixed(2)}\n` +
-            `Falta: $${(remainingBalance - received).toFixed(2)}`
-          );
+          setAlertDialog({
+            isOpen: true,
+            title: 'Pago Incompleto',
+            message: `Las órdenes sin servicios requieren pago completo.\n\nTotal: $${remainingBalance.toFixed(2)}\nRecibido: $${received.toFixed(2)}\nFalta: $${(remainingBalance - received).toFixed(2)}`,
+            type: 'warning'
+          });
           return;
         }
 
@@ -115,14 +122,24 @@ const PaymentScreen = ({
 
       // Si hay anticipo previo (cobro en entrega), validar monto suficiente
       if (advancePayment > 0 && received < remainingBalance) {
-        alert(`Monto insuficiente. Falta: $${(remainingBalance - received).toFixed(2)}`);
+        setAlertDialog({
+          isOpen: true,
+          title: 'Monto Insuficiente',
+          message: `Falta: $${(remainingBalance - received).toFixed(2)}`,
+          type: 'warning'
+        });
         return;
       }
 
       // Si es orden nueva (advancePayment === 0), permitir pago parcial
       if (advancePayment === 0) {
         if (received <= 0) {
-          alert('Debe ingresar un monto mayor a $0');
+          setAlertDialog({
+            isOpen: true,
+            title: 'Monto Inválido',
+            message: 'Debe ingresar un monto mayor a $0',
+            type: 'error'
+          });
           return;
         }
 
@@ -360,6 +377,15 @@ const PaymentScreen = ({
           <Icon name="check" size={18} /> Confirmar Cobro
         </button>
       </div>
+
+      {/* Alert Dialog */}
+      <AlertDialog
+        isOpen={alertDialog.isOpen}
+        title={alertDialog.title}
+        message={alertDialog.message}
+        type={alertDialog.type}
+        onClose={() => setAlertDialog({ ...alertDialog, isOpen: false })}
+      />
     </div>
   );
 };

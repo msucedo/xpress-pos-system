@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ClientAutocomplete from './ClientAutocomplete';
 import PaymentScreen from './PaymentScreen';
 import DeliveryCalendarModal from './DeliveryCalendarModal';
@@ -9,6 +10,7 @@ import { ValidatedPhoneInput } from './inputs';
 import { Icon } from '../icons';
 import { useAuth } from '../hooks/useAuth';
 import { useNotification } from '../hooks/useNotification';
+import { slideVariants, transitions } from '../animations';
 import { useOrderFormData } from '../hooks/useOrderFormData';
 import { useCartManagement } from '../hooks/useCartManagement';
 import { usePromotionsCalculation } from '../hooks/usePromotionsCalculation';
@@ -333,8 +335,17 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
       )}
 
       {/* Renderizado condicional: PaymentScreen o Formulario */}
-      {showPaymentScreen ? (
-        <PaymentScreen
+      <AnimatePresence mode="wait">
+        {showPaymentScreen ? (
+          <motion.div
+            key="payment-screen"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
+            transition={transitions.normal}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <PaymentScreen
           services={cart.filter(item => item.type === 'service').flatMap(item => {
             const services = [];
             for (let i = 0; i < (item.quantity || 1); i++) {
@@ -363,7 +374,16 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
           onConfirm={handlePaymentConfirm}
           onCancel={handlePaymentCancel}
         />
+          </motion.div>
       ) : (
+          <motion.div
+            key="order-form"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
+            transition={transitions.normal}
+            style={{ width: '100%', height: '100%' }}
+          >
         <form className="order-form-mobile" onSubmit={handleSubmit}>
           <div className="form-mobile-content">
             {/* Información del Cliente */}
@@ -641,7 +661,9 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             </button>
           </div>
         </form>
+          </motion.div>
       )}
+      </AnimatePresence>
 
       {/* Modal de Calendario */}
       {showCalendarModal && (

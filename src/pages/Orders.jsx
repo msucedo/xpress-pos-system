@@ -42,6 +42,7 @@ const Orders = () => {
   const [activeTab, setActiveTab] = useState('recibidos');
   const saveOnCloseRef = useRef(null);
   const isPrintingRef = useRef(false);
+  const drawerRef = useRef(null);
   const [headerData, setHeaderData] = useState(null);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
@@ -84,6 +85,13 @@ const Orders = () => {
       showError('Error loading orders: ' + ordersError.message);
     }
   }, [ordersError, showError]);
+
+  // Reset scroll position when drawer opens
+  useEffect(() => {
+    if (isDrawerOpen && drawerRef.current) {
+      drawerRef.current.scrollTop = 0;
+    }
+  }, [isDrawerOpen]);
 
 
   const filterOrders = (ordersList) => {
@@ -624,7 +632,7 @@ const Orders = () => {
       )}
 
       {/* Drawer lateral para órdenes */}
-      <div className={`order-drawer ${isDrawerOpen ? 'open' : ''}`}>
+      <div ref={drawerRef} className={`order-drawer ${isDrawerOpen ? 'open' : ''}`}>
         {selectedOrder ? (
           <OrderDetailView
             order={selectedOrder}
@@ -642,6 +650,7 @@ const Orders = () => {
         ) : (
           isSmartphone ? (
             <OrderFormMobile
+              key={isDrawerOpen}
               onSubmit={handleSubmitOrder}
               onCancel={handleCloseDrawer}
               initialData={null}
@@ -650,6 +659,7 @@ const Orders = () => {
             />
           ) : (
             <OrderForm
+              key={isDrawerOpen}
               onSubmit={handleSubmitOrder}
               onCancel={handleCloseDrawer}
               initialData={null}

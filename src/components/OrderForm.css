@@ -295,6 +295,14 @@
     gap: 8px;
 }
 
+.order-form-container .form-group {
+    margin-bottom: 0px;
+}
+
+.order-form-container .payment-form .form-group {
+    margin-bottom: 20px;
+}
+
 .form-group.full-width {
     grid-column: 1 / -1;
 }
@@ -311,9 +319,9 @@
 }
 
 .view-dates-btn {
-    padding: 12px 16px;
+    padding: 17px 16px;
     background: #0a0a0a;
-    border: 2px solid #2a2a2a;
+    border: 1px solid #2a2a2a;
     border-radius: 10px;
     color: #999;
     font-size: 13px;

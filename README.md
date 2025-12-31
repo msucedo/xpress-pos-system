@@ -3,12 +3,15 @@ xpress
 // WIP
 -[]termina lo de los iconos en las tabs que aun usan emojis para hacer push de la branch
     -[]modal crear orden
-    -[]actualizar emoji de agregar X en todas las tabs que aplique
+    -[]actualizar emoji de agregar X cosa en todas las tabs que aplique
     -[]ir tab por tab validando iconos y corrigiendo UX
-        -[]fixing tab ordenes, done sidebar and dashboard
-        -[]reemplazar el modal por sidebar del lado derecho, estilo carrito en inventario
+        -[]wip tab ordenes
+            -[DONE]reemplazar el modal por sidebar del lado derecho, estilo carrito en inventario
             -[FIX]organizar UX dentro del nuevo carrito sidebar <3
+            -[FIX]validar modal "delivery-calendar-modal": que tenga la logica correcta al mostrar ordenes y que los nuevos emojis sean visibles 
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
+
+
 -[feature/smoothness]agregar animaciones para que se sienta smooth la app
 -[]aumentar tamñao de emoji de usuario del sidebar
 -[]actualizar react 19.1.1

@@ -53,7 +53,7 @@ export function PaymentSection({
               onClick={onShowCalendar}
               title="Ver calendario de entregas"
             >
-              <Icon name="calendar" size={16} /> Próximas entregas
+              <Icon name="calendar" size={16} /> Ver próximas entregas
             </button>
           </div>
           {errors.deliveryDate && <span className="error-message">{errors.deliveryDate}</span>}

@@ -169,7 +169,7 @@
 }
 
 .alert-error {
-  background-color: #f8d7da;
+  background-color: var(--color-gray-dark);
   border-color: #dc3545;
   color: #721c24;
 }

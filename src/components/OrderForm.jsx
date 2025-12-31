@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { transitions } from '../animations';
 import PaymentScreen from './PaymentScreen';
 import VariablePriceModal from './VariablePriceModal';
 import DeliveryCalendarModal from './DeliveryCalendarModal';
@@ -411,8 +413,17 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
       />
 
       {/* Renderizado condicional: PaymentScreen o Formulario */}
-      {showPaymentScreen ? (
-        <PaymentScreen
+      <AnimatePresence mode="wait">
+        {showPaymentScreen ? (
+          <motion.div
+            key="payment-screen"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
+            transition={transitions.normal}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <PaymentScreen
           services={cart.filter(item => item.type === 'service').flatMap(item => {
             const services = [];
             for (let i = 0; i < (item.quantity || 1); i++) {
@@ -442,8 +453,17 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
           onConfirm={handlePaymentConfirm}
           onCancel={handlePaymentCancel}
         />
+          </motion.div>
       ) : (
-        <div className="order-form-layout">
+          <motion.div
+            key="order-form"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
+            transition={transitions.normal}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <div className="order-form-layout">
           {/* Lado Izquierdo - Formulario con Flip */}
           <div className="order-form-left">
             <div className={`left-flip-container ${showPayment ? 'flipped' : ''}`}>
@@ -516,7 +536,9 @@ const OrderForm = ({ onSubmit, onCancel, initialData = null, employees = [], all
             </div>
           </div>
         </div>
+          </motion.div>
       )}
+      </AnimatePresence>
     </div>
   );
 };
