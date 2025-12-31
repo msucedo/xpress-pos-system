@@ -1,4 +1,5 @@
 import './DeliveryCalendarModal.css';
+import { Icon } from '../icons';
 
 const DeliveryCalendarModal = ({ isOpen, onClose, allOrders }) => {
   if (!isOpen) return null;
@@ -36,9 +37,12 @@ const DeliveryCalendarModal = ({ isOpen, onClose, allOrders }) => {
     return day === 0 || day === 6; // 0 = Domingo, 6 = Sábado
   };
 
-  // Formatear fecha para comparación (YYYY-MM-DD)
+  // Formatear fecha para comparación (YYYY-MM-DD) usando zona horaria local
   const formatDateForComparison = (date) => {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   // Obtener todas las órdenes de todas las columnas
@@ -136,7 +140,7 @@ const DeliveryCalendarModal = ({ isOpen, onClose, allOrders }) => {
                             <div className="calendar-order-services">
                               {serviceEmojis.map((service, idx) => (
                                 <span key={idx} className="calendar-service-emoji">
-                                  {service.emoji}
+                                  <Icon name={service.emoji} size={14} />
                                 </span>
                               ))}
                             </div>

@@ -91,7 +91,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    padding: 24px;
+    padding: 5px;
 }
 
 /* Columna de Día */
@@ -293,7 +293,7 @@
     .delivery-calendar-content {
         grid-template-columns: 1fr;
         gap: 12px;
-        padding: 16px;
+        padding: 5px;
         overflow-y: auto;
         flex: 1;
     }
