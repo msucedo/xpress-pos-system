@@ -82,7 +82,6 @@
 .order-gallery-section {
   padding: 24px;
   background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
-  border: 1px solid var(--color-gray-800);
   border-radius: 16px;
 }
 
@@ -147,13 +146,12 @@
 .order-pairs-section {
   padding: 24px;
   background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
-  border: 1px solid var(--color-gray-800);
   border-radius: 16px;
 }
 
 .pairs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: var(--gap-md);
 }
 
@@ -341,7 +339,6 @@
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--color-gray-800);
 }
 
 .pair-info-row:last-child {
@@ -474,9 +471,9 @@
 
 /* Details Grid */
 .order-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: var(--gap-md);
+  display: flex;
+  gap: 0px;
+  padding: 24px;
 }
 
 .detail-card {
@@ -484,6 +481,7 @@
   border: 1px solid var(--color-gray-800);
   border-radius: 16px;
   overflow: visible;
+  width: 100%;
 }
 
 .detail-card-title {

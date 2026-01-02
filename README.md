@@ -5,10 +5,12 @@ xpress
     -[]modal crear orden
     -[]actualizar emoji de agregar X cosa en todas las tabs que aplique
     -[]ir tab por tab validando iconos y corrigiendo UX
-        -[]wip tab ordenes
+        -[FIX]wip tab ordenes
             -[DONE]reemplazar el modal por sidebar del lado derecho, estilo carrito en inventario
-            -[FIX]organizar UX dentro del nuevo carrito sidebar <3
-            -[FIX]validar modal "delivery-calendar-modal": que tenga la logica correcta al mostrar ordenes y que los nuevos emojis sean visibles 
+            -[DONE]organizar UX dentro del nuevo carrito sidebar <3
+            -[DONE]validar modal "delivery-calendar-modal": que tenga la logica correcta al mostrar ordenes y que los nuevos emojis sean visibles 
+            -[FIX]agregar total # de ordenes en el navbar de la tab ordenes
+            -[FIX]corregir sidebar orderdetailview
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
 
 

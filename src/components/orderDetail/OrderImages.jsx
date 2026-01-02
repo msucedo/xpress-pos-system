@@ -7,7 +7,7 @@ import { Icon } from '../../icons';
 export function OrderImages({ images, onChange, isReadOnly }) {
   return (
     <div className="order-gallery-section">
-      <h3 className="section-title"><Icon name="camera" size={20} /> Galería de Imágenes de la Orden</h3>
+      <h3 className="section-title"><Icon name="camera" size={20} /> Imágenes de la Orden</h3>
       <ImageUpload
         images={images}
         onChange={isReadOnly ? undefined : onChange}

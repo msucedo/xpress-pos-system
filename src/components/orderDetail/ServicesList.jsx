@@ -31,7 +31,7 @@ export function ServicesList({
 
   return (
     <div className="order-pairs-section">
-      <h3 className="section-title"><Icon name="cleaning" size={20} /> Servicios ({regularServices.length})</h3>
+      <h3 className="section-title"><Icon name="services" size={20} /> Servicios ({regularServices.length})</h3>
       <div className="pairs-grid">
         {regularServices.map((service, index) => {
           const serviceIcon = getServiceIcon(service);
@@ -47,9 +47,6 @@ export function ServicesList({
               <div className="pair-card-header">
                 <div className="pair-header-left">
                   <span className="pair-number"><Icon name={serviceIcon} size={20} /> Servicio #{index + 1}</span>
-                <span className={`pair-status-badge status-${service.status || 'pending'}`}>
-                  {getStatusLabel(service.status || 'pending')}
-                </span>
               </div>
               <span className="pair-price-badge">${service.price}</span>
             </div>
