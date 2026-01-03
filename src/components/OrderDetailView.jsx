@@ -314,6 +314,13 @@ const OrderDetailView = ({
           <div className="order-number-display">ORDEN #{order.orderNumber}</div>
           <div className="order-client-display">{order.client}</div>
         </div>
+        <button
+          type="button"
+          className="modal-close"
+          onClick={(e) => { e.stopPropagation(); onClose(); }}
+        >
+          ✕
+        </button>
       </div>
 
       {/* Modal de Precios Variables */}

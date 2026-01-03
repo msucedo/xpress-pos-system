@@ -38,6 +38,10 @@
   margin-bottom: 24px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 .order-header::before {
@@ -47,7 +51,14 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--gradient-primary);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), #000000);
+  background-size: 200% 100%;
+  animation: slideGradient 3s linear infinite;
+}
+
+@keyframes slideGradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
 .orders-page .order-header-content {
@@ -152,7 +163,7 @@
 
 /* Gallery Section */
 .order-gallery-section {
-  padding: 24px;
+  padding: 15px 24px 24px 24px;
   background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
   border-radius: 16px;
 }
