@@ -96,11 +96,17 @@ const OrderCard = ({ order, onOrderClick, services = [] }) => {
       }
 
       if (!grouped[emoji]) {
-        grouped[emoji] = { emoji, count: 0 };
+        grouped[emoji] = { emoji, count: 0, services: [] };
       }
       grouped[emoji].count++;
+      grouped[emoji].services.push(service);
     });
-    return Object.values(grouped);
+
+    // Verificar si todos los servicios de cada grupo están completados
+    return Object.values(grouped).map(group => ({
+      ...group,
+      isCompleted: group.services.every(service => service.status === 'completed')
+    }));
   }, [activeServices, services]);
 
   // Obtener la primera imagen de la galería
@@ -172,7 +178,7 @@ const OrderCard = ({ order, onOrderClick, services = [] }) => {
         {servicesByEmoji.map((service, index) => (
           <div
             key={index}
-            className={`pairs-count-badge ${allServicesCompleted ? 'completed' : ''}`}
+            className={`pairs-count-badge ${service.isCompleted ? 'completed' : ''}`}
           >
             <Icon name={service.emoji} size={18} /> {service.count}
           </div>
