@@ -10,7 +10,7 @@ export function ProductsList({ products }) {
 
   return (
     <div className="order-pairs-section">
-      <h3 className="section-title">📦 Productos ({products.length})</h3>
+      <h3 className="section-title"><Icon name="package" size={20} /> Productos ({products.length})</h3>
       <div className="pairs-grid">
         {products.map((product, index) => (
           <div key={product.id || index} className="pair-detail-card product-card">

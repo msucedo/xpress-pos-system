@@ -60,6 +60,7 @@ import book from './icons8-book-50.png';
 import book2 from './icons8-book-50-2.png';
 import contacts from './icons8-contacts-50.png';
 import spiralBoundBooklet from './icons8-spiral-bound-booklet-50.png';
+import warning from './icons8-warning-48.png';
 
 // EXPORTAR OBJETO DE ICONOS (56 total)
 export const othersIcons = {
@@ -119,4 +120,5 @@ export const othersIcons = {
   'book-2': book2,
   'contacts': contacts,
   'spiral-bound-booklet': spiralBoundBooklet,
+  'warning': warning,
 };

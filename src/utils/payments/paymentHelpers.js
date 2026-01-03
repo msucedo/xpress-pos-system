@@ -3,19 +3,35 @@
  */
 
 /**
- * Obtiene el label del método de pago
+ * Obtiene el icono del método de pago
  *
  * @param {string} method - Método de pago (cash, card, transfer, pending)
- * @returns {string} Label con emoji
+ * @returns {string} Nombre del icono
+ */
+export function getPaymentMethodIcon(method) {
+  const icons = {
+    'cash': 'money',
+    'card': 'credit-card',
+    'transfer': 'card-exchange',
+    'pending': 'payment-pending'
+  };
+  return icons[method] || 'payment-pending';
+}
+
+/**
+ * Obtiene el label del método de pago (solo texto)
+ *
+ * @param {string} method - Método de pago (cash, card, transfer, pending)
+ * @returns {string} Label sin emoji
  */
 export function getPaymentMethodLabel(method) {
   const methods = {
-    'cash': '💵 Efectivo',
-    'card': '💳 Tarjeta',
-    'transfer': '📱 Transferencia',
-    'pending': '⏳ Pendiente'
+    'cash': 'Efectivo',
+    'card': 'Tarjeta',
+    'transfer': 'Transferencia',
+    'pending': 'Pendiente'
   };
-  return methods[method] || '⏳ Pendiente';
+  return methods[method] || 'Pendiente';
 }
 
 /**
@@ -71,7 +87,7 @@ export function getServicesWithoutPrice(services) {
  * @returns {string} Texto del botón
  */
 export function getDeliverButtonText(isFullyPaid) {
-  return !isFullyPaid ? '💰 Cobrar y Entregar' : '✅ Entregar Orden';
+  return !isFullyPaid ? 'Cobrar y Entregar' : 'Entregar Orden';
 }
 
 /**

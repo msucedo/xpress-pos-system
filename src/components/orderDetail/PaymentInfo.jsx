@@ -1,5 +1,5 @@
 import { Icon } from '../../icons';
-import { getPaymentMethodLabel } from '../../utils/payments/paymentHelpers';
+import { getPaymentMethodLabel, getPaymentMethodIcon } from '../../utils/payments/paymentHelpers';
 
 /**
  * Componente para mostrar información de pago de la orden
@@ -32,7 +32,7 @@ export function PaymentInfo({
               Descuentos:
               {order.appliedPromotions?.map((promo, idx) => (
                 <span key={idx} style={{display: 'block', fontSize: '12px', color: '#4ade80', fontWeight: '400', marginTop: '4px'}}>
-                  {promo.emoji || '🎉'} {promo.name}
+                  <Icon name={promo.emoji || 'celebration'} size={12} /> {promo.name}
                 </span>
               ))}
             </span>
@@ -60,20 +60,26 @@ export function PaymentInfo({
 
         <div className="detail-row">
           <span className="detail-label">Método de Pago:</span>
-          <span className="detail-value">{getPaymentMethodLabel(paymentMethod)}</span>
+          <span className="detail-value">
+            <Icon name={getPaymentMethodIcon(paymentMethod)} size={16} /> {getPaymentMethodLabel(paymentMethod)}
+          </span>
         </div>
 
         {isFullyPaid && (
           <div className="detail-row payment-complete">
             <span className="detail-label">Estado de Pago:</span>
-            <span className="detail-value payment-status-badge">✅ Pagado Completo</span>
+            <span className="detail-value payment-status-badge">
+              <Icon name="check" size={16} /> Pagado Completo
+            </span>
           </div>
         )}
 
         {paymentStatus === 'cancelled' && (
           <div className="detail-row payment-cancelled">
             <span className="detail-label">Estado de Pago:</span>
-            <span className="detail-value payment-status-badge cancelled">❌ Cancelado</span>
+            <span className="detail-value payment-status-badge cancelled">
+              <Icon name="cancel" size={16} /> Cancelado
+            </span>
           </div>
         )}
       </div>

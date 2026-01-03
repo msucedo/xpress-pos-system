@@ -417,6 +417,7 @@ export const iconMap = {
   'book-2': 'others:book-2',
   'contacts': 'others:contacts',
   'spiral-bound-booklet': 'others:spiral-bound-booklet',
+  'payment-pending': 'others:warning',
 
   // ========================================
   // PERSONAJES (Character SVG Icons)

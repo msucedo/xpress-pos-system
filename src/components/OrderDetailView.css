@@ -6,7 +6,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
   animation: fadeIn 0.3s ease;
 }
 
@@ -18,6 +17,79 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Order Header - Número de Orden */
+.orders-page .order-header {
+  padding: 20px 24px 10px 24px;
+  border: none;
+  background: none;
+  margin-bottom: 0px;
+  border-radius: 0px;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.order-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
+  border: 2px solid var(--color-gray-800);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.order-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.orders-page .order-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: center;
+}
+
+.order-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+.order-number-display {
+  font-size: 32px;
+  font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.order-client-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-white);
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .order-number-display {
+    font-size: 24px;
+  }
+
+  .order-client-display {
+    font-size: 16px;
   }
 }
 
@@ -75,7 +147,7 @@
   margin: 0 0 16px 0;
   display: flex;
   align-items: center;
-  gap: var(--gap-sm);
+  gap: var(--gap-xs);
 }
 
 /* Gallery Section */
@@ -505,6 +577,7 @@
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-gray-800);
+  gap: 25px;
 }
 
 .detail-row:last-child {
@@ -868,6 +941,12 @@
   transform: none;
 }
 
+.action-btn.btn-download:hover {
+  border-color: #0096ff;
+  background: rgba(0, 150, 255, 0.1);
+  color: #0096ff;
+}
+
 /* Image Modal */
 .image-modal {
   position: fixed;
@@ -929,9 +1008,6 @@
 
 /* Responsive - Minimal overrides (most sizing is now fluid) */
 @media (max-width: 768px) {
-  .order-detail-view {
-    gap: var(--gap-md);
-  }
 
   .order-main-gallery {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

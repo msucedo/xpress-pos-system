@@ -1,3 +1,5 @@
+import { Icon } from '../../icons';
+
 /**
  * Componente para mostrar historial de conversación de WhatsApp
  */
@@ -9,7 +11,7 @@ export function WhatsAppHistory({ whatsappNotifications }) {
   return (
     <div className="order-details-grid">
       <div className="detail-card">
-        <h3 className="detail-card-title">💬 Conversación WhatsApp</h3>
+        <h3 className="detail-card-title"><Icon name="message" size={20} /> Conversación WhatsApp</h3>
         <div className="detail-card-content">
           <div className="whatsapp-chat-container">
             {whatsappNotifications.map((notification, index) => {
@@ -29,7 +31,7 @@ export function WhatsAppHistory({ whatsappNotifications }) {
                     )}
                     {notification.error && (
                       <div className="message-error">
-                        ❌ Error: {notification.error}
+                        <Icon name="error" size={14} /> Error: {notification.error}
                       </div>
                     )}
                     <div className="message-footer">
@@ -42,7 +44,9 @@ export function WhatsAppHistory({ whatsappNotifications }) {
                         })}
                       </span>
                       {!isIncoming && notification.status === 'sent' && (
-                        <span className="message-status">✓✓</span>
+                        <span className="message-status">
+                          <Icon name="checkmark" size={12} /><Icon name="checkmark" size={12} />
+                        </span>
                       )}
                       {!isIncoming && notification.status === 'failed' && (
                         <span className="message-status">!</span>

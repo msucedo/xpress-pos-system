@@ -1,3 +1,4 @@
+import { Icon } from '../../icons';
 import { getDeliverButtonText, getDeliverButtonSubtitle } from '../../utils/payments/paymentHelpers';
 
 /**
@@ -24,7 +25,9 @@ export function DeliverButton({
         className={`btn-close-order ${!isFullyPaid ? 'btn-cobrar-large' : 'btn-entregar-large'}`}
         onClick={onEntregar}
       >
-        <span className="btn-close-icon">{!isFullyPaid ? '💰' : '📦'}</span>
+        <span className="btn-close-icon">
+          <Icon name={!isFullyPaid ? 'money' : 'package'} size={24} />
+        </span>
         <div className="btn-close-content">
           <span className="btn-close-title">{buttonText}</span>
           <span className="btn-close-subtitle">{subtitle}</span>

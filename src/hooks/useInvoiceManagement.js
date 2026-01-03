@@ -75,8 +75,18 @@ export function useInvoiceManagement(order) {
   const handleViewSavedInvoice = () => {
     try {
       if (localInvoice && localInvoice.pdfData) {
-        // Abrir modal de preview
-        setIsPdfPreviewOpen(true);
+        // Convertir data URI a Blob para mejor compatibilidad
+        const blob = dataURItoBlob(localInvoice.pdfData);
+
+        // Crear Blob URL temporal
+        const blobUrl = URL.createObjectURL(blob);
+
+        // Abrir en nueva tab usando Blob URL
+        window.open(blobUrl, '_blank');
+
+        // Opcional: limpiar Blob URL después de un tiempo
+        // para liberar memoria (el navegador lo hará eventualmente)
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
       } else {
         showInfo('No hay factura guardada para esta orden');
       }

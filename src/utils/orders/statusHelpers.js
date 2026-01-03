@@ -45,9 +45,9 @@ export function canMoveToStatus(newStatus, services) {
  */
 export function getOrderStatusOptions() {
   return [
-    { value: 'recibidos', label: 'Recibidos', icon: 'inbox' },
-    { value: 'proceso', label: 'En Proceso', icon: 'settings' },
-    { value: 'listos', label: 'Listos', icon: 'check-circle' },
+    { value: 'recibidos', label: 'Recibidos', icon: 'download' },
+    { value: 'proceso', label: 'En Proceso', icon: 'processing' },
+    { value: 'listos', label: 'Listos', icon: 'success' },
     { value: 'enEntrega', label: 'En Entrega', icon: 'delivery' }
   ];
 }

@@ -1,4 +1,5 @@
 import { hasPrintRecord } from '../../services/firebaseService';
+import { Icon } from '../../icons';
 
 /**
  * Componente para botones de acción de la orden (imprimir, factura, WhatsApp)
@@ -27,11 +28,11 @@ export function OrderActions({
           onClick={() => onPrint('receipt')}
           disabled={isPrinting}
         >
-          <span className="action-icon">🖨️</span>
+          <span className="action-icon"><Icon name="print" size={20} /></span>
           <span className="action-text">
             Imprimir Recibo
             {hasPrintRecord(order, 'receipt') && (
-              <span style={{ marginLeft: '5px', color: '#4caf50', fontWeight: 'bold' }}>✓</span>
+              <span style={{ marginLeft: '5px', color: '#4caf50', fontWeight: 'bold' }}><Icon name="checkmark" size={16} /></span>
             )}
           </span>
         </button>
@@ -43,11 +44,11 @@ export function OrderActions({
             onClick={() => onPrint('delivery')}
             disabled={isPrinting}
           >
-            <span className="action-icon">🖨️</span>
+            <span className="action-icon"><Icon name="print" size={20} /></span>
             <span className="action-text">
               Imprimir Entrega
               {hasPrintRecord(order, 'delivery') && (
-                <span style={{ marginLeft: '5px', color: '#4caf50', fontWeight: 'bold' }}>✓</span>
+                <span style={{ marginLeft: '5px', color: '#4caf50', fontWeight: 'bold' }}><Icon name="checkmark" size={16} /></span>
               )}
             </span>
           </button>
@@ -60,7 +61,7 @@ export function OrderActions({
             onClick={onGenerateInvoice}
             disabled={isGeneratingInvoice}
           >
-            <span className="action-icon">📄</span>
+            <span className="action-icon"><Icon name="file" size={20} /></span>
             <span className="action-text">
               {isGeneratingInvoice ? 'Generando...' : 'Generar Factura'}
             </span>
@@ -73,7 +74,7 @@ export function OrderActions({
             className="action-btn btn-invoice"
             onClick={onViewSavedInvoice}
           >
-            <span className="action-icon">📄</span>
+            <span className="action-icon"><Icon name="file" size={20} /></span>
             <span className="action-text">Ver Factura</span>
           </button>
         )}
@@ -84,7 +85,7 @@ export function OrderActions({
             className="action-btn btn-download"
             onClick={onDownloadInvoice}
           >
-            <span className="action-icon">⬇️</span>
+            <span className="action-icon"><Icon name="download" size={20} /></span>
             <span className="action-text">Descargar Factura</span>
           </button>
         )}

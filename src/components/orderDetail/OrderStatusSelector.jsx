@@ -34,7 +34,7 @@ export function OrderStatusSelector({
             color: '#f59e0b',
             fontStyle: 'italic'
           }}>
-            <Icon name="warning" size={16} /> Para mover a "En Entrega", todos los servicios deben estar completados o cancelados
+            <Icon name="warning" size={28} /> Para mover a "En Entrega", todos los servicios deben estar completados o cancelados
           </span>
         </div>
       )}

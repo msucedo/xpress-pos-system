@@ -265,6 +265,31 @@ const OrderDetailView = ({
     }, 800);
   };
 
+  // Listener para cerrar con tecla ESC (lógica jerárquica)
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        // Cerrar en orden de prioridad: confirm dialog > PDF preview > image modal > variable price modal > payment screen > drawer
+        if (confirmDialog.isOpen) {
+          setConfirmDialog({ ...confirmDialog, isOpen: false });
+        } else if (isPdfPreviewOpen) {
+          setIsPdfPreviewOpen(false);
+        } else if (selectedImage) {
+          closeImageModal();
+        } else if (showVariablePriceModal) {
+          setShowVariablePriceModal(false);
+        } else if (showPaymentScreen) {
+          setShowPaymentScreen(false);
+        } else {
+          onClose();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [confirmDialog, isPdfPreviewOpen, selectedImage, showVariablePriceModal, showPaymentScreen, onClose, closeImageModal, setIsPdfPreviewOpen, setConfirmDialog]);
+
   // Llamar a renderHeader si existe, pasándole la info necesaria
   useEffect(() => {
     if (renderHeader) {
@@ -283,6 +308,14 @@ const OrderDetailView = ({
 
   return (
     <div className="order-detail-view">
+      {/* Header con Número de Orden */}
+      <div className="order-header">
+        <div className="order-header-content">
+          <div className="order-number-display">ORDEN #{order.orderNumber}</div>
+          <div className="order-client-display">{order.client}</div>
+        </div>
+      </div>
+
       {/* Modal de Precios Variables */}
       {showVariablePriceModal && (
         <VariablePriceModal
