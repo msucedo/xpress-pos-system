@@ -7,6 +7,8 @@ import { getRelativeTimeWithHour } from '../utils/orders/orderHelpers';
 import { checkAllItemsCompleted, getNextStatus, canMoveToStatus } from '../utils/orders/statusHelpers';
 import { getServicesWithoutPrice } from '../utils/payments/paymentHelpers';
 import { useAdminCheck } from '../hooks/useAuth';
+import { AnimatePresence, motion } from 'framer-motion';
+import { scaleVariants, fadeVariants, transitions } from '../animations';
 
 // Custom Hooks
 import { useOrderDetail } from '../hooks/useOrderDetail';
@@ -449,16 +451,41 @@ const OrderDetailView = ({
           )}
 
           {/* Modal de Imagen */}
-          {selectedImage && (
-            <div className="image-modal" onClick={closeImageModal}>
-              <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
-                <button className="image-modal-close" onClick={closeImageModal}>
-                  <Icon name="close" size={20} />
-                </button>
-                <img src={selectedImage} alt="Vista ampliada" className="image-modal-img" />
-              </div>
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {selectedImage && (
+              <motion.div
+                className="image-modal"
+                onClick={closeImageModal}
+                variants={fadeVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={transitions.slow}
+              >
+                <motion.div
+                  className="image-modal-content"
+                  onClick={(e) => e.stopPropagation()}
+                  variants={scaleVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+                >
+                  <button className="image-modal-close" onClick={closeImageModal}>
+                    <Icon name="close" size={20} />
+                  </button>
+                  <motion.img
+                    src={selectedImage}
+                    alt="Vista ampliada"
+                    className="image-modal-img"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Confirm Dialog */}
           <ConfirmDialog

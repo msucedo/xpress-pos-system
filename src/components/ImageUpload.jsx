@@ -175,7 +175,7 @@ const ImageUpload = ({ images = [], onChange, readOnly = false }) => {
       </div>
 
       <div className="upload-info">
-        <Icon name="info" size={16} className="info-icon" />
+        <Icon name="info" size={20} />
         <span className="info-text">
           {previewUrls.length > 0
             ? `${previewUrls.length}/3 ${previewUrls.length === 1 ? 'foto cargada' : 'fotos cargadas'}`

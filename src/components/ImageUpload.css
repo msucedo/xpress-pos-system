@@ -168,6 +168,12 @@
     color: #3b82f6;
 }
 
+/* Fix para iconos en left-flip-back (transform: rotateY afecta rendering de SVG) */
+.left-flip-back .upload-info svg {
+    transform: scale(2);  /* Aumentar 2x para compensar pérdida de rendering */
+    transform-origin: center;
+}
+
 /* Image Modal */
 .image-modal {
     position: fixed;
