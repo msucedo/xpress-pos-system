@@ -71,6 +71,7 @@ export const iconMap = {
   'history': 'flat-color-icons:timeline',
   'clipboard': 'flat-color-icons:data-sheet',
   'note': 'flat-color-icons:view-details',
+  'notes': 'others:notes',
   'archive': 'flat-color-icons:folder',
 
   // ========================================
@@ -120,6 +121,7 @@ export const iconMap = {
   // ========================================
   'notification': 'flat-color-icons:voice-presentation',
   'message': 'flat-color-icons:feedback',
+  'chat-room': 'others:chat-room',
   'email': 'flat-color-icons:email',
   'phone': 'flat-color-icons:phone',
   'call': 'flat-color-icons:callback',

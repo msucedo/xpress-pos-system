@@ -7,7 +7,7 @@ export function OrderNotes({ generalNotes, onChange, isReadOnly }) {
   return (
     <div className="order-details-grid">
       <div className="detail-card">
-        <h3 className="detail-card-title"><Icon name="note" size={20} /> Notas Generales</h3>
+        <h3 className="detail-card-title"><Icon name="notes" size={20} /> Notas Generales</h3>
         <div className="detail-card-content">
           <textarea
             className="form-input form-textarea"

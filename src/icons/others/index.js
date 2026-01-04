@@ -61,8 +61,10 @@ import book2 from './icons8-book-50-2.png';
 import contacts from './icons8-contacts-50.png';
 import spiralBoundBooklet from './icons8-spiral-bound-booklet-50.png';
 import warning from './icons8-warning-48.png';
+import chatRoom from './icons8-chat-room-48.png';
+import notes from './icons8-notes-48.png';
 
-// EXPORTAR OBJETO DE ICONOS (56 total)
+// EXPORTAR OBJETO DE ICONOS (58 total)
 export const othersIcons = {
   'adjacent': adjacent,
   'close': close,
@@ -121,4 +123,6 @@ export const othersIcons = {
   'contacts': contacts,
   'spiral-bound-booklet': spiralBoundBooklet,
   'warning': warning,
+  'chat-room': chatRoom,
+  'notes': notes,
 };

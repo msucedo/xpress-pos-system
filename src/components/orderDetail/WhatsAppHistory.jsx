@@ -11,7 +11,7 @@ export function WhatsAppHistory({ whatsappNotifications }) {
   return (
     <div className="order-details-grid">
       <div className="detail-card">
-        <h3 className="detail-card-title"><Icon name="message" size={20} /> Conversación WhatsApp</h3>
+        <h3 className="detail-card-title"><Icon name="chat-room" size={20} /> Conversación WhatsApp</h3>
         <div className="detail-card-content">
           <div className="whatsapp-chat-container">
             {whatsappNotifications.map((notification, index) => {
