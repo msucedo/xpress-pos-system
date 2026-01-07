@@ -44,6 +44,11 @@
     transition: border-color 0.3s ease;
 }
 
+.search-box-full:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--bg-primary-10);
+}
+
 .search-box-full:focus-within {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px var(--bg-primary-10);
