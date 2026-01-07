@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { ConfirmDialog } from './animated';
 import { Icon } from '../icons';
+import AuthorSelect from './AuthorSelect';
 import PaymentScreen from './PaymentScreen';
 import VariablePriceModal from './VariablePriceModal';
 import { getRelativeTimeWithHour } from '../utils/orders/orderHelpers';
@@ -315,7 +316,14 @@ const OrderDetailView = ({
         <div className="order-header-content">
           <div className="order-number-display">ORDEN #{order.orderNumber}</div>
           <div className="order-client-display">{order.client}</div>
+          <div className="order-header-date">Recibida {getRelativeTimeWithHour(order.createdAt)}</div>
         </div>
+        <AuthorSelect
+          value={orderAuthorId || ''}
+          onChange={handleAuthorChange}
+          employees={activeEmployees || []}
+          disabled={isReadOnly}
+        />
         <button
           type="button"
           className="modal-close"

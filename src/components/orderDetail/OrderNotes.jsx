@@ -22,7 +22,6 @@ export function OrderNotes({ generalNotes, onChange, isReadOnly }) {
               fontFamily: 'inherit',
               padding: '12px 16px',
               background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--color-gray-800)',
               borderRadius: '10px',
               color: 'var(--color-white)',
               fontSize: '15px',
