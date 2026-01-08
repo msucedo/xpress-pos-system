@@ -10,10 +10,11 @@ xpress
             -[DONE]organizar UX dentro del nuevo carrito sidebar <3
             -[DONE]validar modal "delivery-calendar-modal": que tenga la logica correcta al mostrar ordenes y que los nuevos emojis sean visibles 
             -[FIX]agregar total # de ordenes en el navbar de la tab ordenes
-            -[FIX]corregir sidebar orderdetailview
+            -[DONE]corregir sidebar orderdetailview
             -[DONE]corregir si una orden tiene 3 servicios, y por ejemplo hay uno completado, entonces al momento de mostrar el ordercard, los iconos que representan a los servicios de la orden, no estan cambiandose a completados individualmente si no hasta que todos los servicios esten completados.
             -[DONE]agregar a orderdetailview, el numero de orden en el header
             -[DONE]en orderdetailview abajo del precio final en rosa, esta el emoji de arena
+            -[FIX]validar version movil de tab ordenes
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
 
 

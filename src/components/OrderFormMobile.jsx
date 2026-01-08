@@ -427,7 +427,6 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
             {/* Servicios */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile"><Icon name="settings" size={20} /> Servicios</h3>
               <div className="services-grid-mobile">
                 {services.map((service) => (
                   <button
@@ -446,7 +445,6 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             {/* Productos */}
             {products.length > 0 && (
               <div className="form-section-mobile">
-                <h3 className="section-title-mobile"><Icon name="shopping" size={20} /> Productos</h3>
                 <div className="services-grid-mobile">
                   {products.map((product) => (
                     <button
@@ -472,6 +470,15 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
 
               {errors.cart && <span className="error-message-mobile">{errors.cart}</span>}
 
+              {/* Banner de promociones disponibles con funcionalidad de colapsar */}
+              <CartPromotionsBanner
+                activePromotions={activePromotions}
+                appliedPromotions={appliedPromotions}
+                promotionValidations={promotionValidations}
+                isPromotionRelevantForCart={isPromotionRelevantForCart}
+                cartItems={cart}
+              />
+
               {cart.length === 0 ? (
                 <div className="cart-empty-mobile">
                   <span className="empty-icon-mobile"><Icon name="cart" size={48} /></span>
@@ -481,7 +488,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                 <div className="cart-items-mobile">
                   {cart.map((item) => (
                     <div key={item.id} className="cart-item-mobile">
-                      <span className="cart-item-icon-mobile">{item.icon}</span>
+                      <span className="cart-item-icon-mobile"><Icon name={item.icon} size={20} /></span>
                       <div className="cart-item-info-mobile">
                         <span className="cart-item-name-mobile">
                           {item.type === 'service' ? item.serviceName : item.name}
@@ -514,43 +521,25 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                 </div>
               )}
 
-              {/* Banner de promociones disponibles con funcionalidad de colapsar */}
-              <CartPromotionsBanner
-                activePromotions={activePromotions}
-                appliedPromotions={appliedPromotions}
-                promotionValidations={promotionValidations}
-                isPromotionRelevantForCart={isPromotionRelevantForCart}
-                cartItems={cart}
-              />
-
               {/* Resumen del carrito con descuentos */}
               <div className="cart-total-mobile">
                 {totalDiscount > 0 && (
                   <>
                     <div className="cart-subtotal-row">
                       <span>Subtotal:</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                      <span className='subtotal-value'>${subtotal.toFixed(2)}</span>
                     </div>
                     <div className="cart-discount-row">
                       <span>
                         Descuentos:
-                        {appliedPromotions.length > 0 && (
-                          <div className="applied-promotions-list">
-                            {appliedPromotions.map((promo, idx) => (
-                              <span key={idx} className="applied-promo-tag">
-                                <Icon name={promo.emoji || 'celebration'} size={16} /> {promo.name}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </span>
-                      <span className="discount-amount">-${totalDiscount.toFixed(2)}</span>
+                      <span className="discount-value">-${totalDiscount.toFixed(2)}</span>
                     </div>
                   </>
                 )}
                 <div className="cart-total-row">
-                  <strong>Total:</strong>
-                  <strong>${totalPrice.toFixed(2)}</strong>
+                  <span className='total-label'>Total:</span>
+                  <strong className='total-value'>${totalPrice.toFixed(2)}</strong>
                 </div>
               </div>
             </div>
@@ -612,10 +601,10 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                 onChange={handleChange}
                 className="select-mobile"
               >
-                <option value="pending">⏳ Pendiente</option>
-                <option value="cash">💵 Efectivo</option>
-                <option value="card">💳 Tarjeta</option>
-                <option value="transfer">🏦 Transferencia</option>
+                <option value="pending">Pendiente</option>
+                <option value="cash">Efectivo</option>
+                <option value="card">Tarjeta</option>
+                <option value="transfer">Transferencia</option>
               </select>
             </div>
 

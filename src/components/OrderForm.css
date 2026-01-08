@@ -1361,6 +1361,11 @@ select.form-input {
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
+.cart-section-mobile .available-promotions-banner {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
 @keyframes subtle-pulse {
   0%, 100% {
     border-color: rgba(255, 0, 110, 0.3);
