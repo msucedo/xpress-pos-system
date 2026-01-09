@@ -47,7 +47,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
   const { showValidationErrors } = useNotification();
 
   // Hooks reutilizados de OrderForm
-  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, handleSelectClientByPhone, validateForm, setErrors } = useOrderFormData(initialData);
+  const { formData, errors, handleChange, handleClientInputChange, handleSelectClient, handleSelectClientByPhone, validateBasicForm, validateForm, setErrors } = useOrderFormData(initialData);
   const { cart, handleAddToCart: addToCartFromHook, handleRemoveFromCart } = useCartManagement();
 
   // Wrapper para limpiar error de carrito al agregar items
@@ -214,14 +214,12 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(cart)) {
+    if (validateBasicForm(cart)) {
       if (formData.paymentMethod !== 'pending') {
         setShowPaymentScreen(true);
       } else {
         createOrder();
       }
-    } else {
-      showValidationErrors(errors);
     }
   };
 
@@ -259,8 +257,8 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
       services,
       products,
       orderImages: orderImages,
-      subtotal: calculateSubtotal(cart),
-      totalDiscount: calculateTotalDiscount(appliedPromotions),
+      subtotal: subtotal,
+      totalDiscount: totalDiscount,
       appliedPromotions: appliedPromotions.map(promo => ({
         id: promo.id,
         name: promo.name,
@@ -268,7 +266,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
         discountAmount: promo.discountAmount,
         emoji: promo.emoji
       })),
-      totalPrice: calculateTotalPrice(calculateSubtotal(cart), calculateTotalDiscount(appliedPromotions)),
+      totalPrice: totalPrice,
       advancePayment: advancePayment,
       paymentStatus: paymentStatus || (formData.paymentMethod === 'pending' ? 'pending' : 'partial'),
       priority: hasExpressService(cart) ? 'high' : 'normal',
@@ -465,7 +463,7 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             <div className="form-section-mobile cart-section-mobile">
               <div className="cart-header-mobile">
                 <h3 className="section-title-mobile"><Icon name="cart" size={20} /> Carrito</h3>
-                <span className="cart-count-mobile">{totalItems}</span>
+                <span className="cart-count-mobile">{totalItems} items</span>
               </div>
 
               {errors.cart && <span className="error-message-mobile">{errors.cart}</span>}
@@ -595,17 +593,36 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
             {/* Método de Pago */}
             <div className="form-section-mobile">
               <h3 className="section-title-mobile"><Icon name="credit-card" size={20} /> Método de Pago</h3>
-              <select
-                name="paymentMethod"
-                value={formData.paymentMethod}
-                onChange={handleChange}
-                className="select-mobile"
-              >
-                <option value="pending">Pendiente</option>
-                <option value="cash">Efectivo</option>
-                <option value="card">Tarjeta</option>
-                <option value="transfer">Transferencia</option>
-              </select>
+              <div className="payment-methods-compact">
+                <button
+                  type="button"
+                  className={`payment-method-btn ${formData.paymentMethod === 'cash' ? 'selected' : ''}`}
+                  onClick={() => handleChange({ target: { name: 'paymentMethod', value: 'cash' } })}
+                >
+                  Efectivo
+                </button>
+                <button
+                  type="button"
+                  className={`payment-method-btn ${formData.paymentMethod === 'card' ? 'selected' : ''}`}
+                  onClick={() => handleChange({ target: { name: 'paymentMethod', value: 'card' } })}
+                >
+                  Tarjeta
+                </button>
+                <button
+                  type="button"
+                  className={`payment-method-btn ${formData.paymentMethod === 'transfer' ? 'selected' : ''}`}
+                  onClick={() => handleChange({ target: { name: 'paymentMethod', value: 'transfer' } })}
+                >
+                  Transfer
+                </button>
+                <button
+                  type="button"
+                  className={`payment-method-btn ${formData.paymentMethod === 'pending' ? 'selected' : ''}`}
+                  onClick={() => handleChange({ target: { name: 'paymentMethod', value: 'pending' } })}
+                >
+                  Pendiente
+                </button>
+              </div>
             </div>
 
             {/* Notas Generales */}
@@ -616,14 +633,14 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
                 value={formData.generalNotes}
                 onChange={handleChange}
                 placeholder="Notas adicionales de la orden..."
-                className="textarea-mobile"
+                className="form-input form-textarea"
                 rows={3}
               />
             </div>
 
             {/* Fotos */}
             <div className="form-section-mobile">
-              <h3 className="section-title-mobile"><Icon name="image" size={20} /> Fotos</h3>
+              <h3 className="section-title-mobile"><Icon name="camera" size={20} /> Fotos</h3>
               <ImageUpload
                 images={orderImages}
                 onImagesChange={setOrderImages}
