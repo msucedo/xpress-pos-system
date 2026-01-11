@@ -882,6 +882,7 @@
   background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
   border: 1px solid var(--color-gray-800);
   border-radius: 16px;
+  margin: 0px 24px;
 }
 
 .action-buttons-grid {
@@ -1053,6 +1054,12 @@
   .image-modal-close {
     top: 10px;
     right: 10px;
+  }
+
+  .order-details-grid {
+    flex-direction: column;
+    gap:10px;
+    padding: 10px 24px;
   }
 
   /* Grids ya son intrínsecos - no necesitan override */
