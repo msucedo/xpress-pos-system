@@ -6,7 +6,7 @@ import './OrderStatusDropdown.css';
  * Componente dropdown personalizado para seleccionar el estado de una orden
  * Permite renderizar iconos de Iconify junto con los estados
  */
-const OrderStatusDropdown = ({ value, onChange, options = [], disabled = false }) => {
+const OrderStatusDropdown = ({ value, onChange, options = [], disabled = false, placeholder = 'Seleccionar estado' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -65,7 +65,7 @@ const OrderStatusDropdown = ({ value, onChange, options = [], disabled = false }
             <span className="order-status-dropdown-label">{selectedStatus.label}</span>
           </span>
         ) : (
-          <span className="order-status-dropdown-placeholder">Seleccionar estado</span>
+          <span className="order-status-dropdown-placeholder">{placeholder}</span>
         )}
         <span className={`order-status-dropdown-arrow ${isOpen ? 'order-status-dropdown-arrow-open' : ''}`}>
           ▼

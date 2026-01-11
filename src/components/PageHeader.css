@@ -242,7 +242,7 @@
 /* Responsive - Mobile (below 768px) */
 @media (max-width: 768px) {
     .page-header {
-        padding: 12px 20px;
+        padding: 12px 0px;
     }
 
     .page-title {
@@ -251,10 +251,6 @@
 
     .header-actions {
         gap: 8px;
-    }
-
-    .search-row {
-        margin-top: 10px;
     }
 
     .search-box-full {

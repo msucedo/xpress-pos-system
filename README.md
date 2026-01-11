@@ -15,6 +15,7 @@ xpress
             -[DONE]agregar a orderdetailview, el numero de orden en el header
             -[DONE]en orderdetailview abajo del precio final en rosa, esta el emoji de arena
             -[FIX]validar version movil de tab ordenes
+                -[FIX]1.definir padding en tab orders para movil 2.agregar X en el header, en orderformmobile al estilo de orderdetailview. 3.arreglar la seccion en orderdetailview de informacion de pago y de entrega para moviles sale cortada. 4.acomodar header de version movil orderdetailview
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
 
 

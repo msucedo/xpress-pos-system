@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tabContentVariants, tabTransition } from '../../animations';
+import OrderStatusDropdown from '../orderDetail/OrderStatusDropdown';
 import './AnimatedTabs.css';
 
 /**
@@ -40,23 +41,27 @@ const AnimatedTabs = ({
 
   const activeTabData = tabs.find((tab) => tab.id === activeTab);
 
+  // Transformar tabs al formato esperado por OrderStatusDropdown
+  const dropdownOptions = tabs.map((tab) => ({
+    value: tab.id,
+    label: tab.label,
+    icon: tab.icon?.props?.name // Extraer nombre del icono del componente <Icon>
+  }));
+
   return (
     <div className="animated-tabs-container">
       {/* Tab Buttons */}
       <div className="animated-tabs-header">
-        {/* Select para móvil (si responsive está activado) */}
+        {/* Dropdown para móvil (si responsive está activado) */}
         {responsive && (
-          <select
-            className="animated-tabs-select-mobile"
-            value={activeTab}
-            onChange={(e) => handleTabChange(e.target.value)}
-          >
-            {tabs.map((tab) => (
-              <option key={tab.id} value={tab.id}>
-                {tab.label}
-              </option>
-            ))}
-          </select>
+          <div className="animated-tabs-select-mobile">
+            <OrderStatusDropdown
+              value={activeTab}
+              onChange={(e) => handleTabChange(e.target.value)}
+              options={dropdownOptions}
+              placeholder="Seleccionar estado"
+            />
+          </div>
         )}
 
         {/* Botones para desktop/tablet */}

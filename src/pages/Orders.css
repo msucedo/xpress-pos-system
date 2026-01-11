@@ -149,7 +149,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: clamp(1.25rem, 4vw, 1.875rem);
+    padding: clamp(1.25rem, 4vw, 1.875rem) 0px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
     gap: clamp(0.625rem, 2vw, 1.25rem);

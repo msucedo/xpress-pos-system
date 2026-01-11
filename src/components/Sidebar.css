@@ -49,9 +49,6 @@
 }
 
 /* Employee Info Section - Replicating EmpleadoItem card style */
-.sidebar-employee-wrapper {
-    margin-bottom: 20px;
-}
 
 .sidebar-employee-info {
     display: flex;
@@ -284,9 +281,6 @@
     }
 
     /* Mostrar avatar del empleado en móvil (reemplaza el logo) */
-    .sidebar-employee-wrapper {
-        margin-bottom: 20px;
-    }
 
     .sidebar-employee-info {
         flex-direction: column-reverse;
