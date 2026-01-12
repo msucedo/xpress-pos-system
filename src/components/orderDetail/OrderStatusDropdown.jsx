@@ -63,6 +63,7 @@ const OrderStatusDropdown = ({ value, onChange, options = [], disabled = false, 
           <span className="order-status-dropdown-selected">
             {selectedStatus.icon && <Icon name={selectedStatus.icon} size={16} />}
             <span className="order-status-dropdown-label">{selectedStatus.label}</span>
+            {selectedStatus.count !== undefined && <span className="tab-count">{selectedStatus.count}</span>}
           </span>
         ) : (
           <span className="order-status-dropdown-placeholder">{placeholder}</span>
@@ -82,6 +83,7 @@ const OrderStatusDropdown = ({ value, onChange, options = [], disabled = false, 
             >
               {option.icon && <Icon name={option.icon} size={16} />}
               <span className="order-status-dropdown-option-text">{option.label}</span>
+              {option.count !== undefined && <span className="tab-count">{option.count}</span>}
             </div>
           ))}
         </div>

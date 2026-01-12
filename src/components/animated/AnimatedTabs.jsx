@@ -45,7 +45,8 @@ const AnimatedTabs = ({
   const dropdownOptions = tabs.map((tab) => ({
     value: tab.id,
     label: tab.label,
-    icon: tab.icon?.props?.name // Extraer nombre del icono del componente <Icon>
+    icon: tab.icon?.props?.name, // Extraer nombre del icono del componente <Icon>
+    count: tab.count // Pasar el conteo al dropdown
   }));
 
   return (
@@ -74,6 +75,7 @@ const AnimatedTabs = ({
             >
               {tab.icon && <span className="tab-icon">{tab.icon}</span>}
               <span className="tab-label">{tab.label}</span>
+              {tab.count !== undefined && <span className="tab-count">{tab.count}</span>}
 
               {/* Indicador animado */}
               {activeTab === tab.id && (

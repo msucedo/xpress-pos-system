@@ -164,6 +164,18 @@
   flex: 1;
 }
 
+/* Tab count badge styles within dropdown */
+.order-status-dropdown .tab-count {
+  padding: 0.188rem 0.625rem;
+  background: var(--color-gray-800);
+  border-radius: 20px;
+  font-size: 0.813rem;
+  font-weight: 800;
+  min-width: 1.75rem;
+  text-align: center;
+  margin-left: auto;
+}
+
 /* Scrollbar personalizado para el dropdown */
 .order-status-dropdown-menu::-webkit-scrollbar {
   width: 6px;

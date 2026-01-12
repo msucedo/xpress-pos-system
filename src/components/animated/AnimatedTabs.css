@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.animated-tabs-header .tab-count {
+  background: var(--status-bg-color, rgba(107, 114, 128, 0.1));
+}
+
 /* Mobile Dropdown Wrapper */
 .animated-tabs-select-mobile {
   display: none;
@@ -29,6 +33,10 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.animated-tabs-buttons .active .tab-count {
+  background: var(--bg-primary-10);
 }
 
 .animated-tabs-buttons::-webkit-scrollbar {

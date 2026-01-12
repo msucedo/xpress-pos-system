@@ -583,24 +583,28 @@ const Orders = () => {
       id: 'recibidos',
       label: 'Recibidos',
       icon: <Icon name="download" size={20} />,
+      count: filterOrders(orders.recibidos).length,
       content: renderOrdersList('recibidos')
     },
     {
       id: 'proceso',
       label: 'En Proceso',
       icon: <Icon name="processing" size={20} />,
+      count: filterOrders(orders.proceso).length,
       content: renderOrdersList('proceso')
     },
     {
       id: 'listos',
       label: 'Listos',
       icon: <Icon name="success" size={20} />,
+      count: filterOrders(orders.listos).length,
       content: renderOrdersList('listos')
     },
     {
       id: 'enEntrega',
       label: 'En Entrega',
       icon: <Icon name="delivery" size={20} />,
+      count: filterOrders(orders.enEntrega).length,
       content: renderOrdersList('enEntrega')
     }
   ];

@@ -181,7 +181,7 @@
 
 /* Gallery Section */
 .order-gallery-section {
-  padding: 15px 24px 24px 24px;
+  padding: 15px 24px 0px 24px;
   background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black) 100%);
   border-radius: 16px;
 }
