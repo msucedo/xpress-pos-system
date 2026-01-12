@@ -339,21 +339,21 @@ const PaymentScreen = ({
                 className={`payment-method-btn ${selectedMethod === 'cash' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('cash')}
               >
-                <Icon name="money" size={18} /> Efectivo
+               Efectivo
               </button>
               <button
                 type="button"
                 className={`payment-method-btn ${selectedMethod === 'card' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('card')}
               >
-                <Icon name="credit-card" size={18} /> Tarjeta
+               Tarjeta
               </button>
               <button
                 type="button"
                 className={`payment-method-btn ${selectedMethod === 'transfer' ? 'selected' : ''}`}
                 onClick={() => setSelectedMethod('transfer')}
               >
-                <Icon name="smartphone" size={18} /> Transfer
+               Transferencia
               </button>
               {/* Bug 3: No mostrar "Pendiente" cuando status es enEntrega */}
               {orderStatus !== 'enEntrega' && (

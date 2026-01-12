@@ -774,6 +774,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin: 0px 24px;
 }
 
 .btn-close-order {
@@ -1051,6 +1052,10 @@
 
 /* Responsive - Minimal overrides (most sizing is now fluid) */
 @media (max-width: 768px) {
+
+  .detail-row.payment-complete .payment-status-badge {
+    padding: 8px;
+  }
 
   .order-main-gallery {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

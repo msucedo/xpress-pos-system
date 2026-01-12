@@ -51,18 +51,9 @@ export function useInvoiceManagement(order) {
       // Actualizar estado local para que los botones se actualicen inmediatamente
       setLocalInvoice(invoiceData);
 
-      // Detectar si es móvil
-      const mobile = isMobileDevice();
-
-      if (mobile) {
-        // En móvil: abrir modal de preview automáticamente
-        setIsPdfPreviewOpen(true);
-        showSuccess('Factura generada y guardada exitosamente');
-      } else {
-        // En escritorio: abrir en nueva pestaña
-        window.open(pdf.output('bloburl'), '_blank');
-        showSuccess('Factura generada y guardada exitosamente');
-      }
+      // Abrir factura en nueva pestaña (desktop y móvil)
+      window.open(pdf.output('bloburl'), '_blank');
+      showSuccess('Factura generada y guardada exitosamente');
     } catch (error) {
       console.error('Error generating invoice:', error);
       showInfo('Error al generar la factura');

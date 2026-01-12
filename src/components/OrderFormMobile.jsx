@@ -384,6 +384,15 @@ const OrderFormMobile = ({ onSubmit, onCancel, initialData = null, employees = [
           >
         <form className="order-form-mobile" onSubmit={handleSubmit}>
           <div className="form-mobile-content">
+            {/* Botón Cerrar */}
+            <button
+              type="button"
+              className="modal-close"
+              onClick={onCancel}
+            >
+              ✕
+            </button>
+
             {/* Información del Cliente */}
             <div className="form-section-mobile">
               <h3 className="section-title-mobile"><Icon name="user" size={20} /> Cliente</h3>

@@ -14,8 +14,8 @@ xpress
             -[DONE]corregir si una orden tiene 3 servicios, y por ejemplo hay uno completado, entonces al momento de mostrar el ordercard, los iconos que representan a los servicios de la orden, no estan cambiandose a completados individualmente si no hasta que todos los servicios esten completados.
             -[DONE]agregar a orderdetailview, el numero de orden en el header
             -[DONE]en orderdetailview abajo del precio final en rosa, esta el emoji de arena
-            -[FIX]validar version movil de tab ordenes
-                -[FIX]1.DONE-definir padding en tab orders para movil. 2.DONE-agregar X en el header, en orderformmobile al estilo de orderdetailview. 3.DONE-arreglar la seccion en orderdetailview de informacion de pago y de entrega para moviles sale cortada. 4.DONE-acomodar header de version movil orderdetailview
+            -[DONE]validar version movil de tab ordenes
+                -[DONE]1.DONE-definir padding en tab orders para movil. 2.DONE-agregar X en el header, en orderformmobile al estilo de orderdetailview. 3.DONE-arreglar la seccion en orderdetailview de informacion de pago y de entrega para moviles sale cortada. 4.DONE-acomodar header de version movil orderdetailview
     -[]remover iconos duplicados - es el mismo icono con diferentes nombres
 
 
