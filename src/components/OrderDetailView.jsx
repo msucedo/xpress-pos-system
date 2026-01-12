@@ -318,19 +318,21 @@ const OrderDetailView = ({
           <div className="order-client-display">{order.client}</div>
           <div className="order-header-date">Recibida {getRelativeTimeWithHour(order.createdAt)}</div>
         </div>
-        <AuthorSelect
-          value={orderAuthorId || ''}
-          onChange={handleAuthorChange}
-          employees={activeEmployees || []}
-          disabled={isReadOnly}
-        />
-        <button
-          type="button"
-          className="modal-close"
-          onClick={(e) => { e.stopPropagation(); onClose(); }}
-        >
+        <div className='order-header-content-right'>
+          <button
+            type="button"
+            className="modal-close"
+            onClick={(e) => { e.stopPropagation(); onClose(); }}
+          >
           ✕
-        </button>
+          </button>
+          <AuthorSelect
+            value={orderAuthorId || ''}
+            onChange={handleAuthorChange}
+            employees={activeEmployees || []}
+            disabled={isReadOnly}
+          />
+        </div>
       </div>
 
       {/* Modal de Precios Variables */}
